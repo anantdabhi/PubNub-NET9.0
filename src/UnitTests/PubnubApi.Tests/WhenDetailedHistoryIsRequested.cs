@@ -1,5 +1,5 @@
 ﻿using System;
-using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System.Threading;
 using PubnubApi;
 using System.Collections.Generic;
@@ -8,10 +8,11 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using PubnubApi.Security.Crypto;
 using PubnubApi.Security.Crypto.Cryptors;
+using NUnit.Framework;
 
 namespace PubNubMessaging.Tests
 {
-    [TestFixture]
+    [NUnit.Framework.TestFixture]
     public class WhenDetailedHistoryIsRequested : TestHarness
     {
         const string messageForNoStorePublish = "Pubnub Messaging With No Storage";
@@ -22,7 +23,7 @@ namespace PubNubMessaging.Tests
         private static Server server;
         private static string authToken;
 
-        [SetUp]
+        [NUnit.Framework.SetUp]
         public static async Task Init()
         {
             UnitTestLog unitLog = new Tests.UnitTestLog();
@@ -99,11 +100,11 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(grantResult.Result != null && grantResult.Status.Error == false, 
+            Assert.That(grantResult.Result != null && grantResult.Status.Error == false, 
                 "WhenDetailedHistoryIsRequested Grant access failed.");
         }
 
-        [TearDown]
+        [NUnit.Framework.TearDown]
         public static void Exit()
         {
             server.Stop();
@@ -115,7 +116,7 @@ namespace PubNubMessaging.Tests
             }
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void DetailHistoryNoStoreShouldNotGetMessage()
         {
             server.ClearRequests();
@@ -170,7 +171,7 @@ namespace PubNubMessaging.Tests
 
             if (!receivedMessage)
             {
-                Assert.IsTrue(receivedMessage, "No Store Publish Failed");
+                Assert.That(receivedMessage, "No Store Publish Failed");
             }
             else
             {
@@ -211,14 +212,14 @@ namespace PubNubMessaging.Tests
 
                 historyManualEvent.WaitOne(manualResetEventWaitTimeout);
 
-                Assert.IsTrue(!receivedMessage, "Message stored for Publish when no store is expected");
+                Assert.That(!receivedMessage, "Message stored for Publish when no store is expected");
             }
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void DetailHistoryShouldReturnDecryptMessage()
         {
             server.ClearRequests();
@@ -276,7 +277,7 @@ namespace PubNubMessaging.Tests
 
             if (!receivedMessage)
             {
-                Assert.IsTrue(receivedMessage, "Encrypted message Publish Failed");
+                Assert.That(receivedMessage, "Encrypted message Publish Failed");
             }
             else
             {
@@ -322,14 +323,14 @@ namespace PubNubMessaging.Tests
                     }));
                 historyManualEvent.WaitOne(manualResetEventWaitTimeout);
 
-                Assert.IsTrue(receivedMessage, "Encrypted message not showed up in history");
+                Assert.That(receivedMessage, "Encrypted message not showed up in history");
             }
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void DetailHistoryCount10ReturnsRecords()
         {
             server.ClearRequests();
@@ -386,10 +387,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedMessage, "Detailed History Failed");
+            Assert.That(receivedMessage, "Detailed History Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void DetailHistoryCount10ReverseTrueReturnsRecords()
         {
             server.ClearRequests();
@@ -447,10 +448,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedMessage, "Detailed History Failed");
+            Assert.That(receivedMessage, "Detailed History Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void DetailedHistoryStartWithReverseTrue()
         {
             server.ClearRequests();
@@ -574,10 +575,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedMessage, "Detailed History with Start and Reverse True Failed");
+            Assert.That(receivedMessage, "Detailed History with Start and Reverse True Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void DetailHistoryWithNullKeysReturnsError()
         {
             server.ClearRequests();
@@ -619,76 +620,76 @@ namespace PubNubMessaging.Tests
 
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void DetailHistoryShouldReturnUnencrypedSecretMessage()
         {
             server.ClearRequests();
             bool receivedMessage = false;
             CommonDetailedHistoryShouldReturnUnencryptedMessageBasedOnParams(PubnubCommon.SecretKey, "", false, out receivedMessage);
-            Assert.IsTrue(receivedMessage, "DetailHistoryShouldReturnUnencrypedSecretMessage - Detailed History Result not expected");
+            Assert.That(receivedMessage, "DetailHistoryShouldReturnUnencrypedSecretMessage - Detailed History Result not expected");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void DetailHistoryShouldReturnUnencrypedMessage()
         {
             server.ClearRequests();
             bool receivedMessage = false;
             CommonDetailedHistoryShouldReturnUnencryptedMessageBasedOnParams("", "", false, out receivedMessage);
-            Assert.IsTrue(receivedMessage, "DetailHistoryShouldReturnUnencrypedMessage - Detailed History Result not expected");
+            Assert.That(receivedMessage, "DetailHistoryShouldReturnUnencrypedMessage - Detailed History Result not expected");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void DetailHistoryShouldReturnUnencrypedSecretSSLMessage()
         {
             server.ClearRequests();
             bool receivedMessage = false;
             CommonDetailedHistoryShouldReturnUnencryptedMessageBasedOnParams(PubnubCommon.SecretKey, "", true, out receivedMessage);
-            Assert.IsTrue(receivedMessage, "DetailHistoryShouldReturnUnencrypedSecretSSLMessage - Detailed History Result not expected");
+            Assert.That(receivedMessage, "DetailHistoryShouldReturnUnencrypedSecretSSLMessage - Detailed History Result not expected");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void DetailHistoryShouldReturnUnencrypedSSLMessage()
         {
             server.ClearRequests();
             bool receivedMessage = false;
             CommonDetailedHistoryShouldReturnUnencryptedMessageBasedOnParams("", "", true, out receivedMessage);
-            Assert.IsTrue(receivedMessage, "DetailHistoryShouldReturnUnencrypedSSLMessage - Detailed History Result not expected");
+            Assert.That(receivedMessage, "DetailHistoryShouldReturnUnencrypedSSLMessage - Detailed History Result not expected");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void DetailHistoryShouldReturnEncrypedMessage()
         {
             server.ClearRequests();
             bool receivedMessage = false;
             CommonDetailedHistoryShouldReturnEncryptedMessageBasedOnParams("", "enigma", false, out receivedMessage);
-            Assert.IsTrue(receivedMessage, "DetailHistoryShouldReturnEncrypedMessage - Detailed History Result not expected");
+            Assert.That(receivedMessage, "DetailHistoryShouldReturnEncrypedMessage - Detailed History Result not expected");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void DetailHistoryShouldReturnEncrypedSecretMessage()
         {
             server.ClearRequests();
             bool receivedMessage = false;
             CommonDetailedHistoryShouldReturnEncryptedMessageBasedOnParams(PubnubCommon.SecretKey, "enigma", false, out receivedMessage);
-            Assert.IsTrue(receivedMessage, "DetailHistoryShouldReturnEncrypedSecretMessage - Detailed History Result not expected");
+            Assert.That(receivedMessage, "DetailHistoryShouldReturnEncrypedSecretMessage - Detailed History Result not expected");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void DetailHistoryShouldReturnEncrypedSecretSSLMessage()
         {
             server.ClearRequests();
             bool receivedMessage = false;
             CommonDetailedHistoryShouldReturnEncryptedMessageBasedOnParams(PubnubCommon.SecretKey, "enigma", true, out receivedMessage);
-            Assert.IsTrue(receivedMessage, "DetailHistoryShouldReturnEncrypedSecretSSLMessage - Detailed History Result not expected");
+            Assert.That(receivedMessage, "DetailHistoryShouldReturnEncrypedSecretSSLMessage - Detailed History Result not expected");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void DetailHistoryShouldReturnEncrypedSSLMessage()
         {
             server.ClearRequests();
             bool receivedMessage = false;
             CommonDetailedHistoryShouldReturnEncryptedMessageBasedOnParams("", "enigma", true, out receivedMessage);
-            Assert.IsTrue(receivedMessage, "DetailHistoryShouldReturnEncrypedSSLMessage - Detailed History Result not expected");
+            Assert.That(receivedMessage, "DetailHistoryShouldReturnEncrypedSSLMessage - Detailed History Result not expected");
         }
 
         private static void CommonDetailedHistoryShouldReturnEncryptedMessageBasedOnParams(string secretKey, string cipherKey, bool ssl, out bool outReceivedMessage)

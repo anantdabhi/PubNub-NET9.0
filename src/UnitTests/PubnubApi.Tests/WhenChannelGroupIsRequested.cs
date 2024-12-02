@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+﻿using NUnit.Framework.Legacy;
 using System.Threading;
 using PubnubApi;
 using System.Collections.Generic;
@@ -6,10 +6,11 @@ using MockServer;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using NUnit.Framework;
 
 namespace PubNubMessaging.Tests
 {
-    [TestFixture]
+    [NUnit.Framework.TestFixture]
     public class WhenChannelGroupIsRequested : TestHarness
     {
         private static ManualResetEvent channelGroupManualEvent = new ManualResetEvent(false);
@@ -26,7 +27,7 @@ namespace PubNubMessaging.Tests
         private static Pubnub pubnub;
         private static Server server;
 
-        [SetUp]
+        [NUnit.Framework.SetUp]
         public static void Init()
         {
             UnitTestLog unitLog = new Tests.UnitTestLog();
@@ -83,10 +84,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedGrantMessage, "WhenChannelGroupIsRequested Grant access failed.");
+            Assert.That(receivedGrantMessage, "WhenChannelGroupIsRequested Grant access failed.");
         }
 
-        [TearDown]
+        [NUnit.Framework.TearDown]
         public static void Exit()
         {
             if (pubnub != null)
@@ -98,7 +99,7 @@ namespace PubNubMessaging.Tests
             server.Stop();
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenAddChannelShouldReturnSuccess()
         {
             server.ClearRequests();
@@ -145,11 +146,11 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedChannelGroupMessage, "WhenChannelGroupIsRequested -> ThenAddChannelShouldReturnSuccess failed.");
+            Assert.That(receivedChannelGroupMessage, "WhenChannelGroupIsRequested -> ThenAddChannelShouldReturnSuccess failed.");
 
         }
 
-        [Test]
+        [NUnit.Framework.Test]
 #if NET40
         public static void ThenWithAsyncAddChannelShouldReturnSuccess()
 #else
@@ -207,11 +208,11 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedChannelGroupMessage, "WhenChannelGroupIsRequested -> ThenWithAsyncAddChannelShouldReturnSuccess failed.");
+            Assert.That(receivedChannelGroupMessage, "WhenChannelGroupIsRequested -> ThenWithAsyncAddChannelShouldReturnSuccess failed.");
 
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenRemoveChannelShouldReturnSuccess()
         {
             server.ClearRequests();
@@ -260,11 +261,11 @@ namespace PubNubMessaging.Tests
 
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedChannelGroupMessage, "WhenChannelGroupIsRequested -> ThenRemoveChannelShouldReturnSuccess failed.");
+            Assert.That(receivedChannelGroupMessage, "WhenChannelGroupIsRequested -> ThenRemoveChannelShouldReturnSuccess failed.");
 
         }
 
-        [Test]
+        [NUnit.Framework.Test]
 #if NET40
         public static void ThenWithAsyncRemoveChannelShouldReturnSuccess()
 #else
@@ -330,11 +331,11 @@ namespace PubNubMessaging.Tests
 
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedChannelGroupMessage, "WhenChannelGroupIsRequested -> ThenWithAsyncRemoveChannelShouldReturnSuccess failed.");
+            Assert.That(receivedChannelGroupMessage, "WhenChannelGroupIsRequested -> ThenWithAsyncRemoveChannelShouldReturnSuccess failed.");
 
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenGetChannelListShouldReturnSuccess()
         {
             server.ClearRequests();
@@ -381,11 +382,11 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedChannelGroupMessage, "WhenChannelGroupIsRequested -> ThenGetChannelListShouldReturnSuccess failed.");
+            Assert.That(receivedChannelGroupMessage, "WhenChannelGroupIsRequested -> ThenGetChannelListShouldReturnSuccess failed.");
 
         }
 
-        [Test]
+        [NUnit.Framework.Test]
 #if NET40
         public static void ThenWithAsyncGetChannelListShouldReturnSuccess()
 #else
@@ -448,11 +449,11 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedChannelGroupMessage, "WhenChannelGroupIsRequested -> ThenWithAsyncGetChannelListShouldReturnSuccess failed.");
+            Assert.That(receivedChannelGroupMessage, "WhenChannelGroupIsRequested -> ThenWithAsyncGetChannelListShouldReturnSuccess failed.");
 
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenGetAllChannelGroupShouldReturnSuccess()
         {
             server.ClearRequests();
@@ -502,11 +503,11 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedChannelGroupMessage, "WhenChannelGroupIsRequested -> ThenGetChannelListShouldReturnSuccess failed.");
+            Assert.That(receivedChannelGroupMessage, "WhenChannelGroupIsRequested -> ThenGetChannelListShouldReturnSuccess failed.");
 
         }
 
-        [Test]
+        [NUnit.Framework.Test]
 #if NET40
         public static void ThenWithAsyncGetAllChannelGroupShouldReturnSuccess()
 #else
@@ -571,7 +572,7 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedChannelGroupMessage, "WhenChannelGroupIsRequested -> ThenGetChannelListShouldReturnSuccess failed.");
+            Assert.That(receivedChannelGroupMessage, "WhenChannelGroupIsRequested -> ThenGetChannelListShouldReturnSuccess failed.");
 
         }
 

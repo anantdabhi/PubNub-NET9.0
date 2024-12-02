@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using PubnubApi.EventEngine.Core;
 using PubnubApi.EventEngine.Subscribe.Common;
 using PubnubApi.EventEngine.Subscribe.Events;
@@ -50,16 +51,16 @@ namespace PubnubApi.Tests.EventEngine
             var result = handshakeStoppedState.Transition(@event);
 
             //Assert
-            Assert.IsInstanceOf<HandshakingState>(result.State);
+            ClassicAssert.IsInstanceOf<HandshakingState>(result.State);
             CollectionAssert.AreEqual(expectedState.Channels, ((HandshakingState)result.State).Channels);
             CollectionAssert.AreEqual(expectedState.ChannelGroups, ((HandshakingState)result.State).ChannelGroups);
             if (@event is ReconnectEvent reconnectEvent)
             {
-                Assert.AreEqual(reconnectEvent.Cursor, ((HandshakingState)result.State).Cursor);
+                ClassicAssert.AreEqual(reconnectEvent.Cursor, ((HandshakingState)result.State).Cursor);
             }
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public void HandshakeStoppedState_OnUnsubscribeAllEvent_TransitionToUnsubscribedState()
         {
             //Arrange
@@ -74,7 +75,7 @@ namespace PubnubApi.Tests.EventEngine
             var result = handshakeStoppedState.Transition(@event);
 
             //Assert
-            Assert.IsInstanceOf<UnsubscribedState>(result.State);
+            ClassicAssert.IsInstanceOf<UnsubscribedState>(result.State);
         }
 
     }

@@ -1,5 +1,5 @@
 ﻿using System;
-using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System.Threading;
 using PubnubApi;
 using MockServer;
@@ -7,6 +7,7 @@ using System.Linq;
 using System.Diagnostics;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using NUnit.Framework;
 
 namespace PubNubMessaging.Tests
 {
@@ -27,7 +28,7 @@ namespace PubNubMessaging.Tests
         public byte[] sig { get; set; }
         public Dictionary<string, object> meta { get; set; }
     }
-    [TestFixture]
+    [NUnit.Framework.TestFixture]
     public class WhenGrantIsRequested : TestHarness
     {
         private static ManualResetEvent grantManualEvent = new ManualResetEvent(false);
@@ -48,7 +49,7 @@ namespace PubNubMessaging.Tests
 
         private static Server server;
 
-        [SetUp]
+        [NUnit.Framework.SetUp]
         public static void Init()
         {
             UnitTestLog unitLog = new Tests.UnitTestLog();
@@ -61,7 +62,7 @@ namespace PubNubMessaging.Tests
             }
         }
 
-        [TearDown]
+        [NUnit.Framework.TearDown]
         public static void Exit()
         {
             if (pubnub != null)
@@ -73,7 +74,7 @@ namespace PubNubMessaging.Tests
             server.Stop();
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenUserLevelWithReadWriteShouldReturnSuccess()
         {
             server.ClearRequests();
@@ -122,7 +123,7 @@ namespace PubNubMessaging.Tests
                 pubnub.Destroy();
                 pubnub.PubnubUnitTest = null;
                 pubnub = null;
-                Assert.IsTrue(receivedGrantMessage, "WhenGrantIsRequested -> ThenUserLevelWithReadWriteShouldReturnSuccess failed.");
+                Assert.That(receivedGrantMessage, "WhenGrantIsRequested -> ThenUserLevelWithReadWriteShouldReturnSuccess failed.");
             }
             else
             {
@@ -130,7 +131,7 @@ namespace PubNubMessaging.Tests
             }
         }
 
-        [Test]
+        [NUnit.Framework.Test]
 #if NET40
         public static void ThenWithAsyncUserLevelWithReadWriteShouldReturnSuccess()
 #else
@@ -192,7 +193,7 @@ namespace PubNubMessaging.Tests
                 pubnub.Destroy();
                 pubnub.PubnubUnitTest = null;
                 pubnub = null;
-                Assert.IsTrue(receivedGrantMessage, "WhenGrantIsRequested -> ThenWithAsyncUserLevelWithReadWriteShouldReturnSuccess failed.");
+                Assert.That(receivedGrantMessage, "WhenGrantIsRequested -> ThenWithAsyncUserLevelWithReadWriteShouldReturnSuccess failed.");
             }
             else
             {
@@ -201,7 +202,7 @@ namespace PubNubMessaging.Tests
         }
 
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenUserLevelWithReadShouldReturnSuccess()
         {
             server.ClearRequests();
@@ -250,7 +251,7 @@ namespace PubNubMessaging.Tests
                 pubnub.Destroy();
                 pubnub.PubnubUnitTest = null;
                 pubnub = null;
-                Assert.IsTrue(receivedGrantMessage, "WhenGrantIsRequested -> ThenUserLevelWithReadShouldReturnSuccess failed.");
+                Assert.That(receivedGrantMessage, "WhenGrantIsRequested -> ThenUserLevelWithReadShouldReturnSuccess failed.");
             }
             else
             {
@@ -258,7 +259,7 @@ namespace PubNubMessaging.Tests
             }
         }
 
-        [Test]
+        [NUnit.Framework.Test]
 #if NET40
         public static void ThenWithAsyncUserLevelWithReadShouldReturnSuccess()
 #else
@@ -321,7 +322,7 @@ namespace PubNubMessaging.Tests
                 pubnub.Destroy();
                 pubnub.PubnubUnitTest = null;
                 pubnub = null;
-                Assert.IsTrue(receivedGrantMessage, "WhenGrantIsRequested -> ThenWithAsyncUserLevelWithReadShouldReturnSuccess failed.");
+                Assert.That(receivedGrantMessage, "WhenGrantIsRequested -> ThenWithAsyncUserLevelWithReadShouldReturnSuccess failed.");
             }
             else
             {
@@ -329,7 +330,7 @@ namespace PubNubMessaging.Tests
             }
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenUserLevelWithWriteShouldReturnSuccess()
         {
             server.ClearRequests();
@@ -379,7 +380,7 @@ namespace PubNubMessaging.Tests
                 pubnub.Destroy();
                 pubnub.PubnubUnitTest = null;
                 pubnub = null;
-                Assert.IsTrue(receivedGrantMessage, "WhenGrantIsRequested -> ThenUserLevelWithWriteShouldReturnSuccess failed.");
+                Assert.That(receivedGrantMessage, "WhenGrantIsRequested -> ThenUserLevelWithWriteShouldReturnSuccess failed.");
             }
             else
             {
@@ -387,7 +388,7 @@ namespace PubNubMessaging.Tests
             }
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenMultipleChannelGrantShouldReturnSuccess()
         {
             server.ClearRequests();
@@ -443,7 +444,7 @@ namespace PubNubMessaging.Tests
                 pubnub.Destroy();
                 pubnub.PubnubUnitTest = null;
                 pubnub = null;
-                Assert.IsTrue(receivedGrantMessage, "WhenGrantIsRequested -> ThenMultipleChannelGrantShouldReturnSuccess failed.");
+                Assert.That(receivedGrantMessage, "WhenGrantIsRequested -> ThenMultipleChannelGrantShouldReturnSuccess failed.");
             }
             else
             {
@@ -451,7 +452,7 @@ namespace PubNubMessaging.Tests
             }
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenMultipleAuthGrantShouldReturnSuccess()
         {
             server.ClearRequests();
@@ -509,7 +510,7 @@ namespace PubNubMessaging.Tests
                 pubnub.Destroy();
                 pubnub.PubnubUnitTest = null;
                 pubnub = null;
-                Assert.IsTrue(receivedGrantMessage, "WhenGrantIsRequested -> ThenMultipleAuthGrantShouldReturnSuccess failed.");
+                Assert.That(receivedGrantMessage, "WhenGrantIsRequested -> ThenMultipleAuthGrantShouldReturnSuccess failed.");
             }
             else
             {
@@ -517,7 +518,7 @@ namespace PubNubMessaging.Tests
             }
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenRevokeAtUserLevelReturnSuccess()
         {
             server.ClearRequests();
@@ -590,11 +591,11 @@ namespace PubNubMessaging.Tests
                     pubnub.Destroy();
                     pubnub.PubnubUnitTest = null;
                     pubnub = null;
-                    Assert.IsTrue(receivedRevokeMessage, "WhenGrantIsRequested -> ThenRevokeAtUserLevelReturnSuccess -> Grant success but revoke failed.");
+                    Assert.That(receivedRevokeMessage, "WhenGrantIsRequested -> ThenRevokeAtUserLevelReturnSuccess -> Grant success but revoke failed.");
                 }
                 else
                 {
-                    Assert.IsTrue(receivedGrantMessage, "WhenGrantIsRequested -> ThenRevokeAtUserLevelReturnSuccess failed. -> Grant not occured, so is revoke");
+                    Assert.That(receivedGrantMessage, "WhenGrantIsRequested -> ThenRevokeAtUserLevelReturnSuccess failed. -> Grant not occured, so is revoke");
                 }
             }
             else
@@ -603,7 +604,7 @@ namespace PubNubMessaging.Tests
             }
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenChannelGroupLevelWithReadManageShouldReturnSuccess()
         {
             server.ClearRequests();
@@ -652,7 +653,7 @@ namespace PubNubMessaging.Tests
                 pubnub.Destroy();
                 pubnub.PubnubUnitTest = null;
                 pubnub = null;
-                Assert.IsTrue(receivedGrantMessage, "WhenGrantIsRequested -> ThenChannelGroupLevelWithReadManageShouldReturnSuccess failed.");
+                Assert.That(receivedGrantMessage, "WhenGrantIsRequested -> ThenChannelGroupLevelWithReadManageShouldReturnSuccess failed.");
             }
             else
             {
@@ -660,7 +661,7 @@ namespace PubNubMessaging.Tests
             }
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenChannelGroupLevelWithReadShouldReturnSuccess()
         {
             server.ClearRequests();
@@ -709,7 +710,7 @@ namespace PubNubMessaging.Tests
                 pubnub.Destroy();
                 pubnub.PubnubUnitTest = null;
                 pubnub = null;
-                Assert.IsTrue(receivedGrantMessage, "WhenGrantIsRequested -> ThenChannelGroupLevelWithReadShouldReturnSuccess failed.");
+                Assert.That(receivedGrantMessage, "WhenGrantIsRequested -> ThenChannelGroupLevelWithReadShouldReturnSuccess failed.");
             }
             else
             {
@@ -717,7 +718,7 @@ namespace PubNubMessaging.Tests
             }
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenUuidWithGetUpdateDeleteShouldReturnSuccess()
         {
             server.ClearRequests();
@@ -755,7 +756,7 @@ namespace PubNubMessaging.Tests
                 pubnub.Destroy();
                 pubnub.PubnubUnitTest = null;
                 pubnub = null;
-                Assert.IsTrue(receivedGrantMessage, "WhenGrantIsRequested -> ThenUuidWithGetUpdateDeleteShouldReturnSuccess failed.");
+                Assert.That(receivedGrantMessage, "WhenGrantIsRequested -> ThenUuidWithGetUpdateDeleteShouldReturnSuccess failed.");
             }
             else
             {
@@ -763,7 +764,7 @@ namespace PubNubMessaging.Tests
             }
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenUuidWithReadPermisionShouldReturnError()
         {
             server.ClearRequests();
@@ -806,7 +807,7 @@ namespace PubNubMessaging.Tests
                 pubnub.Destroy();
                 pubnub.PubnubUnitTest = null;
                 pubnub = null;
-                Assert.IsTrue(receivedGrantMessage, "WhenGrantIsRequested -> ThenUuidWithReadPermisionShouldReturnError failed.");
+                Assert.That(receivedGrantMessage, "WhenGrantIsRequested -> ThenUuidWithReadPermisionShouldReturnError failed.");
             }
             else
             {
@@ -814,7 +815,7 @@ namespace PubNubMessaging.Tests
             }
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenUuidAndChannelShouldReturnError()
         {
             server.ClearRequests();
@@ -857,7 +858,7 @@ namespace PubNubMessaging.Tests
                 pubnub.Destroy();
                 pubnub.PubnubUnitTest = null;
                 pubnub = null;
-                Assert.IsTrue(receivedGrantMessage, "WhenGrantIsRequested -> ThenUuidAndChannelShouldReturnError failed.");
+                Assert.That(receivedGrantMessage, "WhenGrantIsRequested -> ThenUuidAndChannelShouldReturnError failed.");
             }
             else
             {
@@ -865,7 +866,7 @@ namespace PubNubMessaging.Tests
             }
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenUuidAndChannelGroupShouldReturnError()
         {
             server.ClearRequests();
@@ -908,7 +909,7 @@ namespace PubNubMessaging.Tests
                 pubnub.Destroy();
                 pubnub.PubnubUnitTest = null;
                 pubnub = null;
-                Assert.IsTrue(receivedGrantMessage, "WhenGrantIsRequested -> ThenUuidAndChannelGroupShouldReturnError failed.");
+                Assert.That(receivedGrantMessage, "WhenGrantIsRequested -> ThenUuidAndChannelGroupShouldReturnError failed.");
             }
             else
             {
@@ -916,7 +917,7 @@ namespace PubNubMessaging.Tests
             }
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenGrantTokenShouldReturnSuccess()
         {
             server.ClearRequests();
@@ -975,7 +976,7 @@ namespace PubNubMessaging.Tests
         }
 
 
-        [Test]
+        [NUnit.Framework.Test]
 #if NET40
         public static void ThenWithAsyncGrantTokenShouldReturnSuccess()
 #else
@@ -1028,12 +1029,12 @@ namespace PubNubMessaging.Tests
             {
                 receivedGrantMessage = true;
             }
-            Assert.IsTrue(receivedGrantMessage, "WhenGrantIsRequested -> ThenWithAsyncGrantTokenShouldReturnSuccess failed.");
+            Assert.That(receivedGrantMessage, "WhenGrantIsRequested -> ThenWithAsyncGrantTokenShouldReturnSuccess failed.");
 
         }
 
         //TODO: CLEN-2039
-        //[Test]
+        //[NUnit.Framework.Test]
         public static void ThenRevokeTokenShouldReturnSuccess()
         {
             server.ClearRequests();
@@ -1088,7 +1089,7 @@ namespace PubNubMessaging.Tests
 
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenSetAuthorizedUserFailsWhenAuthorizedUuidIsUsed()
         {
             server.ClearRequests();
@@ -1112,7 +1113,7 @@ namespace PubNubMessaging.Tests
             });
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenSetAuthorizedUuidFailsWhenAuthorizedUserIsUsed()
         {
             server.ClearRequests();
@@ -1136,7 +1137,7 @@ namespace PubNubMessaging.Tests
             });
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenSetChannelPermsFailsWhenSpacePermsIsUsed()
         {
             server.ClearRequests();
@@ -1167,7 +1168,7 @@ namespace PubNubMessaging.Tests
             });
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenSetSpacePermsFailsWhenChannelPermsIsUsed()
         {
             server.ClearRequests();

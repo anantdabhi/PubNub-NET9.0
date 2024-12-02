@@ -1,14 +1,15 @@
-﻿using NUnit.Framework;
+﻿using NUnit.Framework.Legacy;
 using System.Threading;
 using PubnubApi;
 using System.Collections.Generic;
 using MockServer;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using NUnit.Framework;
 
 namespace PubNubMessaging.Tests
 {
-    [TestFixture]
+    [NUnit.Framework.TestFixture]
     public class WhenObjectChannelMember : TestHarness
     {
         private static int manualResetEventWaitTimeout = 310 * 1000;
@@ -16,7 +17,7 @@ namespace PubNubMessaging.Tests
         private static Server server;
         private static string authToken = "myauth";
 
-        [SetUp]
+        [NUnit.Framework.SetUp]
         public static void Init()
         {
             UnitTestLog unitLog = new Tests.UnitTestLog();
@@ -89,10 +90,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedGrantMessage, "WhenObjectChannelMember Grant access failed.");
+            Assert.That(receivedGrantMessage, "WhenObjectChannelMember Grant access failed.");
         }
 
-        [TearDown]
+        [NUnit.Framework.TearDown]
         public static void Exit()
         {
             if (pubnub != null)
@@ -104,7 +105,7 @@ namespace PubNubMessaging.Tests
             server.Stop();
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenSetRemoveUuidMetadataWithManageMemberShouldReturnSuccessCodeAndInfo()
         {
             server.ClearRequests();
@@ -340,7 +341,7 @@ namespace PubNubMessaging.Tests
 
             if (!receivedMessage)
             {
-                Assert.IsTrue(receivedMessage, "Set/Remove UuidMetadata With Manage Member Failed");
+                Assert.That(receivedMessage, "Set/Remove UuidMetadata With Manage Member Failed");
             }
 
             pubnub.Destroy();
@@ -348,7 +349,7 @@ namespace PubNubMessaging.Tests
             pubnub = null;
         }
 
-        [Test]
+        [NUnit.Framework.Test]
 #if NET40
         public static void ThenWithAsyncSetRemoveUuidMetadataWithManageMemberShouldReturnSuccessCodeAndInfo()
 #else
@@ -606,7 +607,7 @@ namespace PubNubMessaging.Tests
 
             if (!receivedMessage)
             {
-                Assert.IsTrue(receivedMessage, "SetUuidMetadata/SetChannelMetadata/ Manage ChannelMember Failed");
+                Assert.That(receivedMessage, "SetUuidMetadata/SetChannelMetadata/ Manage ChannelMember Failed");
             }
 
             pubnub.Destroy();
@@ -615,7 +616,7 @@ namespace PubNubMessaging.Tests
         }
 
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenSetRemoveUuidMetadataWithSetRemoveMemberShouldReturnSuccessCodeAndInfo()
         {
             server.ClearRequests();
@@ -852,7 +853,7 @@ namespace PubNubMessaging.Tests
 
             if (!receivedMessage)
             {
-                Assert.IsTrue(receivedMessage, "Set/Remove UuidMetadata With Set/Remove Member Failed");
+                Assert.That(receivedMessage, "Set/Remove UuidMetadata With Set/Remove Member Failed");
             }
 
             pubnub.Destroy();
@@ -861,7 +862,7 @@ namespace PubNubMessaging.Tests
         }
 
 
-        [Test]
+        [NUnit.Framework.Test]
 #if NET40
         public static void ThenWithAsyncSetRemoveUuidMetadataWithSetRemoveMemberShouldReturnSuccessCodeAndInfo()
 #else
@@ -1119,7 +1120,7 @@ namespace PubNubMessaging.Tests
 
             if (!receivedMessage)
             {
-                Assert.IsTrue(receivedMessage, "SetUuidMetadata/SetChannelMetadata/ Set/Remove ChannelMember Failed");
+                Assert.That(receivedMessage, "SetUuidMetadata/SetChannelMetadata/ Set/Remove ChannelMember Failed");
             }
 
             pubnub.Destroy();
@@ -1128,7 +1129,7 @@ namespace PubNubMessaging.Tests
         }
 
 
-        [Test]
+        [NUnit.Framework.Test]
         public async Task ThenManageChannelMembersShouldReturnEventInfo()
         {
             server.ClearRequests();
@@ -1344,14 +1345,14 @@ namespace PubNubMessaging.Tests
             pubnub.Unsubscribe<string>().Channels(new string[] { uuidMetadataId1, uuidMetadataId2, channelMetadataId }).Execute();
             pubnub.RemoveListener(eventListener);
 
-            Assert.IsTrue(receivedDeleteEvent && receivedSetEvent, "Manage Channel Member events Failed");
+            Assert.That(receivedDeleteEvent && receivedSetEvent, "Manage Channel Member events Failed");
 
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
         }
 
-        [Test]
+        [NUnit.Framework.Test]
 #if NET40
         public static void ThenWithAsyncManageChannelMembersShouldReturnEventInfo()
 #else
@@ -1597,14 +1598,14 @@ namespace PubNubMessaging.Tests
             await Task.Delay(4000);
             pubnub.RemoveListener(eventListener);
 
-            Assert.IsTrue(receivedDeleteEvent && receivedSetEvent, "Async ManageMembers events Failed");
+            Assert.That(receivedDeleteEvent && receivedSetEvent, "Async ManageMembers events Failed");
 
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenSetRemoveChannelMembersShouldReturnEventInfo()
         {
             server.ClearRequests();
@@ -1811,7 +1812,7 @@ namespace PubNubMessaging.Tests
             pubnub.Unsubscribe<string>().Channels(new string[] { uuidMetadataId1, uuidMetadataId2, channelMetadataId }).Execute();
             pubnub.RemoveListener(eventListener);
 
-            Assert.IsTrue(receivedDeleteEvent && receivedSetEvent, "Manage Channel Member events Failed");
+            Assert.That(receivedDeleteEvent && receivedSetEvent, "Manage Channel Member events Failed");
 
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
@@ -1819,7 +1820,7 @@ namespace PubNubMessaging.Tests
         }
 
 
-        [Test]
+        [NUnit.Framework.Test]
 #if NET40
         public static void ThenWithAsyncSetRemoveChannelMemberShouldReturnEventInfo()
 #else
@@ -2035,7 +2036,7 @@ namespace PubNubMessaging.Tests
             Thread.Sleep(1000);
             pubnub.RemoveListener(eventListener);
 
-            Assert.IsTrue(receivedDeleteEvent && receivedSetEvent, "Async Set/Remove ChannelMembers events Failed");
+            Assert.That(receivedDeleteEvent && receivedSetEvent, "Async Set/Remove ChannelMembers events Failed");
 
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;

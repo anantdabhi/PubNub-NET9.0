@@ -1,5 +1,5 @@
 ﻿using System;
-using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System.Threading;
 using PubnubApi;
 using System.Collections.Generic;
@@ -8,10 +8,11 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using PubnubApi.Security.Crypto;
 using PubnubApi.Security.Crypto.Cryptors;
+using NUnit.Framework;
 
 namespace PubNubMessaging.Tests
 {
-    [TestFixture]
+    [NUnit.Framework.TestFixture]
     public class WhenFetchHistoryIsRequested : TestHarness
     {
         const string messageForNoStorePublish = "Pubnub Messaging With No Storage";
@@ -22,7 +23,7 @@ namespace PubNubMessaging.Tests
         private static Server server;
         private static string authKey = "myauth";
 
-        [SetUp]
+        [NUnit.Framework.SetUp]
         public static void Init()
         {
             UnitTestLog unitLog = new Tests.UnitTestLog();
@@ -102,10 +103,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedGrantMessage, "WhenDetailedHistoryIsRequested Grant access failed.");
+            Assert.That(receivedGrantMessage, "WhenDetailedHistoryIsRequested Grant access failed.");
         }
 
-        [TearDown]
+        [NUnit.Framework.TearDown]
         public static void Exit()
         {
             if (pubnub != null)
@@ -117,7 +118,7 @@ namespace PubNubMessaging.Tests
             server.Stop();
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void FetchHistoryNoStoreShouldNotGetMessage()
         {
             server.ClearRequests();
@@ -176,7 +177,7 @@ namespace PubNubMessaging.Tests
 
             if (!receivedMessage)
             {
-                Assert.IsTrue(receivedMessage, "No Store Publish Failed");
+                Assert.That(receivedMessage, "No Store Publish Failed");
             }
             else
             {
@@ -222,14 +223,14 @@ namespace PubNubMessaging.Tests
 
                 historyManualEvent.WaitOne(manualResetEventWaitTimeout);
 
-                Assert.IsTrue(!receivedMessage, "Message stored for Publish when no store is expected");
+                Assert.That(!receivedMessage, "Message stored for Publish when no store is expected");
             }
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void FetchHistoryShouldReturnDecryptMessage()
         {
             server.ClearRequests();
@@ -291,7 +292,7 @@ namespace PubNubMessaging.Tests
 
             if (!receivedMessage)
             {
-                Assert.IsTrue(receivedMessage, "Encrypted message Publish Failed");
+                Assert.That(receivedMessage, "Encrypted message Publish Failed");
             }
             else
             {
@@ -341,14 +342,14 @@ namespace PubNubMessaging.Tests
                     }));
                 historyManualEvent.WaitOne(manualResetEventWaitTimeout);
 
-                Assert.IsTrue(receivedMessage, "Encrypted message not showed up in history");
+                Assert.That(receivedMessage, "Encrypted message not showed up in history");
             }
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
         }
 
-        [Test]
+        [NUnit.Framework.Test]
 #if NET40
         public static void FetchHistoryWithAsyncShouldReturnDecryptMessage()
 #else
@@ -413,7 +414,7 @@ namespace PubNubMessaging.Tests
 
             if (!receivedMessage)
             {
-                Assert.IsTrue(receivedMessage, "Encrypted message Publish Failed");
+                Assert.That(receivedMessage, "Encrypted message Publish Failed");
             }
             else
             {
@@ -472,7 +473,7 @@ namespace PubNubMessaging.Tests
                     }
                 }
 
-                Assert.IsTrue(receivedMessage, "Encrypted message not showed up in history");
+                Assert.That(receivedMessage, "Encrypted message not showed up in history");
             }
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
@@ -480,7 +481,7 @@ namespace PubNubMessaging.Tests
         }
 
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void FetchHistoryCount10ReturnsRecords()
         {
             server.ClearRequests();
@@ -543,10 +544,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedMessage, "Fetch History Failed");
+            Assert.That(receivedMessage, "Fetch History Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
 #if NET40
         public static void FetchHistoryWithAsyncCount10ReturnsRecords()
 #else
@@ -617,10 +618,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedMessage, "Fetch History Failed");
+            Assert.That(receivedMessage, "Fetch History Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void FetchHistoryWithMessageActionsReturnsRecords()
         {
             server.ClearRequests();
@@ -679,10 +680,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedMessage, "Fetch History Failed");
+            Assert.That(receivedMessage, "Fetch History Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
 #if NET40
         public static void FetchHistoryWithAsyncWithMessageActionsReturnsRecords()
 #else
@@ -749,10 +750,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedMessage, "Fetch History Failed");
+            Assert.That(receivedMessage, "Fetch History Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void FetchHistoryCount10ReverseTrueReturnsRecords()
         {
             server.ClearRequests();
@@ -814,10 +815,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedMessage, "Fetch History Failed");
+            Assert.That(receivedMessage, "Fetch History Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void FetchHistoryStartWithReverseTrue()
         {
             server.ClearRequests();
@@ -948,10 +949,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedMessage, "Fetch History with Start and Reverse True Failed");
+            Assert.That(receivedMessage, "Fetch History with Start and Reverse True Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
 #if NET40
         public static void FetchHistoryWithAsyncStartWithReverseTrue()
 #else
@@ -1089,11 +1090,11 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedMessage, "Async/Await Fetch History with Start and Reverse True Failed");
+            Assert.That(receivedMessage, "Async/Await Fetch History with Start and Reverse True Failed");
         }
 
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void FetchHistoryWithNullKeysReturnsError()
         {
             server.ClearRequests();
@@ -1134,16 +1135,16 @@ namespace PubNubMessaging.Tests
             pubnub = null;
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void FetchHistoryShouldReturnUnencrypedSecretMessage()
         {
             server.ClearRequests();
             bool receivedMessage = false;
             CommonFetchHistoryShouldReturnUnencryptedMessageBasedOnParams(PubnubCommon.SecretKey, "", false, out receivedMessage);
-            Assert.IsTrue(receivedMessage, "FetchHistoryShouldReturnUnencrypedSecretMessage - Fetch History Result not expected");
+            Assert.That(receivedMessage, "FetchHistoryShouldReturnUnencrypedSecretMessage - Fetch History Result not expected");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
 #if NET40
         public static void FetchHistoryWithAsyncShouldReturnUnencrypedSecretMessage()
 #else
@@ -1156,19 +1157,19 @@ namespace PubNubMessaging.Tests
 #else
             bool receivedMessage = await CommonFetchHistoryWithAsyncShouldReturnUnencryptedMessageBasedOnParams(PubnubCommon.SecretKey, "", false);
 #endif
-            Assert.IsTrue(receivedMessage, "FetchHistoryWithAsyncShouldReturnUnencrypedSecretMessage - Fetch History Result not expected");
+            Assert.That(receivedMessage, "FetchHistoryWithAsyncShouldReturnUnencrypedSecretMessage - Fetch History Result not expected");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void FetchHistoryShouldReturnUnencrypedMessage()
         {
             server.ClearRequests();
             bool receivedMessage = false;
             CommonFetchHistoryShouldReturnUnencryptedMessageBasedOnParams("", "", false, out receivedMessage);
-            Assert.IsTrue(receivedMessage, "FetchHistoryShouldReturnUnencrypedMessage - Fetch History Result not expected");
+            Assert.That(receivedMessage, "FetchHistoryShouldReturnUnencrypedMessage - Fetch History Result not expected");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
 #if NET40
         public static void FetchHistoryWithAsyncShouldReturnUnencrypedMessage()
 #else
@@ -1187,20 +1188,20 @@ namespace PubNubMessaging.Tests
 #else
             bool receivedMessage = await CommonFetchHistoryWithAsyncShouldReturnUnencryptedMessageBasedOnParams("", "", false);
 #endif
-            Assert.IsTrue(receivedMessage, "FetchHistoryWithAsyncShouldReturnUnencrypedMessage - Fetch History Result not expected");
+            Assert.That(receivedMessage, "FetchHistoryWithAsyncShouldReturnUnencrypedMessage - Fetch History Result not expected");
         }
 
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void FetchHistoryShouldReturnUnencrypedSecretSSLMessage()
         {
             server.ClearRequests();
             bool receivedMessage = false;
             CommonFetchHistoryShouldReturnUnencryptedMessageBasedOnParams(PubnubCommon.SecretKey, "", true, out receivedMessage);
-            Assert.IsTrue(receivedMessage, "FetchHistoryShouldReturnUnencrypedSecretSSLMessage - Fetch History Result not expected");
+            Assert.That(receivedMessage, "FetchHistoryShouldReturnUnencrypedSecretSSLMessage - Fetch History Result not expected");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
 #if NET40
         public static void FetchHistoryWithAsyncShouldReturnUnencrypedSecretSSLMessage()
 #else
@@ -1213,19 +1214,19 @@ namespace PubNubMessaging.Tests
 #else
             bool receivedMessage = await CommonFetchHistoryWithAsyncShouldReturnUnencryptedMessageBasedOnParams(PubnubCommon.SecretKey, "", true);
 #endif
-            Assert.IsTrue(receivedMessage, "FetchHistoryWithAsyncShouldReturnUnencrypedSecretSSLMessage - Fetch History Result not expected");
+            Assert.That(receivedMessage, "FetchHistoryWithAsyncShouldReturnUnencrypedSecretSSLMessage - Fetch History Result not expected");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void FetchHistoryShouldReturnUnencrypedSSLMessage()
         {
             server.ClearRequests();
             bool receivedMessage = false;
             CommonFetchHistoryShouldReturnUnencryptedMessageBasedOnParams("", "", true, out receivedMessage);
-            Assert.IsTrue(receivedMessage, "FetchHistoryShouldReturnUnencrypedSSLMessage - Fetch History Result not expected");
+            Assert.That(receivedMessage, "FetchHistoryShouldReturnUnencrypedSSLMessage - Fetch History Result not expected");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
 #if NET40
         public static void FetchHistoryWithAsyncShouldReturnUnencrypedSSLMessage()
 #else
@@ -1244,19 +1245,19 @@ namespace PubNubMessaging.Tests
 #else
             bool receivedMessage = await CommonFetchHistoryWithAsyncShouldReturnUnencryptedMessageBasedOnParams("", "", true);
 #endif
-            Assert.IsTrue(receivedMessage, "FetchHistoryWithAsyncShouldReturnUnencrypedSSLMessage - Fetch History Result not expected");
+            Assert.That(receivedMessage, "FetchHistoryWithAsyncShouldReturnUnencrypedSSLMessage - Fetch History Result not expected");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void FetchHistoryShouldReturnEncrypedMessage()
         {
             server.ClearRequests();
             bool receivedMessage = false;
             CommonFetchHistoryShouldReturnEncryptedMessageBasedOnParams("", "enigma", false, out receivedMessage);
-            Assert.IsTrue(receivedMessage, "FetchHistoryShouldReturnEncrypedMessage - Fetch History Result not expected");
+            Assert.That(receivedMessage, "FetchHistoryShouldReturnEncrypedMessage - Fetch History Result not expected");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
 #if NET40
         public static void FetchHistoryWithAsyncShouldReturnEncrypedMessage()
 #else
@@ -1275,20 +1276,20 @@ namespace PubNubMessaging.Tests
 #else
             bool receivedMessage = await CommonFetchHistoryWithAsyncShouldReturnEncryptedMessageBasedOnParams("", "enigma", false);
 #endif
-            Assert.IsTrue(receivedMessage, "FetchHistoryShouldReturnEncrypedMessage - Fetch History Result not expected");
+            Assert.That(receivedMessage, "FetchHistoryShouldReturnEncrypedMessage - Fetch History Result not expected");
         }
 
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void FetchHistoryShouldReturnEncrypedSecretMessage()
         {
             server.ClearRequests();
             bool receivedMessage = false;
             CommonFetchHistoryShouldReturnEncryptedMessageBasedOnParams(PubnubCommon.SecretKey, "enigma", false, out receivedMessage);
-            Assert.IsTrue(receivedMessage, "FetchHistoryShouldReturnEncrypedSecretMessage - Fetch History Result not expected");
+            Assert.That(receivedMessage, "FetchHistoryShouldReturnEncrypedSecretMessage - Fetch History Result not expected");
         }
         
-        [Test]
+        [NUnit.Framework.Test]
 #if NET40
         public static void FetchHistoryWithAsyncShouldReturnEncrypedSecretMessage()
 #else
@@ -1301,19 +1302,19 @@ namespace PubNubMessaging.Tests
 #else
             bool receivedMessage = await CommonFetchHistoryWithAsyncShouldReturnEncryptedMessageBasedOnParams(PubnubCommon.SecretKey, "enigma", false);
 #endif
-            Assert.IsTrue(receivedMessage, "FetchHistoryShouldReturnEncrypedSecretMessage - Fetch History Result not expected");
+            Assert.That(receivedMessage, "FetchHistoryShouldReturnEncrypedSecretMessage - Fetch History Result not expected");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void FetchHistoryShouldReturnEncrypedSecretSSLMessage()
         {
             server.ClearRequests();
             bool receivedMessage = false;
             CommonFetchHistoryShouldReturnEncryptedMessageBasedOnParams(PubnubCommon.SecretKey, "enigma", true, out receivedMessage);
-            Assert.IsTrue(receivedMessage, "FetchHistoryShouldReturnEncrypedSecretSSLMessage - Fetch History Result not expected");
+            Assert.That(receivedMessage, "FetchHistoryShouldReturnEncrypedSecretSSLMessage - Fetch History Result not expected");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
 #if NET40
         public static void FetchHistoryWithAsyncShouldReturnEncrypedSecretSSLMessage()
 #else
@@ -1326,20 +1327,20 @@ namespace PubNubMessaging.Tests
 #else
             bool receivedMessage = await CommonFetchHistoryWithAsyncShouldReturnEncryptedMessageBasedOnParams(PubnubCommon.SecretKey, "enigma", true);
 #endif
-            Assert.IsTrue(receivedMessage, "FetchHistoryShouldReturnEncrypedSecretSSLMessage - Fetch History Result not expected");
+            Assert.That(receivedMessage, "FetchHistoryShouldReturnEncrypedSecretSSLMessage - Fetch History Result not expected");
         }
 
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void FetchHistoryShouldReturnEncrypedSSLMessage()
         {
             server.ClearRequests();
             bool receivedMessage = false;
             CommonFetchHistoryShouldReturnEncryptedMessageBasedOnParams("", "enigma", true, out receivedMessage);
-            Assert.IsTrue(receivedMessage, "FetchHistoryShouldReturnEncrypedSSLMessage - Fetch History Result not expected");
+            Assert.That(receivedMessage, "FetchHistoryShouldReturnEncrypedSSLMessage - Fetch History Result not expected");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
 #if NET40
         public static void FetchHistoryWithAsyncShouldReturnEncrypedSSLMessage()
 #else
@@ -1358,7 +1359,7 @@ namespace PubNubMessaging.Tests
 #else
             bool receivedMessage = await CommonFetchHistoryWithAsyncShouldReturnEncryptedMessageBasedOnParams("", "enigma", true);
 #endif
-            Assert.IsTrue(receivedMessage, "FetchHistoryShouldReturnEncrypedSSLMessage - Fetch History Result not expected");
+            Assert.That(receivedMessage, "FetchHistoryShouldReturnEncrypedSSLMessage - Fetch History Result not expected");
         }
 
         private static void CommonFetchHistoryShouldReturnEncryptedMessageBasedOnParams(string secretKey, string cipherKey, bool ssl, out bool outReceivedMessage)
@@ -2712,7 +2713,7 @@ namespace PubNubMessaging.Tests
             return receivedMessage;
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void FetchHistoryDefaultMax100()
         {
             server.ClearRequests();
@@ -2765,10 +2766,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedMessage, "Fetch History Failed");
+            Assert.That(receivedMessage, "Fetch History Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
 #if NET40
         public static void FetchHistoryAsyncDefaultMax100()
 #else
@@ -2829,10 +2830,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedMessage, "Fetch History Failed");
+            Assert.That(receivedMessage, "Fetch History Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void FetchHistoryWithMessageActionsDefaultMax25()
         {
             server.ClearRequests();
@@ -2886,10 +2887,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedMessage, "Fetch History with message actions Failed");
+            Assert.That(receivedMessage, "Fetch History with message actions Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
 #if NET40
         public static void FetchHistoryWithAsyncWithMessageActionsDefaultMax25()
 #else
@@ -2952,7 +2953,7 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedMessage, "Fetch History with Message Actions Async Failed");
+            Assert.That(receivedMessage, "Fetch History with Message Actions Async Failed");
         }
     }
 }

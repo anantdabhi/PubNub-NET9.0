@@ -1,14 +1,15 @@
-﻿using NUnit.Framework;
+﻿using NUnit.Framework.Legacy;
 using System.Threading;
 using PubnubApi;
 using System.Collections.Generic;
 using MockServer;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using NUnit.Framework;
 
 namespace PubNubMessaging.Tests
 {
-    [TestFixture]
+    [NUnit.Framework.TestFixture]
     public class WhenObjectChannelMetadata : TestHarness
     {
         private static int manualResetEventWaitTimeout = 310 * 1000;
@@ -17,7 +18,7 @@ namespace PubNubMessaging.Tests
         private static string authToken;
         private static string channelMetadataId = "pandu-ut-sid";
 
-        [SetUp]
+        [NUnit.Framework.SetUp]
         public static async Task Init()
         {
             UnitTestLog unitLog = new Tests.UnitTestLog();
@@ -75,11 +76,11 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(grantResult.Result != null && grantResult.Status.Error == false,
+            Assert.That(grantResult.Result != null && grantResult.Status.Error == false,
                 "WhenObjectChannelMetadata Grant access failed.");
         }
 
-        [TearDown]
+        [NUnit.Framework.TearDown]
         public static void Exit()
         {
             if (pubnub != null)
@@ -92,7 +93,7 @@ namespace PubNubMessaging.Tests
             server.Stop();
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenChannelMetadataCRUDShouldReturnSuccessCodeAndInfo()
         {
             server.ClearRequests();
@@ -241,7 +242,7 @@ namespace PubNubMessaging.Tests
 
             if (!receivedMessage)
             {
-                Assert.IsTrue(receivedMessage, $"SetChannelMetadata/DeleteChannelMetadataId Failed.");
+                Assert.That(receivedMessage, $"SetChannelMetadata/DeleteChannelMetadataId Failed.");
             }
 
             pubnub.Destroy();
@@ -249,7 +250,7 @@ namespace PubNubMessaging.Tests
             pubnub = null;
         }
 
-        [Test]
+        [NUnit.Framework.Test]
 #if NET40
         public static void ThenWithAsyncChannelMetadataCRUDShouldReturnSuccessCodeAndInfo()
 #else
@@ -403,7 +404,7 @@ namespace PubNubMessaging.Tests
 
             if (!receivedMessage)
             {
-                Assert.IsTrue(receivedMessage, "SeChannelMetadata/DeleteChannelMetadata Failed");
+                Assert.That(receivedMessage, "SeChannelMetadata/DeleteChannelMetadata Failed");
             }
 
             pubnub.Destroy();
@@ -411,7 +412,7 @@ namespace PubNubMessaging.Tests
             pubnub = null;
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenChannelMetadataSetDeleteShouldReturnEventInfo()
         {
             server.ClearRequests();
@@ -542,14 +543,14 @@ namespace PubNubMessaging.Tests
             pubnub.Unsubscribe<string>().Channels(new string[] { channelMetadataId }).Execute();
             pubnub.RemoveListener(eventListener);
 
-            Assert.IsTrue(receivedDeleteEvent && receivedUpdateEvent, "Channel Metadata events Failed");
+            Assert.That(receivedDeleteEvent && receivedUpdateEvent, "Channel Metadata events Failed");
 
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
         }
 
-        [Test]
+        [NUnit.Framework.Test]
 #if NET40
         public static void ThenWithAsyncChannelMetadataUpdateDeleteShouldReturnEventInfo()
 #else
@@ -687,7 +688,7 @@ namespace PubNubMessaging.Tests
             pubnub.Unsubscribe<string>().Channels(new string[] { channelMetadataId }).Execute();
             pubnub.RemoveListener(eventListener);
 
-            Assert.IsTrue(receivedDeleteEvent && receivedUpdateEvent, "Space events Failed");
+            Assert.That(receivedDeleteEvent && receivedUpdateEvent, "Space events Failed");
 
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;

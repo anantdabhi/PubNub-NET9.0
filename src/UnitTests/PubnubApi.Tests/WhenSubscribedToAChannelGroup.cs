@@ -1,15 +1,16 @@
 ﻿using System;
-using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System.Threading;
 using PubnubApi;
 using System.Collections.Generic;
 using MockServer;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using NUnit.Framework;
 
 namespace PubNubMessaging.Tests
 {
-    [TestFixture]
+    [NUnit.Framework.TestFixture]
     public class WhenSubscribedToAChannelGroup : TestHarness
     {
         private static string channelGroupName = "hello_my_group";
@@ -33,7 +34,7 @@ namespace PubNubMessaging.Tests
             }
         }
 
-        [SetUp]
+        [NUnit.Framework.SetUp]
         public static async Task Init()
         {
             UnitTestLog unitLog = new Tests.UnitTestLog();
@@ -121,11 +122,11 @@ namespace PubNubMessaging.Tests
             pubnub.PubnubUnitTest = null;
             pubnub = null;
 
-            Assert.IsTrue(grantResult.Status.Error == false && grantResult.Result != null, 
+            Assert.That(grantResult.Status.Error == false && grantResult.Result != null, 
                 "WhenSubscribedToAChannelGroup Grant access failed.");
         }
 
-        [TearDown]
+        [NUnit.Framework.TearDown]
         public static void Exit()
         {
             if (pubnub != null)
@@ -138,7 +139,7 @@ namespace PubNubMessaging.Tests
         }
 
         // TODO: This test seems to be not stable...
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenSubscribeShouldReturnReceivedMessage()
         {
             server.ClearRequests();
@@ -292,16 +293,16 @@ namespace PubNubMessaging.Tests
                 pubnub.PubnubUnitTest = null;
                 pubnub = null;
 
-                Assert.IsTrue(receivedMessage, "WhenSubscribedToAChannelGroup --> ThenItShouldReturnReceivedMessage Failed");
+                Assert.That(receivedMessage, "WhenSubscribedToAChannelGroup --> ThenItShouldReturnReceivedMessage Failed");
             }
             else
             {
-                Assert.IsTrue(receivedMessage, "WhenSubscribedToAChannelGroup --> ThenItShouldReturnReceivedMessage Failed");
+                Assert.That(receivedMessage, "WhenSubscribedToAChannelGroup --> ThenItShouldReturnReceivedMessage Failed");
             }
 
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenSubscribeShouldReturnConnectStatus()
         {
             server.ClearRequests();
@@ -414,15 +415,15 @@ namespace PubNubMessaging.Tests
                 pubnub.PubnubUnitTest = null;
                 pubnub = null;
 
-                Assert.IsTrue(receivedMessage, "WhenSubscribedToAChannelGroup --> ThenSubscribeShouldReturnConnectStatus Failed");
+                Assert.That(receivedMessage, "WhenSubscribedToAChannelGroup --> ThenSubscribeShouldReturnConnectStatus Failed");
             }
             else
             {
-                Assert.IsTrue(receivedMessage, "WhenSubscribedToAChannelGroup --> ThenSubscribeShouldReturnConnectStatus Failed");
+                Assert.That(receivedMessage, "WhenSubscribedToAChannelGroup --> ThenSubscribeShouldReturnConnectStatus Failed");
             }
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenMultiSubscribeShouldReturnConnectStatus()
         {
             server.ClearRequests();
@@ -583,7 +584,7 @@ namespace PubNubMessaging.Tests
             pubnub.PubnubUnitTest = null;
             pubnub = null;
 
-            Assert.IsTrue(receivedMessage, "WhenSubscribedToAChannelGroup --> ThenMultiSubscribeShouldReturnConnectStatusFailed");
+            Assert.That(receivedMessage, "WhenSubscribedToAChannelGroup --> ThenMultiSubscribeShouldReturnConnectStatusFailed");
 
         }
 

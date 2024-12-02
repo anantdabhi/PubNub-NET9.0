@@ -2,7 +2,7 @@
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
-using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System.ComponentModel;
 using System.Threading;
 using System.Collections;
@@ -12,10 +12,11 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using PubnubApi.Security.Crypto;
 using PubnubApi.Security.Crypto.Cryptors;
+using NUnit.Framework;
 
 namespace PubNubMessaging.Tests
 {
-    [TestFixture]
+    [NUnit.Framework.TestFixture]
     public class WhenAClientIsPresented : TestHarness
     {
         private static int manualResetEventWaitTimeout = 310 * 1000;
@@ -31,7 +32,7 @@ namespace PubNubMessaging.Tests
             }
         }
 
-        [SetUp]
+        [NUnit.Framework.SetUp]
         public static async Task Init()
         {
             UnitTestLog unitLog = new Tests.UnitTestLog();
@@ -127,11 +128,11 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(grantResult.Status.Error == false && grantResult.Result != null, 
+            Assert.That(grantResult.Status.Error == false && grantResult.Result != null, 
                 "WhenAClientIsPresent Grant access failed.");
         }
 
-        [TearDown]
+        [NUnit.Framework.TearDown]
         public static void Exit()
         {
             if (pubnub != null)
@@ -144,28 +145,28 @@ namespace PubNubMessaging.Tests
         }
 
 #if (USE_JSONFX)
-        [Test]
+        [NUnit.Framework.Test]
 #else
         [Ignore("Ignore this for non-JsonFX")]
 #endif
         public void UsingJsonFx()
         {
             Debug.Write("UsingJsonFx");
-            Assert.True(true, "UsingJsonFx");
+            ClassicAssert.True(true, "UsingJsonFx");
         }
 
 #if (USE_JSONFX)
         [Ignore]
 #else
-        [Test]
+        [NUnit.Framework.Test]
 #endif
         public void UsingNewtonSoft()
         {
             Debug.Write("UsingNewtonSoft");
-            Assert.True(true, "UsingNewtonSoft");
+            ClassicAssert.True(true, "UsingNewtonSoft");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenPresenceShouldReturnReceivedMessage()
         {
             server.ClearRequests();
@@ -253,10 +254,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedPresenceMessage, "Presence message not received");
+            Assert.That(receivedPresenceMessage, "Presence message not received");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenPresenceShouldReturnReceivedMessageSSL()
         {
             server.ClearRequests();
@@ -344,10 +345,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedPresenceMessage, "Presence message not received");
+            Assert.That(receivedPresenceMessage, "Presence message not received");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenPresenceShouldReturnCustomUserId()
         {
             server.ClearRequests();
@@ -433,10 +434,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedCustomUUID, "Custom UUID not received");
+            Assert.That(receivedCustomUUID, "Custom UUID not received");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void IfHereNowIsCalledThenItShouldReturnInfo()
         {
             server.ClearRequests();
@@ -549,10 +550,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedHereNowMessage, "here_now message not received");
+            Assert.That(receivedHereNowMessage, "here_now message not received");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
 #if NET40
         public static void IfWithAsyncHereNowIsCalledThenItShouldReturnInfo()
 #else
@@ -670,11 +671,11 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedHereNowMessage, "here_now message not received");
+            Assert.That(receivedHereNowMessage, "here_now message not received");
         }
 
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void IfHereNowIsCalledThenItShouldReturnInfoCipher()
         {
             server.ClearRequests();
@@ -789,10 +790,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedHereNowMessage, "here_now message not received with cipher");
+            Assert.That(receivedHereNowMessage, "here_now message not received with cipher");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void IfHereNowIsCalledThenItShouldReturnInfoCipherSecret()
         {
             server.ClearRequests();
@@ -904,10 +905,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedHereNowMessage, "here_now message not received with cipher and secret");
+            Assert.That(receivedHereNowMessage, "here_now message not received with cipher and secret");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void IfHereNowIsCalledThenItShouldReturnInfoCipherSecretSSL()
         {
             server.ClearRequests();
@@ -1019,10 +1020,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedHereNowMessage, "here_now message not received with cipher, secret, ssl");
+            Assert.That(receivedHereNowMessage, "here_now message not received with cipher, secret, ssl");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void IfHereNowIsCalledThenItShouldReturnInfoCipherSSL()
         {
             server.ClearRequests();
@@ -1136,10 +1137,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedHereNowMessage, "here_now message not received with cipher, ssl");
+            Assert.That(receivedHereNowMessage, "here_now message not received with cipher, ssl");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void IfHereNowIsCalledThenItShouldReturnInfoSecret()
         {
             server.ClearRequests();
@@ -1250,10 +1251,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedHereNowMessage, "here_now message not received with secret key");
+            Assert.That(receivedHereNowMessage, "here_now message not received with secret key");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void IfHereNowIsCalledThenItShouldReturnInfoSecretSSL()
         {
             server.ClearRequests();
@@ -1364,10 +1365,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedHereNowMessage, "here_now message not received ,with secret key, ssl");
+            Assert.That(receivedHereNowMessage, "here_now message not received ,with secret key, ssl");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void IfHereNowIsCalledThenItShouldReturnInfoSSL()
         {
             server.ClearRequests();
@@ -1481,10 +1482,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedHereNowMessage, "here_now message not received with ssl");
+            Assert.That(receivedHereNowMessage, "here_now message not received with ssl");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void IfHereNowIsCalledThenItShouldReturnInfoWithUserState()
         {
             server.ClearRequests();
@@ -1635,11 +1636,11 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedHereNowMessage, "here_now message not received with user state");
+            Assert.That(receivedHereNowMessage, "here_now message not received with user state");
         }
 
         //TODO: CLEN-2044
-        //[Test]
+        //[NUnit.Framework.Test]
         public static void IfGlobalHereNowIsCalledThenItShouldReturnInfo()
         {
             server.ClearRequests();
@@ -1767,11 +1768,11 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedHereNowMessage, "global_here_now message not received");
+            Assert.That(receivedHereNowMessage, "global_here_now message not received");
         }
 
         //TODO: CLEN-2044
-        //[Test]
+        //[NUnit.Framework.Test]
         public static void IfGlobalHereNowIsCalledThenItShouldReturnInfoWithUserState()
         {
             server.ClearRequests();
@@ -1915,10 +1916,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedHereNowMessage, "global_here_now message not received for user state");
+            Assert.That(receivedHereNowMessage, "global_here_now message not received for user state");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void IfWhereNowIsCalledThenItShouldReturnInfo()
         {
             server.ClearRequests();
@@ -2029,10 +2030,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedWhereNowMessage, "where_now message not received");
+            Assert.That(receivedWhereNowMessage, "where_now message not received");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
 #if NET40
         public static void IfWithAsyncWhereNowIsCalledThenItShouldReturnInfo()
 #else
@@ -2149,11 +2150,11 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedWhereNowMessage, "where_now message not received");
+            Assert.That(receivedWhereNowMessage, "where_now message not received");
         }
 
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void IfSetAndGetUserStateThenItShouldReturnInfo()
         {
             server.ClearRequests();
@@ -2229,10 +2230,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedUserStateMessage, "IfSetAndGetUserStateThenItShouldReturnInfo failed");
+            Assert.That(receivedUserStateMessage, "IfSetAndGetUserStateThenItShouldReturnInfo failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void IfSetAndDeleteUserStateThenItShouldReturnInfo()
         {
             server.ClearRequests();
@@ -2381,10 +2382,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedUserStateMessage, "IfSetAndDeleteUserStateThenItShouldReturnInfo message not received");
+            Assert.That(receivedUserStateMessage, "IfSetAndDeleteUserStateThenItShouldReturnInfo message not received");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenPresenceHeartbeatShouldReturnMessage()
         {
             server.ClearRequests();
@@ -2469,7 +2470,7 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedPresenceMessage, "ThenPresenceHeartbeatShouldReturnMessage not received");
+            Assert.That(receivedPresenceMessage, "ThenPresenceHeartbeatShouldReturnMessage not received");
         }
         
     }

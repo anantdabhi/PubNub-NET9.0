@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Collections.Generic;
-using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using PubnubApi;
 using Newtonsoft.Json;
 using System.Diagnostics;
@@ -10,6 +10,7 @@ using PubnubApi.Security.Crypto.Cryptors;
 using PubnubApi.Security.Crypto.Common;
 using System.Threading;
 using MockServer;
+using NUnit.Framework;
 
 namespace PubNubMessaging.Tests
 {
@@ -142,12 +143,12 @@ namespace PubNubMessaging.Tests
         public string Country { get; set; }
     }
 
-    [TestFixture]
+    [NUnit.Framework.TestFixture]
     public class EncryptionTests : TestHarness
     {
         private static Server server;
 
-        [SetUp]
+        [NUnit.Framework.SetUp]
         public static void Init()
         {
             UnitTestLog unitLog = new Tests.UnitTestLog();
@@ -156,13 +157,13 @@ namespace PubNubMessaging.Tests
             MockServer.LoggingMethod.MockServerLog = unitLog;
         }
 
-        [TearDown]
+        [NUnit.Framework.TearDown]
         public static void Exit()
         {
             server.Stop();
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public void ParseGrantTokenTest()
         {
             string expected =
@@ -193,14 +194,14 @@ namespace PubNubMessaging.Tests
                 System.Diagnostics.Debug.WriteLine("Exception = " + ex.ToString());
             }
 
-            Assert.AreEqual(actual, expected);
+            ClassicAssert.AreEqual(actual, expected);
         }
 
         /// <summary>
         /// Tests the null encryption.
         /// The input is serialized
         /// </summary>
-        [Test]
+        [NUnit.Framework.Test]
         public void TestNullEncryption()
         {
             CryptoModule cm = new CryptoModule(new LegacyCryptor("enigma", false), null);
@@ -217,7 +218,7 @@ namespace PubNubMessaging.Tests
         /// Tests the null decryption.
         /// Assumes that the input message is  deserialized  
         /// </summary>        
-        [Test]
+        [NUnit.Framework.Test]
         public void TestNullDecryption()
         {
             CryptoModule cm = new CryptoModule(new LegacyCryptor("enigma", false), null);
@@ -235,7 +236,7 @@ namespace PubNubMessaging.Tests
         /// Assumes that the input message is deserialized  
         /// Decrypted string should match yay!
         /// </summary>
-        [Test]
+        [NUnit.Framework.Test]
         public void TestYayDecryptionBasic()
         {
             CryptoModule cm = new CryptoModule(new LegacyCryptor("enigma", false), null);
@@ -243,10 +244,10 @@ namespace PubNubMessaging.Tests
             ////decrypt
             string decryptedMessage = cm.Decrypt(message);
             ////deserialize again
-            Assert.AreEqual("yay!", decryptedMessage);
+            ClassicAssert.AreEqual("yay!", decryptedMessage);
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public void TestYayDecryptionBasicWithDynamicIV()
         {
             CryptoModule cm = new CryptoModule(new LegacyCryptor("enigma", true, null), null);
@@ -254,11 +255,11 @@ namespace PubNubMessaging.Tests
 
             string decryptedMessage = cm.Decrypt(message);
 
-            Assert.AreEqual("yay!", decryptedMessage);
+            ClassicAssert.AreEqual("yay!", decryptedMessage);
         }
 
 
-        [Test]
+        [NUnit.Framework.Test]
         public void TestYayByteArrayDecryptionBasic()
         {
             CryptoModule cm = new CryptoModule(new LegacyCryptor("enigma", false), null);
@@ -267,10 +268,10 @@ namespace PubNubMessaging.Tests
             ////decrypt
             byte[] decryptedBytes = cm.Decrypt(messageBytes);
             byte[] expectedBytes = new byte[] { 121, 97, 121, 33 };
-            Assert.AreEqual(expectedBytes, decryptedBytes);
+            ClassicAssert.AreEqual(expectedBytes, decryptedBytes);
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public void TestYayByteArrayDecryptionBasicWithDynamicIV()
         {
             CryptoModule cm = new CryptoModule(new LegacyCryptor("enigma", true, null), null);
@@ -282,10 +283,10 @@ namespace PubNubMessaging.Tests
 
             byte[] decryptedBytes = cm.Decrypt(messageBytes);
             byte[] expectedBytes = new byte[] { 121, 97, 121, 33 };
-            Assert.AreEqual(expectedBytes, decryptedBytes);
+            ClassicAssert.AreEqual(expectedBytes, decryptedBytes);
         }
 
-        //[Test]
+        //[NUnit.Framework.Test]
         public void TestMoonImageDecryption()
         {
             CryptoModule cm = new CryptoModule(new LegacyCryptor("enigma", true, null), null);
@@ -296,10 +297,10 @@ namespace PubNubMessaging.Tests
             byte[] decryptedBytes = cm.Decrypt(messageBytes);
             System.IO.File.WriteAllBytes(@"C:\Pandu\temp\file_dec_364234.png", decryptedBytes);
             byte[] expectedBytes = new byte[] { 121, 97, 121, 33 };
-            Assert.AreEqual(expectedBytes, decryptedBytes);
+            ClassicAssert.AreEqual(expectedBytes, decryptedBytes);
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public void TestLocalFileEncryptionFromPath()
         {
             string sourceFile = "fileupload.txt";
@@ -312,10 +313,10 @@ namespace PubNubMessaging.Tests
             PNConfiguration config = new PNConfiguration(new UserId("uuid"));
             Pubnub pn = new Pubnub(config);
             pn.EncryptFile(sourceFile, destFile, "enigma");
-            Assert.IsTrue(System.IO.File.Exists(destFile));
+            Assert.That(System.IO.File.Exists(destFile));
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public void TestLocalFileDecryptionFromPath()
         {
             string sourceFile = "fileupload_enc.txt";
@@ -328,7 +329,7 @@ namespace PubNubMessaging.Tests
             PNConfiguration config = new PNConfiguration(new UserId("unit-test-uuid"));
             Pubnub pn = new Pubnub(config);
             pn.DecryptFile(sourceFile, destFile, "enigma");
-            Assert.IsTrue(System.IO.File.Exists(destFile));
+            Assert.That(System.IO.File.Exists(destFile));
         }
 
         /// <summary>
@@ -336,7 +337,7 @@ namespace PubNubMessaging.Tests
         /// The output is not serialized
         /// Encrypted string should match q/xJqqN6qbiZMXYmiQC1Fw==
         /// </summary>
-        [Test]
+        [NUnit.Framework.Test]
         public void TestYayEncryptionBasic()
         {
             CryptoModule cm = new CryptoModule(new LegacyCryptor("enigma", false), null);
@@ -344,11 +345,11 @@ namespace PubNubMessaging.Tests
             string message = "yay!";
             ////Encrypt
             string encryptedMessage = cm.Encrypt(message);
-            Assert.AreEqual("q/xJqqN6qbiZMXYmiQC1Fw==", encryptedMessage);
+            ClassicAssert.AreEqual("q/xJqqN6qbiZMXYmiQC1Fw==", encryptedMessage);
         }
 
 #if DEBUG
-        [Test]
+        [NUnit.Framework.Test]
         public void TestYayEncryptionBasicWithDynamicIV()
         {
             LegacyCryptor legacyCryptor = new LegacyCryptor("enigma", true, null);
@@ -359,7 +360,7 @@ namespace PubNubMessaging.Tests
             string message = "yay!";
             //Encrypt
             string encryptedMessage = cm.Encrypt(message);
-            Assert.AreEqual("MTIzNDU2Nzg5MDEyMzQ1NjdnONoCgo0wbuMGGMmfMX0=", encryptedMessage);
+            ClassicAssert.AreEqual("MTIzNDU2Nzg5MDEyMzQ1NjdnONoCgo0wbuMGGMmfMX0=", encryptedMessage);
         }
 #endif
 
@@ -368,7 +369,7 @@ namespace PubNubMessaging.Tests
         /// The output is not serialized
         /// Encrypted string should match q/xJqqN6qbiZMXYmiQC1Fw==
         /// </summary>
-        [Test]
+        [NUnit.Framework.Test]
         public void TestYayByteArrayEncryptionBasic()
         {
             CryptoModule cm = new CryptoModule(new LegacyCryptor("enigma", false), null);
@@ -379,11 +380,11 @@ namespace PubNubMessaging.Tests
             byte[] encryptedBytes = cm.Encrypt(messageBytes);
             byte[] expectedBytes = new byte[]
                 { 171, 252, 73, 170, 163, 122, 169, 184, 153, 49, 118, 38, 137, 0, 181, 23 };
-            Assert.AreEqual(expectedBytes, encryptedBytes);
+            ClassicAssert.AreEqual(expectedBytes, encryptedBytes);
         }
 
 #if DEBUG
-        [Test]
+        [NUnit.Framework.Test]
         public void TestYayByteArrayEncryptionBasicWithDynamicIV()
         {
             LegacyCryptor legacyCryptor = new LegacyCryptor("enigma", true, null);
@@ -402,7 +403,7 @@ namespace PubNubMessaging.Tests
                 49, 50, 51, 52, 53, 54, 55, 56, 57, 48, 49, 50, 51, 52, 53, 54, 55, 103, 56, 218, 2, 130, 141, 48, 110,
                 227, 6, 24, 201, 159, 49, 125
             };
-            Assert.AreEqual(expectedBytes, encryptedBytes);
+            ClassicAssert.AreEqual(expectedBytes, encryptedBytes);
         }
 #endif
         /// <summary>
@@ -410,7 +411,7 @@ namespace PubNubMessaging.Tests
         /// Assumes that the input message is not deserialized  
         /// Decrypted and Deserialized string should match yay!
         /// </summary>
-        [Test]
+        [NUnit.Framework.Test]
         public void TestYayDecryption()
         {
             CryptoModule cm = new CryptoModule(new LegacyCryptor("enigma", false), null);
@@ -423,7 +424,7 @@ namespace PubNubMessaging.Tests
             string decryptedMessage = cm.Decrypt(message);
             ////deserialize again
             message = JsonConvert.DeserializeObject<string>(decryptedMessage);
-            Assert.AreEqual("yay!", message);
+            ClassicAssert.AreEqual("yay!", message);
         }
 
         /// <summary>
@@ -431,7 +432,7 @@ namespace PubNubMessaging.Tests
         /// The output is not serialized
         /// Encrypted string should match Wi24KS4pcTzvyuGOHubiXg==
         /// </summary>
-        [Test]
+        [NUnit.Framework.Test]
         public void TestYayEncryption()
         {
             CryptoModule cm = new CryptoModule(new LegacyCryptor("enigma", false), null);
@@ -442,7 +443,7 @@ namespace PubNubMessaging.Tests
             Debug.WriteLine(message);
             ////Encrypt
             string enc = cm.Encrypt(message);
-            Assert.AreEqual("Wi24KS4pcTzvyuGOHubiXg==", enc);
+            ClassicAssert.AreEqual("Wi24KS4pcTzvyuGOHubiXg==", enc);
         }
 
         /// <summary>
@@ -450,7 +451,7 @@ namespace PubNubMessaging.Tests
         /// The output is not serialized
         /// Encrypted string should match the serialized object
         /// </summary>
-        [Test]
+        [NUnit.Framework.Test]
         public void TestArrayEncryption()
         {
             CryptoModule cm = new CryptoModule(new LegacyCryptor("enigma", false), null);
@@ -461,7 +462,7 @@ namespace PubNubMessaging.Tests
             ////Encrypt
             string encryptedMessage = cm.Encrypt(serializedArray);
 
-            Assert.AreEqual("Ns4TB41JjT2NCXaGLWSPAQ==", encryptedMessage);
+            ClassicAssert.AreEqual("Ns4TB41JjT2NCXaGLWSPAQ==", encryptedMessage);
         }
 
         /// <summary>
@@ -470,7 +471,7 @@ namespace PubNubMessaging.Tests
         /// And the output message has to been deserialized.
         /// Decrypted string should match the serialized object
         /// </summary>
-        [Test]
+        [NUnit.Framework.Test]
         public void TestArrayDecryption()
         {
             CryptoModule cm = new CryptoModule(new LegacyCryptor("enigma", false), null);
@@ -482,7 +483,7 @@ namespace PubNubMessaging.Tests
             object[] emptyArrayObject = { };
             string result = JsonConvert.SerializeObject(emptyArrayObject);
             ////compare the serialized object and the return of the Decrypt method
-            Assert.AreEqual(result, decryptedMessage);
+            ClassicAssert.AreEqual(result, decryptedMessage);
         }
 
         /// <summary>
@@ -490,7 +491,7 @@ namespace PubNubMessaging.Tests
         /// The output is not serialized
         /// Encrypted string should match the serialized object
         /// </summary>
-        [Test]
+        [NUnit.Framework.Test]
         public void TestObjectEncryption()
         {
             CryptoModule cm = new CryptoModule(new LegacyCryptor("enigma", false), null);
@@ -501,7 +502,7 @@ namespace PubNubMessaging.Tests
             ////encrypt
             string encryptedMessage = cm.Encrypt(serializedObject);
 
-            Assert.AreEqual("IDjZE9BHSjcX67RddfCYYg==", encryptedMessage);
+            ClassicAssert.AreEqual("IDjZE9BHSjcX67RddfCYYg==", encryptedMessage);
         }
 
         /// <summary>
@@ -510,7 +511,7 @@ namespace PubNubMessaging.Tests
         /// And the output message has to be deserialized.
         /// Decrypted string should match the serialized object
         /// </summary>
-        [Test]
+        [NUnit.Framework.Test]
         public void TestObjectDecryption()
         {
             CryptoModule cm = new CryptoModule(new LegacyCryptor("enigma", false), null);
@@ -523,7 +524,7 @@ namespace PubNubMessaging.Tests
             ////Serialize the object
             string result = JsonConvert.SerializeObject(obj);
 
-            Assert.AreEqual(result, decryptedMessage);
+            ClassicAssert.AreEqual(result, decryptedMessage);
         }
 
         /// <summary>
@@ -531,7 +532,7 @@ namespace PubNubMessaging.Tests
         /// The output is not serialized 
         /// Encrypted string should match the serialized object
         /// </summary>
-        [Test]
+        [NUnit.Framework.Test]
         public void TestMyObjectEncryption()
         {
             CryptoModule cm = new CryptoModule(new LegacyCryptor("enigma", false), null);
@@ -542,7 +543,7 @@ namespace PubNubMessaging.Tests
             ////encrypt it
             string encryptedMessage = cm.Encrypt(result);
 
-            Assert.AreEqual("Zbr7pEF/GFGKj1rOstp0tWzA4nwJXEfj+ezLtAr8qqE=", encryptedMessage);
+            ClassicAssert.AreEqual("Zbr7pEF/GFGKj1rOstp0tWzA4nwJXEfj+ezLtAr8qqE=", encryptedMessage);
         }
 
         /// <summary>
@@ -550,7 +551,7 @@ namespace PubNubMessaging.Tests
         /// The output is not deserialized
         /// Decrypted string should match the serialized object
         /// </summary>
-        [Test]
+        [NUnit.Framework.Test]
         public void TestMyObjectDecryption()
         {
             CryptoModule cm = new CryptoModule(new LegacyCryptor("enigma", false), null);
@@ -563,7 +564,7 @@ namespace PubNubMessaging.Tests
             ////Serialize it
             string result = JsonConvert.SerializeObject(cc);
 
-            Assert.AreEqual(result, decryptedMessage);
+            ClassicAssert.AreEqual(result, decryptedMessage);
         }
 
         /// <summary>
@@ -571,7 +572,7 @@ namespace PubNubMessaging.Tests
         /// The output is not serialized
         /// Encrypted string should match f42pIQcWZ9zbTbH8cyLwB/tdvRxjFLOYcBNMVKeHS54=
         /// </summary>
-        [Test]
+        [NUnit.Framework.Test]
         public void TestPubNubEncryption2()
         {
             CryptoModule cm = new CryptoModule(new LegacyCryptor("enigma", false), null);
@@ -582,7 +583,7 @@ namespace PubNubMessaging.Tests
             ////encrypt
             string encryptedMessage = cm.Encrypt(message);
 
-            Assert.AreEqual("f42pIQcWZ9zbTbH8cyLwB/tdvRxjFLOYcBNMVKeHS54=", encryptedMessage);
+            ClassicAssert.AreEqual("f42pIQcWZ9zbTbH8cyLwB/tdvRxjFLOYcBNMVKeHS54=", encryptedMessage);
         }
 
         /// <summary>
@@ -590,7 +591,7 @@ namespace PubNubMessaging.Tests
         /// Assumes that the input message is deserialized  
         /// Decrypted and Deserialized string should match Pubnub Messaging API 2
         /// </summary>
-        [Test]
+        [NUnit.Framework.Test]
         public void TestPubNubDecryption2()
         {
             CryptoModule cm = new CryptoModule(new LegacyCryptor("enigma", false), null);
@@ -600,7 +601,7 @@ namespace PubNubMessaging.Tests
             string decryptedMessage = cm.Decrypt(message);
             ////Deserialize
             message = JsonConvert.DeserializeObject<string>(decryptedMessage);
-            Assert.AreEqual("Pubnub Messaging API 2", message);
+            ClassicAssert.AreEqual("Pubnub Messaging API 2", message);
         }
 
         /// <summary>
@@ -608,7 +609,7 @@ namespace PubNubMessaging.Tests
         /// The input is not serialized
         /// Encrypted string should match f42pIQcWZ9zbTbH8cyLwByD/GsviOE0vcREIEVPARR0=
         /// </summary>
-        [Test]
+        [NUnit.Framework.Test]
         public void TestPubNubEncryption1()
         {
             CryptoModule cm = new CryptoModule(new LegacyCryptor("enigma", false), null);
@@ -619,7 +620,7 @@ namespace PubNubMessaging.Tests
             ////encrypt
             string encryptedMessage = cm.Encrypt(message);
 
-            Assert.AreEqual("f42pIQcWZ9zbTbH8cyLwByD/GsviOE0vcREIEVPARR0=", encryptedMessage);
+            ClassicAssert.AreEqual("f42pIQcWZ9zbTbH8cyLwByD/GsviOE0vcREIEVPARR0=", encryptedMessage);
         }
 
         /// <summary>
@@ -627,7 +628,7 @@ namespace PubNubMessaging.Tests
         /// Assumes that the input message is  deserialized  
         /// Decrypted and Deserialized string should match Pubnub Messaging API 1        
         /// </summary>
-        [Test]
+        [NUnit.Framework.Test]
         public void TestPubNubDecryption1()
         {
             CryptoModule cm = new CryptoModule(new LegacyCryptor("enigma", false), null);
@@ -639,7 +640,7 @@ namespace PubNubMessaging.Tests
             message = (decryptedMessage != "**DECRYPT ERROR**")
                 ? JsonConvert.DeserializeObject<string>(decryptedMessage)
                 : "";
-            Assert.AreEqual("Pubnub Messaging API 1", message);
+            ClassicAssert.AreEqual("Pubnub Messaging API 1", message);
         }
 
         /// <summary>
@@ -647,7 +648,7 @@ namespace PubNubMessaging.Tests
         /// The input is serialized
         /// Encrypted string should match zMqH/RTPlC8yrAZ2UhpEgLKUVzkMI2cikiaVg30AyUu7B6J0FLqCazRzDOmrsFsF
         /// </summary>
-        [Test]
+        [NUnit.Framework.Test]
         public void TestStuffCanEncryption()
         {
             CryptoModule cm = new CryptoModule(new LegacyCryptor("enigma", false), null);
@@ -656,14 +657,14 @@ namespace PubNubMessaging.Tests
             ////encrypt
             string encryptedMessage = cm.Encrypt(message);
 
-            Assert.AreEqual("zMqH/RTPlC8yrAZ2UhpEgLKUVzkMI2cikiaVg30AyUu7B6J0FLqCazRzDOmrsFsF", encryptedMessage);
+            ClassicAssert.AreEqual("zMqH/RTPlC8yrAZ2UhpEgLKUVzkMI2cikiaVg30AyUu7B6J0FLqCazRzDOmrsFsF", encryptedMessage);
         }
 
         /// <summary>
         /// Tests the stuffcan decryption.
         /// Assumes that the input message is  deserialized  
         /// </summary>
-        [Test]
+        [NUnit.Framework.Test]
         public void TestStuffcanDecryption()
         {
             CryptoModule cm = new CryptoModule(new LegacyCryptor("enigma", false), null);
@@ -672,7 +673,7 @@ namespace PubNubMessaging.Tests
             ////decrypt
             string decryptedMessage = cm.Decrypt(message);
 
-            Assert.AreEqual("{\"this stuff\":{\"can get\":\"complicated!\"}}", decryptedMessage);
+            ClassicAssert.AreEqual("{\"this stuff\":{\"can get\":\"complicated!\"}}", decryptedMessage);
         }
 
         /// <summary>
@@ -680,7 +681,7 @@ namespace PubNubMessaging.Tests
         /// The input is serialized
         /// Encrypted string should match GsvkCYZoYylL5a7/DKhysDjNbwn+BtBtHj2CvzC4Y4g=
         /// </summary>
-        [Test]
+        [NUnit.Framework.Test]
         public void TestHashEncryption()
         {
             CryptoModule cm = new CryptoModule(new LegacyCryptor("enigma", false), null);
@@ -689,14 +690,14 @@ namespace PubNubMessaging.Tests
             ////encrypt
             string encryptedMessage = cm.Encrypt(message);
 
-            Assert.AreEqual("GsvkCYZoYylL5a7/DKhysDjNbwn+BtBtHj2CvzC4Y4g=", encryptedMessage);
+            ClassicAssert.AreEqual("GsvkCYZoYylL5a7/DKhysDjNbwn+BtBtHj2CvzC4Y4g=", encryptedMessage);
         }
 
         /// <summary>
         /// Tests the hash decryption.
         /// Assumes that the input message is  deserialized  
         /// </summary>        
-        [Test]
+        [NUnit.Framework.Test]
         public void TestHashDecryption()
         {
             CryptoModule cm = new CryptoModule(new LegacyCryptor("enigma", false), null);
@@ -705,14 +706,14 @@ namespace PubNubMessaging.Tests
             ////decrypt
             string decryptedMessage = cm.Decrypt(message);
 
-            Assert.AreEqual("{\"foo\":{\"bar\":\"foobar\"}}", decryptedMessage);
+            ClassicAssert.AreEqual("{\"foo\":{\"bar\":\"foobar\"}}", decryptedMessage);
         }
 
         /// <summary>
         /// Tests the unicode chars encryption.
         /// The input is not serialized
         /// </summary>
-        [Test]
+        [NUnit.Framework.Test]
         public void TestUnicodeCharsEncryption()
         {
             CryptoModule cm = new CryptoModule(new LegacyCryptor("enigma", false), null);
@@ -722,7 +723,7 @@ namespace PubNubMessaging.Tests
             Debug.WriteLine(message);
             string encryptedMessage = cm.Encrypt(message);
             Debug.WriteLine(encryptedMessage);
-            Assert.AreEqual("+BY5/miAA8aeuhVl4d13Kg==", encryptedMessage);
+            ClassicAssert.AreEqual("+BY5/miAA8aeuhVl4d13Kg==", encryptedMessage);
         }
 
         /// <summary>
@@ -730,7 +731,7 @@ namespace PubNubMessaging.Tests
         /// Assumes that the input message is  deserialized  
         /// Decrypted and Deserialized string should match the unicode chars       
         /// </summary>
-        [Test]
+        [NUnit.Framework.Test]
         public void TestUnicodeCharsDecryption()
         {
             CryptoModule cm = new CryptoModule(new LegacyCryptor("enigma", false), null);
@@ -742,7 +743,7 @@ namespace PubNubMessaging.Tests
                 ? JsonConvert.DeserializeObject<string>(decryptedMessage)
                 : "";
 
-            Assert.AreEqual("漢語", message);
+            ClassicAssert.AreEqual("漢語", message);
         }
 
         /// <summary>
@@ -750,7 +751,7 @@ namespace PubNubMessaging.Tests
         /// Assumes that the input message is  deserialized  
         /// Decrypted and Deserialized string should match the unicode chars  
         /// </summary>
-        [Test]
+        [NUnit.Framework.Test]
         public void TestGermanCharsDecryption()
         {
             CryptoModule cm = new CryptoModule(new LegacyCryptor("enigma", false), null);
@@ -763,14 +764,14 @@ namespace PubNubMessaging.Tests
                 ? JsonConvert.DeserializeObject<string>(decryptedMessage)
                 : "";
 
-            Assert.AreEqual("ÜÖ", message);
+            ClassicAssert.AreEqual("ÜÖ", message);
         }
 
         /// <summary>
         /// Tests the german encryption.
         /// The input is not serialized
         /// </summary>
-        [Test]
+        [NUnit.Framework.Test]
         public void TestGermanCharsEncryption()
         {
             CryptoModule cm = new CryptoModule(new LegacyCryptor("enigma", false), null);
@@ -780,10 +781,10 @@ namespace PubNubMessaging.Tests
             Debug.WriteLine(message);
             string encryptedMessage = cm.Encrypt(message);
             Debug.WriteLine(encryptedMessage);
-            Assert.AreEqual("stpgsG1DZZxb44J7mFNSzg==", encryptedMessage);
+            ClassicAssert.AreEqual("stpgsG1DZZxb44J7mFNSzg==", encryptedMessage);
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public void TestCryptoModuleWithMultipleCryptorsDefaultAesCbc()
         {
             string message = "yay!";
@@ -792,10 +793,10 @@ namespace PubNubMessaging.Tests
             CryptoModule cm = new CryptoModule(aesCbcCryptor, new List<ICryptor> { legacyCryptor });
             string encryptedMessage = cm.Encrypt(message);
             string decryptedMessage = cm.Decrypt(encryptedMessage);
-            Assert.AreEqual(message, decryptedMessage);
+            ClassicAssert.AreEqual(message, decryptedMessage);
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public void TestCryptoModuleWithMultipleCryptorsDefaultLegacy()
         {
             string message = "yay!";
@@ -804,10 +805,10 @@ namespace PubNubMessaging.Tests
             CryptoModule cm = new CryptoModule(legacyCryptor, new List<ICryptor> { aesCbcCryptor });
             string encryptedMessage = cm.Encrypt(message);
             string decryptedMessage = cm.Decrypt(encryptedMessage);
-            Assert.AreEqual(message, decryptedMessage);
+            ClassicAssert.AreEqual(message, decryptedMessage);
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public void TestPAMSignature()
         {
             string secretKey = "secret";
@@ -816,10 +817,10 @@ namespace PubNubMessaging.Tests
             string signature = Util.PubnubAccessManagerSign(secretKey, message);
             System.Diagnostics.Debug.WriteLine("TestPAMSignature = " + signature);
 
-            Assert.AreEqual("mIoxTVM2WAM5j-M2vlp9bVblDLoZQI5XIoYyQ48U0as=", signature);
+            ClassicAssert.AreEqual("mIoxTVM2WAM5j-M2vlp9bVblDLoZQI5XIoYyQ48U0as=", signature);
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public void TestPAMv3Signature()
         {
             string secretKey = "wMfbo9G0xVUG8yfTfYw5qIdfJkTd7A";
@@ -830,10 +831,10 @@ namespace PubNubMessaging.Tests
             signature = string.Format("v2.{0}", signature.TrimEnd(new char[] { '=' }));
             System.Diagnostics.Debug.WriteLine("TestPAMv3Signature = " + signature);
 
-            Assert.AreEqual("v2.k80LsDMD-sImA8rCBj-ntRKhZ8mSjHY8Ivngt9W3Yc4", signature);
+            ClassicAssert.AreEqual("v2.k80LsDMD-sImA8rCBj-ntRKhZ8mSjHY8Ivngt9W3Yc4", signature);
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public void TestSubscribeDecryption()
         {
             server.ClearRequests();
@@ -858,7 +859,7 @@ namespace PubNubMessaging.Tests
             pn.AddListener(new SubscribeCallbackExt(
                     (pb, message) =>
                     {
-                        Assert.AreEqual("test", message.Message);
+                        ClassicAssert.AreEqual("test", message.Message);
                         done.Set();
                     },
                     (pb, presence) => { },
@@ -919,10 +920,10 @@ namespace PubNubMessaging.Tests
                 .Execute(new PNPublishResultExt((r,s)=>{}));
 
             bool passed = done.WaitOne(5000);
-            Assert.True(passed);
+            ClassicAssert.True(passed);
         }
         
-        [Test]
+        [NUnit.Framework.Test]
         public void TestSubscribeDecryptionOnNonEncryptedMessage()
         {
             server.ClearRequests();
@@ -947,7 +948,7 @@ namespace PubNubMessaging.Tests
             pn.AddListener(new SubscribeCallbackExt(
                     (pb, message) =>
                     {
-                        Assert.AreEqual("test", message.Message);
+                        ClassicAssert.AreEqual("test", message.Message);
                         done.Set();
                     },
                     (pb, presence) => { },
@@ -1003,10 +1004,10 @@ namespace PubNubMessaging.Tests
                 .Execute(new PNPublishResultExt((r,s)=>{}));
 
             bool passed = done.WaitOne(5000);
-            Assert.True(passed);
+            ClassicAssert.True(passed);
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public void TestHistoryDecryption()
         {
             ManualResetEvent done = new ManualResetEvent(false);
@@ -1031,15 +1032,15 @@ namespace PubNubMessaging.Tests
                 .Count(1)
                 .Execute(new PNHistoryResultExt((r, s) =>
                 {
-                    Assert.AreEqual("test", r.Messages[0].Entry);
+                    ClassicAssert.AreEqual("test", r.Messages[0].Entry);
                     done.Set();
                 }));
 
             bool passed = done.WaitOne(5000);
-            Assert.True(passed);
+            ClassicAssert.True(passed);
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public void TestHistoryDecryptionOnNonEncryptedMessage()
         {
             ManualResetEvent done = new ManualResetEvent(false);
@@ -1064,12 +1065,12 @@ namespace PubNubMessaging.Tests
                 .Count(1)
                 .Execute(new PNHistoryResultExt((r, s) =>
                 {
-                    Assert.AreEqual("test", r.Messages[0].Entry);
+                    ClassicAssert.AreEqual("test", r.Messages[0].Entry);
                     done.Set();
                 }));
 
             bool passed = done.WaitOne(500000);
-            Assert.True(passed);
+            ClassicAssert.True(passed);
         }
 
         private PNConfiguration CreateTestConfig()

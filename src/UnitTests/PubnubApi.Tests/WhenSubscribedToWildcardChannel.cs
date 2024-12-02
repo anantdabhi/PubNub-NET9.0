@@ -1,15 +1,16 @@
 ﻿using System;
-using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System.Threading;
 using PubnubApi;
 using MockServer;
 using System.Diagnostics;
 using PubnubApi.Security.Crypto;
 using PubnubApi.Security.Crypto.Cryptors;
+using NUnit.Framework;
 
 namespace PubNubMessaging.Tests
 {
-    [TestFixture]
+    [NUnit.Framework.TestFixture]
     public class WhenSubscribedToWildcardChannel : TestHarness
     {
         private static object publishedMessage;
@@ -30,7 +31,7 @@ namespace PubNubMessaging.Tests
             }
         }
 
-        [SetUp]
+        [NUnit.Framework.SetUp]
         public static void Init()
         {
             UnitTestLog unitLog = new Tests.UnitTestLog();
@@ -418,10 +419,10 @@ namespace PubNubMessaging.Tests
             pubnub.PubnubUnitTest = null;
             pubnub = null;
 
-            Assert.IsTrue(receivedGrantMessage, "WhenSubscribedToWildcardChannel Grant access failed.");
+            Assert.That(receivedGrantMessage, "WhenSubscribedToWildcardChannel Grant access failed.");
         }
 
-        [TearDown]
+        [NUnit.Framework.TearDown]
         public static void Exit()
         {
             if (pubnub != null)
@@ -433,12 +434,12 @@ namespace PubNubMessaging.Tests
             server.Stop();
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenSubscribeShouldReturnReceivedMessage()
         {
             bool receivedMessage = false;
             CommonSubscribeShouldReturnReceivedMessageBasedOnParams("", "", false, out receivedMessage);
-            Assert.IsTrue(receivedMessage, "WhenSubscribedToWildcardChannel --> ThenItShouldReturnReceivedMessage Failed");
+            Assert.That(receivedMessage, "WhenSubscribedToWildcardChannel --> ThenItShouldReturnReceivedMessage Failed");
         }
 
         private static void CommonSubscribeShouldReturnReceivedMessageBasedOnParams(string secretKey, string cipherKey, bool ssl, out bool receivedMessage)
@@ -593,68 +594,68 @@ namespace PubNubMessaging.Tests
             pubnub = null;
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenSubscribeShouldReturnReceivedMessageSSL()
         {
             bool receivedMessage = false;
             CommonSubscribeShouldReturnReceivedMessageBasedOnParams("", "", true, out receivedMessage);
-            Assert.IsTrue(receivedMessage, "WhenSubscribedToWildcardChannel --> ThenSubscribeShouldReturnReceivedMessageSSL Failed");
+            Assert.That(receivedMessage, "WhenSubscribedToWildcardChannel --> ThenSubscribeShouldReturnReceivedMessageSSL Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenSubscribeShouldReturnReceivedMessageCipherSSL()
         {
             bool receivedMessage = false;
             CommonSubscribeShouldReturnReceivedMessageBasedOnParams("", "enigma", true, out receivedMessage);
-            Assert.IsTrue(receivedMessage, "WhenSubscribedToWildcardChannel --> ThenSubscribeShouldReturnReceivedMessageCipherSSL Failed");
+            Assert.That(receivedMessage, "WhenSubscribedToWildcardChannel --> ThenSubscribeShouldReturnReceivedMessageCipherSSL Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenSubscribeShouldReturnReceivedMessageSecret()
         {
             bool receivedMessage = false;
             CommonSubscribeShouldReturnReceivedMessageBasedOnParams(PubnubCommon.SecretKey, "", false, out receivedMessage);
-            Assert.IsTrue(receivedMessage, "WhenSubscribedToWildcardChannel --> ThenSubscribeShouldReturnReceivedMessageSecret Failed");
+            Assert.That(receivedMessage, "WhenSubscribedToWildcardChannel --> ThenSubscribeShouldReturnReceivedMessageSecret Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenSubscribeShouldReturnReceivedMessageSecretSSL()
         {
             bool receivedMessage = false;
             CommonSubscribeShouldReturnReceivedMessageBasedOnParams(PubnubCommon.SecretKey, "", true, out receivedMessage);
-            Assert.IsTrue(receivedMessage, "WhenSubscribedToWildcardChannel --> ThenSubscribeShouldReturnReceivedMessageSecretSSL Failed");
+            Assert.That(receivedMessage, "WhenSubscribedToWildcardChannel --> ThenSubscribeShouldReturnReceivedMessageSecretSSL Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenSubscribeShouldReturnReceivedMessageSecretCipher()
         {
             bool receivedMessage = false;
             CommonSubscribeShouldReturnReceivedMessageBasedOnParams(PubnubCommon.SecretKey, "enigma", false, out receivedMessage);
-            Assert.IsTrue(receivedMessage, "WhenSubscribedToWildcardChannel --> ThenSubscribeShouldReturnReceivedMessageSecretCipher Failed");
+            Assert.That(receivedMessage, "WhenSubscribedToWildcardChannel --> ThenSubscribeShouldReturnReceivedMessageSecretCipher Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenSubscribeShouldReturnReceivedMessageSecretCipherSSL()
         {
             bool receivedMessage = false;
             CommonSubscribeShouldReturnReceivedMessageBasedOnParams(PubnubCommon.SecretKey, "enigma", true, out receivedMessage);
-            Assert.IsTrue(receivedMessage, "WhenSubscribedToWildcardChannel --> ThenSubscribeShouldReturnReceivedMessageSecretCipherSSL Failed");
+            Assert.That(receivedMessage, "WhenSubscribedToWildcardChannel --> ThenSubscribeShouldReturnReceivedMessageSecretCipherSSL Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenSubscribeShouldReturnReceivedMessageCipher()
         {
             bool receivedMessage = false;
             CommonSubscribeShouldReturnReceivedMessageBasedOnParams("", "enigma", false, out receivedMessage);
-            Assert.IsTrue(receivedMessage, "WhenSubscribedToWildcardChannel --> ThenSubscribeShouldReturnReceivedMessageCipher Failed");
+            Assert.That(receivedMessage, "WhenSubscribedToWildcardChannel --> ThenSubscribeShouldReturnReceivedMessageCipher Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenSubscribeShouldReturnEmojiMessage()
         {
             bool receivedMessage = false;
             CommonSubscribeShouldReturnEmojiMessageBasedOnParams("", "", false, out receivedMessage);
-            Assert.IsTrue(receivedMessage, "WhenSubscribedToWildcardChannel --> ThenSubscribeShouldReturnEmojiMessage Failed");
+            Assert.That(receivedMessage, "WhenSubscribedToWildcardChannel --> ThenSubscribeShouldReturnEmojiMessage Failed");
         }
 
         private static void CommonSubscribeShouldReturnEmojiMessageBasedOnParams(string secretKey, string cipherKey, bool ssl, out bool receivedMessage)
@@ -810,47 +811,47 @@ namespace PubNubMessaging.Tests
             pubnub = null;
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenSubscribeShouldReturnEmojiMessageSSL()
         {
             bool receivedMessage = false;
             CommonSubscribeShouldReturnEmojiMessageBasedOnParams("", "", true, out receivedMessage);
-            Assert.IsTrue(receivedMessage, "WhenSubscribedToWildcardChannel --> ThenSubscribeShouldReturnEmojiMessageSSL Failed");
+            Assert.That(receivedMessage, "WhenSubscribedToWildcardChannel --> ThenSubscribeShouldReturnEmojiMessageSSL Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenSubscribeShouldReturnEmojiMessageSecret()
         {
             bool receivedMessage = false;
             CommonSubscribeShouldReturnEmojiMessageBasedOnParams(PubnubCommon.SecretKey, "", false, out receivedMessage);
-            Assert.IsTrue(receivedMessage, "WhenSubscribedToWildcardChannel --> ThenSubscribeShouldReturnEmojiMessageSecret Failed");
+            Assert.That(receivedMessage, "WhenSubscribedToWildcardChannel --> ThenSubscribeShouldReturnEmojiMessageSecret Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenSubscribeShouldReturnEmojiMessageCipherSecret()
         {
             bool receivedMessage = false;
             CommonSubscribeShouldReturnEmojiMessageBasedOnParams(PubnubCommon.SecretKey, "enigma", false, out receivedMessage);
-            Assert.IsTrue(receivedMessage, "WhenSubscribedToWildcardChannel --> ThenSubscribeShouldReturnEmojiMessageCipherSecret Failed");
+            Assert.That(receivedMessage, "WhenSubscribedToWildcardChannel --> ThenSubscribeShouldReturnEmojiMessageCipherSecret Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenSubscribeShouldReturnEmojiMessageCipherSecretSSL()
         {
             bool receivedMessage = false;
             CommonSubscribeShouldReturnEmojiMessageBasedOnParams(PubnubCommon.SecretKey, "enigma", true, out receivedMessage);
-            Assert.IsTrue(receivedMessage, "WhenSubscribedToWildcardChannel --> ThenSubscribeShouldReturnEmojiMessageCipherSecretSSL Failed");
+            Assert.That(receivedMessage, "WhenSubscribedToWildcardChannel --> ThenSubscribeShouldReturnEmojiMessageCipherSecretSSL Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenSubscribeShouldReturnEmojiMessageSecretSSL()
         {
             bool receivedMessage = false;
             CommonSubscribeShouldReturnEmojiMessageBasedOnParams(PubnubCommon.SecretKey, "", true, out receivedMessage);
-            Assert.IsTrue(receivedMessage, "WhenSubscribedToWildcardChannel --> ThenSubscribeShouldReturnEmojiMessageSecretSSL Failed");
+            Assert.That(receivedMessage, "WhenSubscribedToWildcardChannel --> ThenSubscribeShouldReturnEmojiMessageSecretSSL Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ChannelAndChannelGroupAndWildcardChannelSubscribeShouldReturnReceivedMessage()
         {
             // TODO: this test seems to be unstable...
@@ -1083,10 +1084,10 @@ namespace PubNubMessaging.Tests
             pubnub.PubnubUnitTest = null;
             pubnub = null;
 
-            Assert.IsTrue(receivedMessage, "WhenSubscribedToWildcardChannel --> ChannelAndChannelGroupAndWildcardChannelSubscribeShouldReturnReceivedMessage Failed");
+            Assert.That(receivedMessage, "WhenSubscribedToWildcardChannel --> ChannelAndChannelGroupAndWildcardChannelSubscribeShouldReturnReceivedMessage Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenSubscribeShouldReturnWildCardPresenceEventInWildcardPresenceCallback()
         {
             server.ClearRequests();
@@ -1188,7 +1189,7 @@ namespace PubNubMessaging.Tests
             pubnub.PubnubUnitTest = null;
             pubnub = null;
 
-            Assert.IsTrue(receivedMessage, "WhenSubscribedToWildcardChannel --> ThenSubscribeShouldReturnWildCardPresenceEventInWildcardPresenceCallback Failed");
+            Assert.That(receivedMessage, "WhenSubscribedToWildcardChannel --> ThenSubscribeShouldReturnWildCardPresenceEventInWildcardPresenceCallback Failed");
         }
 
 

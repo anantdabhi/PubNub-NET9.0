@@ -8,7 +8,7 @@ using TechTalk.SpecFlow;
 using System.Diagnostics;
 using PubnubApi.Security.Crypto;
 using PubnubApi.Security.Crypto.Cryptors;
-using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System.IO;
 
 namespace AcceptanceTests.Steps
@@ -176,7 +176,7 @@ namespace AcceptanceTests.Steps
         [Then(@"I receive '([^']*)'")]
         public void ThenIReceive(string p0)
         {
-            Assert.AreEqual(p0, cryptoOutcome);
+            ClassicAssert.AreEqual(p0, cryptoOutcome);
         }
 
         [Given(@"Legacy code with '([^']*)' cipher key and '([^']*)' vector")]
@@ -224,7 +224,7 @@ namespace AcceptanceTests.Steps
             SetCryptoModule();
             cryptoModule.DecryptFile(encryptedFile, decryptedToOriginalFile);
             long decryptedFileSize = new FileInfo(sourceFile).Length;
-            Assert.IsTrue(sourceFileSize == decryptedFileSize);            
+            Assert.That(sourceFileSize == decryptedFileSize);            
         }
 
         [When(@"I decrypt '([^']*)' file as '([^']*)'")]
@@ -251,7 +251,7 @@ namespace AcceptanceTests.Steps
             var dirPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
             string expectdFileContent = File.ReadAllText(Path.Combine(dirPath ?? "", "Features\\Encryption\\assets", p0));
             string decryptedFileContent = File.ReadAllText(decryptedToOriginalFile);
-            Assert.AreEqual(expectdFileContent, decryptedFileContent);            
+            ClassicAssert.AreEqual(expectdFileContent, decryptedFileContent);            
         }
 
         [Given(@"Crypto module with default '([^']*)' and additional '([^']*)' cryptors")]

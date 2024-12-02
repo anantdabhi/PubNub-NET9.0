@@ -1,15 +1,16 @@
 ﻿using System;
-using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System.Threading;
 using PubnubApi;
 using System.Collections.Generic;
 using MockServer;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using NUnit.Framework;
 
 namespace PubNubMessaging.Tests
 {
-    [TestFixture]
+    [NUnit.Framework.TestFixture]
     public class WhenMessageDeletedFromChannel : TestHarness
     {
         private static ManualResetEvent deleteMessageManualEvent = new ManualResetEvent(false);
@@ -27,7 +28,7 @@ namespace PubNubMessaging.Tests
 
         private static Server server;
 
-        [SetUp]
+        [NUnit.Framework.SetUp]
         public static async Task Init()
         {
             UnitTestLog unitLog = new Tests.UnitTestLog();
@@ -107,11 +108,11 @@ namespace PubNubMessaging.Tests
             pubnub.PubnubUnitTest = null;
             pubnub = null;
 
-            Assert.IsTrue(grantResult.Status.Error == false && grantResult.Result != null, 
+            Assert.That(grantResult.Status.Error == false && grantResult.Result != null, 
                 "WhenUnsubscribedToAChannelGroup Grant access failed.");
         }
 
-        [TearDown]
+        [NUnit.Framework.TearDown]
         public static void Exit()
         {
             if (pubnub != null)
@@ -123,7 +124,7 @@ namespace PubNubMessaging.Tests
             server.Stop();
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenDeleteMessageShouldReturnSuccessMessage()
         {
             server.ClearRequests();
@@ -175,10 +176,10 @@ namespace PubNubMessaging.Tests
             pubnub.PubnubUnitTest = null;
             pubnub = null;
 
-            Assert.IsTrue(receivedMessage, "ThenDeleteMessageShouldReturnSuccessMessage - DeleteMessages Result not expected");
+            Assert.That(receivedMessage, "ThenDeleteMessageShouldReturnSuccessMessage - DeleteMessages Result not expected");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
 #if NET40
         public static void ThenWithAsyncDeleteMessageShouldReturnSuccessMessage()
 #else
@@ -230,7 +231,7 @@ namespace PubNubMessaging.Tests
             pubnub.PubnubUnitTest = null;
             pubnub = null;
 
-            Assert.IsTrue(receivedMessage, "ThenWithAsyncDeleteMessageShouldReturnSuccessMessage - DeleteMessages Result not expected");
+            Assert.That(receivedMessage, "ThenWithAsyncDeleteMessageShouldReturnSuccessMessage - DeleteMessages Result not expected");
         }
     }
 }

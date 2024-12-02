@@ -4,7 +4,7 @@ using PubnubApi;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System.Net;
 using System.IO;
 using System.Threading;
@@ -420,7 +420,7 @@ namespace AcceptanceTests.Steps
 			}
             IEnumerable<SubscribeResponseRow> expectedRowSet =  table.CreateSet<SubscribeResponseRow>();
                 
-            Assert.True(pn.PubnubUnitTest.PresenceActivityList.Count() >= expectedRowSet?.Count());
+            ClassicAssert.True(pn.PubnubUnitTest.PresenceActivityList.Count() >= expectedRowSet?.Count());
             bool match = false;
             for (int rowIndex = 0; rowIndex < expectedRowSet.Count(); rowIndex++) {
                 SubscribeResponseRow row = expectedRowSet.ElementAt(rowIndex);
@@ -433,7 +433,7 @@ namespace AcceptanceTests.Steps
                     break;
                 }
             }
-            Assert.True(match == true);
+            ClassicAssert.True(match == true);
         }
 
         [When(@"I subscribe")]
@@ -508,7 +508,7 @@ namespace AcceptanceTests.Steps
         {
             await Task.Delay(1000);
             messageReceivedEvent.WaitOne();
-            Assert.True(messageResult != null);
+            ClassicAssert.True(messageResult != null);
         }
 
         [Then(@"I observe the following:")]
@@ -524,7 +524,7 @@ namespace AcceptanceTests.Steps
                 System.Diagnostics.Debug.WriteLine($"{pn.PubnubUnitTest.EventTypeList[i].Key} - {pn.PubnubUnitTest.EventTypeList[i].Value} ");
             }
             IEnumerable<SubscribeResponseRow> expectedRowSet =  table.CreateSet<SubscribeResponseRow>();
-            Assert.True(pn.PubnubUnitTest.EventTypeList.Count() >= expectedRowSet?.Count());
+            ClassicAssert.True(pn.PubnubUnitTest.EventTypeList.Count() >= expectedRowSet?.Count());
             bool match = false;
             for (int rowIndex = 0; rowIndex < expectedRowSet.Count(); rowIndex++)
             {
@@ -541,7 +541,7 @@ namespace AcceptanceTests.Steps
                     break;
                 }
             }
-            Assert.True(match == true);
+            ClassicAssert.True(match == true);
         }
 
         [Then(@"I leave '(.*)' and '(.*)' channels with presence")]
@@ -559,7 +559,7 @@ namespace AcceptanceTests.Steps
         [Then(@"I receive an error in my subscribe response")]
         public void ThenIReceiveAnErrorInMySubscribeResponse()
         {
-            Assert.True(pnStatus != null && pnStatus.Error);
+            ClassicAssert.True(pnStatus != null && pnStatus.Error);
         }
 
         [Then(@"I don't observe any Events and Invocations of the Presence EE")]
@@ -578,7 +578,7 @@ namespace AcceptanceTests.Steps
         [Then(@"I receive an error")]
         public void ThenIReceiveAnError()
         {
-            Assert.True(pnStatus != null && pnStatus.Error);
+            ClassicAssert.True(pnStatus != null && pnStatus.Error);
         }
     }
 }

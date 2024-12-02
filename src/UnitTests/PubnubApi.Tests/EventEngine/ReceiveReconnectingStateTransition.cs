@@ -1,4 +1,6 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Legacy;
+using NUnit.Framework.Legacy;
 using PubnubApi.EventEngine.Core;
 using PubnubApi.EventEngine.Subscribe.Common;
 using PubnubApi.EventEngine.Subscribe.Events;
@@ -54,14 +56,14 @@ namespace PubnubApi.Tests.EventEngine
             var result = receiveReconnectingState.Transition(@event);
 
             //Assert
-            Assert.IsInstanceOf<ReceivingState>(result.State);
+            ClassicAssert.IsInstanceOf<ReceivingState>(result.State);
             CollectionAssert.AreEqual(expectedState.Channels, ((ReceivingState)result.State).Channels);
             CollectionAssert.AreEqual(expectedState.ChannelGroups, ((ReceivingState)result.State).ChannelGroups);
-            Assert.AreEqual(expectedState.Cursor.Region, ((ReceivingState)result.State).Cursor.Region);
-            Assert.AreEqual(expectedState.Cursor.Timetoken, ((ReceivingState)result.State).Cursor.Timetoken);
+            ClassicAssert.AreEqual(expectedState.Cursor.Region, ((ReceivingState)result.State).Cursor.Region);
+            ClassicAssert.AreEqual(expectedState.Cursor.Timetoken, ((ReceivingState)result.State).Cursor.Timetoken);
             if (@event is ReceiveReconnectSuccessEvent)
             {
-                Assert.IsInstanceOf<EmitMessagesInvocation>(result.Invocations.ElementAt(0));
+                ClassicAssert.IsInstanceOf<EmitMessagesInvocation>(result.Invocations.ElementAt(0));
             }
         }
 
@@ -70,7 +72,7 @@ namespace PubnubApi.Tests.EventEngine
             return new ReceiveReconnectingState() { Channels = new string[] { "ch1", "ch2" }, ChannelGroups = new string[] { "cg1", "cg2" }, Cursor = new SubscriptionCursor() { Region = 1, Timetoken = 1234567890 } };
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public void ReceiveReconnectingState_OnReceiveReconnectFailureEvent_TransitionToReceiveReconnectingState()
         {
             //Arrange
@@ -87,14 +89,14 @@ namespace PubnubApi.Tests.EventEngine
             var result = currentState.Transition(eventToTriggerTransition);
 
             //Assert
-            Assert.IsInstanceOf<ReceiveReconnectingState>(result.State);
+            ClassicAssert.IsInstanceOf<ReceiveReconnectingState>(result.State);
             CollectionAssert.AreEqual(expectedState.Channels, ((ReceiveReconnectingState)result.State).Channels);
             CollectionAssert.AreEqual(expectedState.ChannelGroups, ((ReceiveReconnectingState)result.State).ChannelGroups);
-            Assert.AreEqual(expectedState.Cursor.Region, ((ReceiveReconnectingState)result.State).Cursor.Region);
-            Assert.AreEqual(expectedState.Cursor.Timetoken, ((ReceiveReconnectingState)result.State).Cursor.Timetoken);
+            ClassicAssert.AreEqual(expectedState.Cursor.Region, ((ReceiveReconnectingState)result.State).Cursor.Region);
+            ClassicAssert.AreEqual(expectedState.Cursor.Timetoken, ((ReceiveReconnectingState)result.State).Cursor.Timetoken);
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public void ReceiveReconnectingState_OnDisconnectEvent_TransitionToReceiveStoppedState()
         {
             //Arrange
@@ -116,16 +118,16 @@ namespace PubnubApi.Tests.EventEngine
             var result = currentState.Transition(eventToTriggerTransition);
 
             //Assert
-            Assert.IsInstanceOf<ReceiveStoppedState>(result.State);
+            ClassicAssert.IsInstanceOf<ReceiveStoppedState>(result.State);
             CollectionAssert.AreEqual(expectedState.Channels, ((ReceiveStoppedState)result.State).Channels);
             CollectionAssert.AreEqual(expectedState.ChannelGroups, ((ReceiveStoppedState)result.State).ChannelGroups);
-            Assert.AreEqual(expectedState.Cursor.Region, ((ReceiveStoppedState)result.State).Cursor.Region);
-            Assert.AreEqual(expectedState.Cursor.Timetoken, ((ReceiveStoppedState)result.State).Cursor.Timetoken);
-            Assert.IsInstanceOf<EmitStatusInvocation>(result.Invocations.ElementAt(0));
-            Assert.AreEqual(PNStatusCategory.PNDisconnectedCategory, ((EmitStatusInvocation)result.Invocations.ElementAt(0)).StatusCategory);
+            ClassicAssert.AreEqual(expectedState.Cursor.Region, ((ReceiveStoppedState)result.State).Cursor.Region);
+            ClassicAssert.AreEqual(expectedState.Cursor.Timetoken, ((ReceiveStoppedState)result.State).Cursor.Timetoken);
+            ClassicAssert.IsInstanceOf<EmitStatusInvocation>(result.Invocations.ElementAt(0));
+            ClassicAssert.AreEqual(PNStatusCategory.PNDisconnectedCategory, ((EmitStatusInvocation)result.Invocations.ElementAt(0)).StatusCategory);
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public void ReceiveReconnectingState_OnReceiveReconnectGiveupEvent_TransitionToReceiveFailedState()
         {
             //Arrange
@@ -147,16 +149,16 @@ namespace PubnubApi.Tests.EventEngine
             var result = currentState.Transition(eventToTriggerTransition);
 
             //Assert
-            Assert.IsInstanceOf<ReceiveFailedState>(result.State);
+            ClassicAssert.IsInstanceOf<ReceiveFailedState>(result.State);
             CollectionAssert.AreEqual(expectedState.Channels, ((ReceiveFailedState)result.State).Channels);
             CollectionAssert.AreEqual(expectedState.ChannelGroups, ((ReceiveFailedState)result.State).ChannelGroups);
-            Assert.AreEqual(expectedState.Cursor.Region, ((ReceiveFailedState)result.State).Cursor.Region);
-            Assert.AreEqual(expectedState.Cursor.Timetoken, ((ReceiveFailedState)result.State).Cursor.Timetoken);
-            Assert.IsInstanceOf<EmitStatusInvocation>(result.Invocations.ElementAt(0));
-            Assert.AreEqual(PNStatusCategory.PNUnknownCategory, ((EmitStatusInvocation)result.Invocations.ElementAt(0)).StatusCategory);
+            ClassicAssert.AreEqual(expectedState.Cursor.Region, ((ReceiveFailedState)result.State).Cursor.Region);
+            ClassicAssert.AreEqual(expectedState.Cursor.Timetoken, ((ReceiveFailedState)result.State).Cursor.Timetoken);
+            ClassicAssert.IsInstanceOf<EmitStatusInvocation>(result.Invocations.ElementAt(0));
+            ClassicAssert.AreEqual(PNStatusCategory.PNUnknownCategory, ((EmitStatusInvocation)result.Invocations.ElementAt(0)).StatusCategory);
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public void ReceiveReconnectingState_OnUnsubscribeAllEvent_TransitionToUnsubscribedState()
         {
             //Arrange
@@ -167,7 +169,7 @@ namespace PubnubApi.Tests.EventEngine
             var result = currentState.Transition(eventToTriggerTransition);
 
             //Assert
-            Assert.IsInstanceOf<UnsubscribedState>(result.State);
+            ClassicAssert.IsInstanceOf<UnsubscribedState>(result.State);
         }
 
     }

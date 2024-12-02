@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using PubnubApi.EventEngine.Core;
 using PubnubApi.EventEngine.Subscribe.Common;
 using PubnubApi.EventEngine.Subscribe.Events;
@@ -55,11 +56,11 @@ namespace PubnubApi.Tests.EventEngine
             var result = currentState.Transition(eventToTriggerTransition);
 
             //Assert
-            Assert.IsInstanceOf<HandshakingState>(result.State);
+            ClassicAssert.IsInstanceOf<HandshakingState>(result.State);
             CollectionAssert.AreEqual(expectedState.Channels, ((HandshakingState)result.State).Channels);
             CollectionAssert.AreEqual(expectedState.ChannelGroups, ((HandshakingState)result.State).ChannelGroups);
-            Assert.AreEqual(expectedState.Cursor.Region, ((HandshakingState)result.State).Cursor.Region);
-            Assert.AreEqual(expectedState.Cursor.Timetoken, ((HandshakingState)result.State).Cursor.Timetoken);
+            ClassicAssert.AreEqual(expectedState.Cursor.Region, ((HandshakingState)result.State).Cursor.Region);
+            ClassicAssert.AreEqual(expectedState.Cursor.Timetoken, ((HandshakingState)result.State).Cursor.Timetoken);
         }
 
         [TestCaseSource(nameof(receiveStoppedEventCases))]
@@ -69,14 +70,14 @@ namespace PubnubApi.Tests.EventEngine
             //Act
             var result = receiveStoppedState.Transition(@event);
             //Assert
-            Assert.IsInstanceOf<ReceiveStoppedState>(result.State);
+            ClassicAssert.IsInstanceOf<ReceiveStoppedState>(result.State);
             CollectionAssert.AreEqual(expectedState.Channels, ((ReceiveStoppedState)result.State).Channels);
             CollectionAssert.AreEqual(expectedState.ChannelGroups, ((ReceiveStoppedState)result.State).ChannelGroups);
-            Assert.AreEqual(expectedState.Cursor.Region, ((ReceiveStoppedState)result.State).Cursor.Region);
-            Assert.AreEqual(expectedState.Cursor.Timetoken, ((ReceiveStoppedState)result.State).Cursor.Timetoken);
+            ClassicAssert.AreEqual(expectedState.Cursor.Region, ((ReceiveStoppedState)result.State).Cursor.Region);
+            ClassicAssert.AreEqual(expectedState.Cursor.Timetoken, ((ReceiveStoppedState)result.State).Cursor.Timetoken);
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public void ReceiveStoppedState_OnUnsubscribeAllEvent_TransitionToUnsubscribedState()
         {
             //Arrange
@@ -87,7 +88,7 @@ namespace PubnubApi.Tests.EventEngine
             var result = currentState.Transition(eventToTriggerTransition);
 
             //Assert
-            Assert.IsInstanceOf<UnsubscribedState>(result.State);
+            ClassicAssert.IsInstanceOf<UnsubscribedState>(result.State);
         }
 
     }

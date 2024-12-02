@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System.Threading;
 using PubnubApi;
 using MockServer;
 using System.Diagnostics;
+using NUnit.Framework;
 
 namespace PubNubMessaging.Tests
 {
-    [TestFixture]
+    [NUnit.Framework.TestFixture]
     public class WhenAuditIsRequested : TestHarness
     {
         private static ManualResetEvent auditManualEvent = new ManualResetEvent(false);
@@ -18,7 +19,7 @@ namespace PubNubMessaging.Tests
         private static Server server;
         private static int manualResetEventWaitTimeout = 20 * 1000;
 
-        [SetUp]
+        [NUnit.Framework.SetUp]
         public static void Init()
         {
             UnitTestLog unitLog = new Tests.UnitTestLog();
@@ -31,7 +32,7 @@ namespace PubNubMessaging.Tests
             }
         }
 
-        [TearDown]
+        [NUnit.Framework.TearDown]
         public static void Exit()
         {
             if (pubnub != null)
@@ -43,7 +44,7 @@ namespace PubNubMessaging.Tests
             server.Stop();
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenSubKeyLevelShouldReturnSuccess()
         {
             server.ClearRequests();
@@ -85,7 +86,7 @@ namespace PubNubMessaging.Tests
                 pubnub.Destroy();
                 pubnub.PubnubUnitTest = null;
                 pubnub = null;
-                Assert.IsTrue(receivedAuditMessage, "WhenAuditIsRequested -> ThenSubKeyLevelShouldReturnSuccess failed.");
+                Assert.That(receivedAuditMessage, "WhenAuditIsRequested -> ThenSubKeyLevelShouldReturnSuccess failed.");
             }
             else
             {
@@ -97,7 +98,7 @@ namespace PubNubMessaging.Tests
 
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenChannelLevelShouldReturnSuccess()
         {
             server.ClearRequests();
@@ -143,7 +144,7 @@ namespace PubNubMessaging.Tests
                 pubnub.Destroy();
                 pubnub.PubnubUnitTest = null;
                 pubnub = null;
-                Assert.IsTrue(receivedAuditMessage, "WhenAuditIsRequested -> ThenChannelLevelShouldReturnSuccess failed.");
+                Assert.That(receivedAuditMessage, "WhenAuditIsRequested -> ThenChannelLevelShouldReturnSuccess failed.");
             }
             else
             {
@@ -154,7 +155,7 @@ namespace PubNubMessaging.Tests
             }
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenChannelGroupLevelShouldReturnSuccess()
         {
             server.ClearRequests();
@@ -198,7 +199,7 @@ namespace PubNubMessaging.Tests
                 pubnub.Destroy();
                 pubnub.PubnubUnitTest = null;
                 pubnub = null;
-                Assert.IsTrue(receivedAuditMessage, "WhenAuditIsRequested -> ThenChannelGroupLevelShouldReturnSuccess failed.");
+                Assert.That(receivedAuditMessage, "WhenAuditIsRequested -> ThenChannelGroupLevelShouldReturnSuccess failed.");
             }
             else
             {

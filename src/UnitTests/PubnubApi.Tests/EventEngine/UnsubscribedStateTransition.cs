@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using NUnit.Framework.Legacy;
+using NUnit.Framework.Legacy;
 using PubnubApi.EventEngine.Core;
 using PubnubApi.EventEngine.Subscribe.Common;
 using PubnubApi.EventEngine.Subscribe.Events;
@@ -9,7 +10,7 @@ namespace PubnubApi.Tests.EventEngine
 {
     internal class UnsubscribedStateTransition
     {
-        [Test]
+        [NUnit.Framework.Test]
         public void UnsubscribedState_OnSubscriptionChangedEvent_TransitionToHandshakingState()
         {
             //Arrange
@@ -30,12 +31,12 @@ namespace PubnubApi.Tests.EventEngine
             var result = currentState.Transition(eventToTriggerTransition);
             
             //Assert
-            Assert.IsInstanceOf<HandshakingState>(result.State);
+            ClassicAssert.IsInstanceOf<HandshakingState>(result.State);
             CollectionAssert.AreEqual(expectedState.Channels, ((HandshakingState)result.State).Channels);
             CollectionAssert.AreEqual(expectedState.ChannelGroups, ((HandshakingState)result.State).ChannelGroups);
         }
         
-        [Test]
+        [NUnit.Framework.Test]
         public void UnsubscribedState_OnSubscriptionRestoreEvent_TransitionToHandhsakingState()
         {
             //Arrange
@@ -57,11 +58,11 @@ namespace PubnubApi.Tests.EventEngine
             var result = currentState.Transition(eventToTriggerTransition);
 
             //Assert
-            Assert.IsInstanceOf<HandshakingState>(result.State);
+            ClassicAssert.IsInstanceOf<HandshakingState>(result.State);
             CollectionAssert.AreEqual(expectedState.Channels, ((HandshakingState)result.State).Channels);
             CollectionAssert.AreEqual(expectedState.ChannelGroups, ((HandshakingState)result.State).ChannelGroups);
-            Assert.AreEqual(expectedState.Cursor.Region, ((HandshakingState)result.State).Cursor.Region);
-            Assert.AreEqual(expectedState.Cursor.Timetoken, ((HandshakingState)result.State).Cursor.Timetoken);
+            ClassicAssert.AreEqual(expectedState.Cursor.Region, ((HandshakingState)result.State).Cursor.Region);
+            ClassicAssert.AreEqual(expectedState.Cursor.Timetoken, ((HandshakingState)result.State).Cursor.Timetoken);
         }
     }
 }

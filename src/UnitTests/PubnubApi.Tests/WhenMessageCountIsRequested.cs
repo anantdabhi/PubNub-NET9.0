@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+﻿using NUnit.Framework.Legacy;
 using System.Threading;
 using PubnubApi;
 using System.Collections.Generic;
@@ -6,10 +6,11 @@ using MockServer;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using NUnit.Framework;
 
 namespace PubNubMessaging.Tests
 {
-    [TestFixture]
+    [NUnit.Framework.TestFixture]
     public class WhenMessageCountIsRequested : TestHarness
     {
         private static ManualResetEvent unittestManualEvent = new ManualResetEvent(false);
@@ -27,7 +28,7 @@ namespace PubNubMessaging.Tests
         private static Pubnub pubnub;
         private static Server server;
 
-        [SetUp]
+        [NUnit.Framework.SetUp]
         public static async Task Init()
         {
             UnitTestLog unitLog = new Tests.UnitTestLog();
@@ -101,11 +102,11 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(grantResult.Result != null && grantResult.Status.Error == false, 
+            Assert.That(grantResult.Result != null && grantResult.Status.Error == false, 
                 "WhenMessageCountIsRequested Grant access failed.");
         }
 
-        [TearDown]
+        [NUnit.Framework.TearDown]
         public static void Exit()
         {
             if (pubnub != null)
@@ -117,7 +118,7 @@ namespace PubNubMessaging.Tests
             server.Stop();
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenChannel1Timetoken1ShouldReturnSuccess()
         {
             server.ClearRequests();
@@ -172,11 +173,11 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedMessage, "WhenMessageCountIsRequested -> ThenChannel1Timetoken1ShouldReturnSuccess failed.");
+            Assert.That(receivedMessage, "WhenMessageCountIsRequested -> ThenChannel1Timetoken1ShouldReturnSuccess failed.");
 
         }
 
-        [Test]
+        [NUnit.Framework.Test]
 #if NET40
         public static void ThenWithAsyncChannel1Timetoken1ShouldReturnSuccess()
 #else
@@ -236,11 +237,11 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedMessage, "WhenMessageCountIsRequested -> ThenChannel1Timetoken1ShouldReturnSuccess failed.");
+            Assert.That(receivedMessage, "WhenMessageCountIsRequested -> ThenChannel1Timetoken1ShouldReturnSuccess failed.");
 
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenChannel2Timetoken2ShouldReturnSuccess()
         {
             server.ClearRequests();
@@ -295,11 +296,11 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedMessage, "WhenMessageCountIsRequested -> ThenChannel1Timetoken1ShouldReturnSuccess failed.");
+            Assert.That(receivedMessage, "WhenMessageCountIsRequested -> ThenChannel1Timetoken1ShouldReturnSuccess failed.");
 
         }
 
-        [Test]
+        [NUnit.Framework.Test]
 #if NET40
         public static void ThenWithAsyncChannel2Timetoken2ShouldReturnSuccess()
 #else
@@ -359,7 +360,7 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedMessage, "WhenMessageCountIsRequested -> ThenWithAsyncChannel2Timetoken2ShouldReturnSuccess failed.");
+            Assert.That(receivedMessage, "WhenMessageCountIsRequested -> ThenWithAsyncChannel2Timetoken2ShouldReturnSuccess failed.");
 
         }
     }

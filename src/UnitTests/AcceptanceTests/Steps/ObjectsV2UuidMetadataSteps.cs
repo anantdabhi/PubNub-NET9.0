@@ -4,7 +4,7 @@ using PubnubApi;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System.Net;
 using System.Globalization;
 using System.IO;
@@ -212,7 +212,7 @@ namespace AcceptanceTests.Steps
         [Then(@"I receive a successful response")]
         public void ThenIReceiveASuccessfulResponse()
         {
-            Assert.IsTrue((pnStatus != null && !pnStatus.Error) || betaVersion);
+            Assert.That((pnStatus != null && !pnStatus.Error) || betaVersion);
         }
 
         [Then(@"the UUID metadata for '([^']*)' persona")]
@@ -233,16 +233,16 @@ namespace AcceptanceTests.Steps
                 }
             }
 
-            Assert.IsTrue(uuidMetadataPersona != null, "ThenTheUUIDMetadataForPersona failed due to expected data");
-            Assert.IsTrue(getUuidMetadataResult != null, "ThenTheUUIDMetadataForPersona failed due to actual data");
+            Assert.That(uuidMetadataPersona != null, "ThenTheUUIDMetadataForPersona failed due to expected data");
+            Assert.That(getUuidMetadataResult != null, "ThenTheUUIDMetadataForPersona failed due to actual data");
             if (uuidMetadataPersona != null && getUuidMetadataResult != null)
             {
-                Assert.AreEqual(uuidMetadataPersona.name, getUuidMetadataResult.Name);
-                Assert.AreEqual(uuidMetadataPersona.id, getUuidMetadataResult.Uuid);
-                Assert.AreEqual(uuidMetadataPersona.email, getUuidMetadataResult.Email);
-                Assert.AreEqual(uuidMetadataPersona.externalId, getUuidMetadataResult.ExternalId);
-                Assert.AreEqual(uuidMetadataPersona.profileUrl, getUuidMetadataResult.ProfileUrl);
-                Assert.AreEqual(uuidMetadataPersona.updated, getUuidMetadataResult.Updated);
+                ClassicAssert.AreEqual(uuidMetadataPersona.name, getUuidMetadataResult.Name);
+                ClassicAssert.AreEqual(uuidMetadataPersona.id, getUuidMetadataResult.Uuid);
+                ClassicAssert.AreEqual(uuidMetadataPersona.email, getUuidMetadataResult.Email);
+                ClassicAssert.AreEqual(uuidMetadataPersona.externalId, getUuidMetadataResult.ExternalId);
+                ClassicAssert.AreEqual(uuidMetadataPersona.profileUrl, getUuidMetadataResult.ProfileUrl);
+                ClassicAssert.AreEqual(uuidMetadataPersona.updated, getUuidMetadataResult.Updated);
             }
         }
 
@@ -293,7 +293,7 @@ namespace AcceptanceTests.Steps
             {
                 pnError = pn.JsonPluggableLibrary.DeserializeToObject<PubnubError>(pnStatus.ErrorData.Information);
             }
-            Assert.IsTrue(getUuidMetadataResult != null, $"WhenIGetTheUUIDMetadataWithCustomForCurrentUser failed. Current user is {pn.GetCurrentUserId()}");
+            Assert.That(getUuidMetadataResult != null, $"WhenIGetTheUUIDMetadataWithCustomForCurrentUser failed. Current user is {pn.GetCurrentUserId()}");
         }
 
         [Given(@"the data for '([^']*)' persona")]
@@ -336,12 +336,12 @@ namespace AcceptanceTests.Steps
         [Then(@"the UUID metadata for '([^']*)' persona contains updated")]
         public void ThenTheUUIDMetadataForPersonaContainsUpdated(string personaName)
         {
-            Assert.AreEqual(uuidMetadataPersona.name, setUuidMetadataResult.Name);
-            Assert.AreEqual(uuidMetadataPersona.id, setUuidMetadataResult.Uuid);
-            Assert.AreEqual(uuidMetadataPersona.email, setUuidMetadataResult.Email);
-            Assert.AreEqual(uuidMetadataPersona.externalId, setUuidMetadataResult.ExternalId);
-            Assert.AreEqual(uuidMetadataPersona.profileUrl, setUuidMetadataResult.ProfileUrl);
-            Assert.AreEqual(uuidMetadataPersona.updated, setUuidMetadataResult.Updated);
+            ClassicAssert.AreEqual(uuidMetadataPersona.name, setUuidMetadataResult.Name);
+            ClassicAssert.AreEqual(uuidMetadataPersona.id, setUuidMetadataResult.Uuid);
+            ClassicAssert.AreEqual(uuidMetadataPersona.email, setUuidMetadataResult.Email);
+            ClassicAssert.AreEqual(uuidMetadataPersona.externalId, setUuidMetadataResult.ExternalId);
+            ClassicAssert.AreEqual(uuidMetadataPersona.profileUrl, setUuidMetadataResult.ProfileUrl);
+            ClassicAssert.AreEqual(uuidMetadataPersona.updated, setUuidMetadataResult.Updated);
             Assert.IsNull(setUuidMetadataResult.Custom);
         }
 
@@ -413,8 +413,8 @@ namespace AcceptanceTests.Steps
                 }
             }
 
-            Assert.AreEqual(getAllUuidMetadataResult.Uuids[0].Uuid, personaList[0].id);
-            Assert.AreEqual(getAllUuidMetadataResult.Uuids[1].Uuid, personaList[1].id);
+            ClassicAssert.AreEqual(getAllUuidMetadataResult.Uuids[0].Uuid, personaList[0].id);
+            ClassicAssert.AreEqual(getAllUuidMetadataResult.Uuids[1].Uuid, personaList[1].id);
         }
 
         [When(@"I get all UUID metadata with custom")]

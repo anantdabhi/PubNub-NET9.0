@@ -4,7 +4,7 @@ using PubnubApi;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System.Net;
 using System.Globalization;
 using System.IO;
@@ -69,12 +69,12 @@ namespace AcceptanceTests.Steps
                     personaList.Add(channelMembershipMetadata);
                 }
             }
-            Assert.IsTrue(personaList.Count > 0, "ThenTheResponseContainsListWithAndMemberships failed due to expected data");
-            Assert.IsTrue(getMembershipsMetadataResult!= null && getMembershipsMetadataResult.Memberships != null, "ThenTheResponseContainsListWithAndMemberships failed due to actual data");
+            Assert.That(personaList.Count > 0, "ThenTheResponseContainsListWithAndMemberships failed due to expected data");
+            Assert.That(getMembershipsMetadataResult!= null && getMembershipsMetadataResult.Memberships != null, "ThenTheResponseContainsListWithAndMemberships failed due to actual data");
             if (personaList.Count > 0 && getMembershipsMetadataResult != null && getMembershipsMetadataResult.Memberships != null)
             {
-                Assert.AreEqual(personaList[0].channel.id, getMembershipsMetadataResult.Memberships[0].ChannelMetadata.Channel);
-                Assert.AreEqual(personaList[1].channel.id, getMembershipsMetadataResult.Memberships[1].ChannelMetadata.Channel);
+                ClassicAssert.AreEqual(personaList[0].channel.id, getMembershipsMetadataResult.Memberships[0].ChannelMetadata.Channel);
+                ClassicAssert.AreEqual(personaList[1].channel.id, getMembershipsMetadataResult.Memberships[1].ChannelMetadata.Channel);
             }
         }
 
@@ -190,12 +190,12 @@ namespace AcceptanceTests.Steps
                     membershipsList.Add(channelMembershipMetadata);
                 }
             }
-            Assert.IsTrue(membershipsList.Count > 0, "ThenTheResponseContainsListWithMembership failed due to expected data");
-            Assert.IsTrue(setMembershipsResult != null && setMembershipsResult.Memberships != null, "ThenTheResponseContainsListWithMembership failed due to actual data");
+            Assert.That(membershipsList.Count > 0, "ThenTheResponseContainsListWithMembership failed due to expected data");
+            Assert.That(setMembershipsResult != null && setMembershipsResult.Memberships != null, "ThenTheResponseContainsListWithMembership failed due to actual data");
 
             if (membershipsList.Count > 0 && setMembershipsResult != null && setMembershipsResult.Memberships != null)
             {
-                Assert.AreEqual(membershipsList[0].channel.id, setMembershipsResult.Memberships[0].ChannelMetadata.Channel);
+                ClassicAssert.AreEqual(membershipsList[0].channel.id, setMembershipsResult.Memberships[0].ChannelMetadata.Channel);
             }
         }
 
@@ -328,7 +328,7 @@ namespace AcceptanceTests.Steps
                 }
             }
 
-            Assert.AreEqual(membershipsList.Count, setMembershipsResult.Memberships.Count);
+            ClassicAssert.AreEqual(membershipsList.Count, setMembershipsResult.Memberships.Count);
             Assert.AreNotEqual(membershipsList[0].channel.id, setMembershipsResult.Memberships[0].ChannelMetadata.Channel);
         }
 

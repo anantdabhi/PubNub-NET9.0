@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System.Threading;
 using PubnubApi;
 using MockServer;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using NUnit.Framework;
 
 namespace PubNubMessaging.Tests
 {
-    [TestFixture]
+    [NUnit.Framework.TestFixture]
     public class WhenMessageAction : TestHarness
     {
         private static int manualResetEventWaitTimeout = 310 * 1000;
@@ -17,7 +18,7 @@ namespace PubNubMessaging.Tests
         private static Server server;
         private static string authToken;
 
-        [SetUp]
+        [NUnit.Framework.SetUp]
         public static async Task Init()
         {
             UnitTestLog unitLog = new Tests.UnitTestLog();
@@ -95,11 +96,11 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(grantResult.Result != null && grantResult.Status.Error == false, 
+            Assert.That(grantResult.Result != null && grantResult.Status.Error == false, 
                 "WhenDetailedHistoryIsRequested Grant access failed.");
         }
 
-        [TearDown]
+        [NUnit.Framework.TearDown]
         public static void Exit()
         {
             if (pubnub != null)
@@ -111,7 +112,7 @@ namespace PubNubMessaging.Tests
             server.Stop();
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenAddMessageActionReturnsSuccess()
         {
             server.ClearRequests();
@@ -203,10 +204,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedMessage, "AddRemoveMessageActionReturnEventInfo Failed");
+            Assert.That(receivedMessage, "AddRemoveMessageActionReturnEventInfo Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
 #if NET40
         public static void ThenWithAsyncAddMessageActionReturnsSuccess()
 #else
@@ -304,10 +305,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedMessage, "ThenWithAsyncAddMessageActionReturnsSuccess Failed");
+            Assert.That(receivedMessage, "ThenWithAsyncAddMessageActionReturnsSuccess Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenRemoveMessageActionReturnsSuccess()
         {
             server.ClearRequests();
@@ -388,10 +389,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedMessage, "RemoveMessageActionReturnsSuccess Failed");
+            Assert.That(receivedMessage, "RemoveMessageActionReturnsSuccess Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
 #if NET40
         public static void ThenWithAsyncRemoveMessageActionReturnsSuccess()
 #else
@@ -476,10 +477,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedMessage, "ThenWithAsyncRemoveMessageActionReturnsSuccess Failed");
+            Assert.That(receivedMessage, "ThenWithAsyncRemoveMessageActionReturnsSuccess Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenGetMessageActionsReturnsSuccess()
         {
             server.ClearRequests();
@@ -526,10 +527,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedMessage, "GetMessageActionsReturnsSuccess Failed");
+            Assert.That(receivedMessage, "GetMessageActionsReturnsSuccess Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
 #if NET40
         public static void ThenWithAsyncGetMessageActionsReturnsSuccess()
 #else
@@ -577,10 +578,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedMessage, "ThenWithAsyncGetMessageActionsReturnsSuccess Failed");
+            Assert.That(receivedMessage, "ThenWithAsyncGetMessageActionsReturnsSuccess Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenAddRemoveMessageActionReturnEventInfo()
         {
             server.ClearRequests();
@@ -735,10 +736,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedAddEvent && receivedRemoveEvent, "Message Action events Failed");
+            Assert.That(receivedAddEvent && receivedRemoveEvent, "Message Action events Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
 #if NET40
         public static void ThenWithAsyncAddRemoveMessageActionReturnEventInfo()
 #else
@@ -898,7 +899,7 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedAddEvent && receivedRemoveEvent, "Message Action events Failed");
+            Assert.That(receivedAddEvent && receivedRemoveEvent, "Message Action events Failed");
         }
 
     }

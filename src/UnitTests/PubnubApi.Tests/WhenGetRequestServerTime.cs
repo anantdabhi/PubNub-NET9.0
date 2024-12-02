@@ -1,14 +1,16 @@
 ﻿using System;
-using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System.Threading;
 using PubnubApi;
 using MockServer;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using NUnit.Framework.Legacy;
+using NUnit.Framework;
 
 namespace PubNubMessaging.Tests
 {
-    [TestFixture]
+    [NUnit.Framework.TestFixture]
     public class WhenGetRequestServerTime : TestHarness
     {
         private static ManualResetEvent mreTime = new ManualResetEvent(false);
@@ -19,7 +21,7 @@ namespace PubNubMessaging.Tests
 
         private static Server server;
 
-        [SetUp]
+        [NUnit.Framework.SetUp]
         public static void Init()
         {
             UnitTestLog unitLog = new Tests.UnitTestLog();
@@ -32,7 +34,7 @@ namespace PubNubMessaging.Tests
             }
         }
 
-        [TearDown]
+        [NUnit.Framework.TearDown]
         public static void Exit()
         {
             if (pubnub != null)
@@ -44,7 +46,7 @@ namespace PubNubMessaging.Tests
             server.Stop();
         }
 
-        [Test]
+        [NUnit.Framework.Test]
 #if NET40
         public static void ThenItShouldReturnTimeStamp()
 #else
@@ -140,10 +142,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub = null;
 
-            Assert.IsTrue(timeReceived, "time() Failed");
+            Assert.That(timeReceived, "time() Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenItShouldReturnTimeStampWithSSL()
         {
             server.ClearRequests();
@@ -180,10 +182,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub = null;
 
-            Assert.IsTrue(timeReceived, "time() with SSL Failed");
+            Assert.That(timeReceived, "time() with SSL Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenWithProxyItShouldReturnTimeStamp()
         {
             server.ClearRequests();
@@ -230,7 +232,7 @@ namespace PubNubMessaging.Tests
                 pubnub.PubnubUnitTest = null;
                 pubnub = null;
 
-                Assert.IsTrue(timeReceived, "time() Failed");
+                Assert.That(timeReceived, "time() Failed");
             }
             else
             {
@@ -238,7 +240,7 @@ namespace PubNubMessaging.Tests
             }
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenWithProxyItShouldReturnTimeStampWithSSL()
         {
             server.ClearRequests();
@@ -282,7 +284,7 @@ namespace PubNubMessaging.Tests
                 pubnub.PubnubUnitTest = null;
                 pubnub = null;
 
-                Assert.IsTrue(timeReceived, "time() with SSL through proxy Failed");
+                Assert.That(timeReceived, "time() with SSL through proxy Failed");
             }
             else
             {
@@ -290,32 +292,32 @@ namespace PubNubMessaging.Tests
             }
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void TranslateDateTimeToUnixTime()
         {
             //Test for 26th June 2012 GMT
             DateTime dt = new DateTime(2012, 6, 26, 21, 37, 13, 37, DateTimeKind.Utc);
             long nanoSecondTime = Pubnub.TranslateDateTimeToPubnubUnixNanoSeconds(dt);
-            Assert.True(13407466330370000 == nanoSecondTime);
+            ClassicAssert.True(13407466330370000 == nanoSecondTime);
         }
         
-        [Test]
+        [NUnit.Framework.Test]
         public static void TranslateDateTimeToUnixTimeAndBack()
         {
             //Test for 26th June 2012 GMT
             DateTime expectedDate = new DateTime(2012, 6, 26, 21, 37, 13, 37, DateTimeKind.Utc);
             long nanoSecondTime = Pubnub.TranslateDateTimeToPubnubUnixNanoSeconds(expectedDate);
             DateTime dateAgain = Pubnub.TranslatePubnubUnixNanoSecondsToDateTime(nanoSecondTime);
-            Assert.True(expectedDate.Equals(dateAgain));
+            ClassicAssert.True(expectedDate.Equals(dateAgain));
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void TranslateUnixTimeToDateTime()
         {
             //Test for 26th June 2012 GMT
             DateTime expectedDate = new DateTime(2012, 6, 26, 21, 37, 13, 37, DateTimeKind.Utc);
             DateTime actualDate = Pubnub.TranslatePubnubUnixNanoSecondsToDateTime(13407466330370000);
-            Assert.True(expectedDate == actualDate);
+            ClassicAssert.True(expectedDate == actualDate);
         }
 
         public class TimeResult : PNCallback<PNTimeResult>

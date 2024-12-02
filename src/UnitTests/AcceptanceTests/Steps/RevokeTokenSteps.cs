@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+﻿using NUnit.Framework.Legacy;
 using PubnubApi;
 using System;
 using System.Threading.Tasks;
@@ -46,7 +46,7 @@ namespace AcceptanceTests.Steps
             }
             else
             {
-                Assert.IsTrue(revokeResult != null);
+                Assert.That(revokeResult != null);
             }
         }
 
@@ -55,7 +55,7 @@ namespace AcceptanceTests.Steps
         {
             if (pnError != null && pnError.error.details.Count > 0)
             {
-                Assert.IsTrue(!string.IsNullOrEmpty(pnError.error.details[0].message));
+                Assert.That(!string.IsNullOrEmpty(pnError.error.details[0].message));
             }
             else
             {
@@ -66,7 +66,7 @@ namespace AcceptanceTests.Steps
         [Then(@"the error service is '(.*)'")]
         public void ThenTheErrorServiceIs(string p0)
         {
-            Assert.AreEqual(p0, pnError.service);
+            ClassicAssert.AreEqual(p0, pnError.service);
         }
 
     }

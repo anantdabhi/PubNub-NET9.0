@@ -1,17 +1,19 @@
 ﻿using System;
-using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System.Threading;
 using PubnubApi;
 using System.Collections.Generic;
 using MockServer;
 using System.Diagnostics;
+using NUnit.Framework.Legacy;
+using NUnit.Framework;
 
 namespace PubNubMessaging.Tests
 {
-    [TestFixture]
+    [NUnit.Framework.TestFixture]
     public class WhenUserIdInPNConfig : TestHarness
     {
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenUuidSetShouldFailWithUserIdConstructorValue()
         {
             Assert.Throws<ArgumentException>(() =>
@@ -26,7 +28,7 @@ namespace PubNubMessaging.Tests
             });
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenUserIdSetShouldFailWithUuidConstructorValue()
         {
             Assert.Throws<ArgumentException>(() =>
@@ -41,7 +43,7 @@ namespace PubNubMessaging.Tests
             });
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenUserIdSetShouldGiveSameForUuid() 
         {
             PNConfiguration config = new PNConfiguration(new UserId("newuserid"))
@@ -50,10 +52,10 @@ namespace PubNubMessaging.Tests
                 PublishKey = "somepubkey",
                 SecretKey = "someseckey",
             };
-            Assert.AreEqual(config.UserId.ToString(), config.Uuid);
+            ClassicAssert.AreEqual(config.UserId.ToString(), config.Uuid);
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenUuidSetShouldGiveSameForUserId()
         {
             PNConfiguration config = new PNConfiguration("newuuid")
@@ -62,10 +64,10 @@ namespace PubNubMessaging.Tests
                 PublishKey = "somepubkey",
                 SecretKey = "someseckey",
             };
-            Assert.AreEqual(config.UserId.ToString(), config.Uuid);
+            ClassicAssert.AreEqual(config.UserId.ToString(), config.Uuid);
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenChangeUuidShouldGiveCurrentNewUuid()
         {
             ManualResetEvent mre = new ManualResetEvent(false);
@@ -81,10 +83,10 @@ namespace PubNubMessaging.Tests
             Thread.Sleep(1000);
             pubnub.ChangeUUID("newuuid");
             mre.WaitOne(1000);
-            Assert.AreEqual("newuuid", pubnub.GetCurrentUserId().ToString());
+            ClassicAssert.AreEqual("newuuid", pubnub.GetCurrentUserId().ToString());
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenChangeUserIdShouldGiveCurrentNewUserId()
         {
             ManualResetEvent mre = new ManualResetEvent(false);
@@ -99,7 +101,7 @@ namespace PubNubMessaging.Tests
             Thread.Sleep(1000);
             pubnub.ChangeUserId(new UserId("newuserid"));
             mre.WaitOne(1000);
-            Assert.AreEqual("newuserid", pubnub.GetCurrentUserId().ToString());
+            ClassicAssert.AreEqual("newuserid", pubnub.GetCurrentUserId().ToString());
         }
     }
 }

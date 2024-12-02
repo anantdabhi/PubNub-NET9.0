@@ -1,14 +1,15 @@
 ﻿using System;
-using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System.Threading;
 using PubnubApi;
 using MockServer;
 using System.Diagnostics;
 using PubnubApi.Security.Crypto.Cryptors;
+using NUnit.Framework;
 
 namespace PubNubMessaging.Tests
 {
-    [TestFixture]
+    [NUnit.Framework.TestFixture]
     public class GenerateSampleGrant : TestHarness
     {
         private static ManualResetEvent grantManualEvent = new ManualResetEvent(false);
@@ -19,7 +20,7 @@ namespace PubNubMessaging.Tests
         private static Pubnub pubnub;
         private static Server server;
 
-        [SetUp]
+        [NUnit.Framework.SetUp]
         public static void Init()
         {
             UnitTestLog unitLog = new Tests.UnitTestLog();
@@ -32,7 +33,7 @@ namespace PubNubMessaging.Tests
             }
         }
 
-        [TearDown]
+        [NUnit.Framework.TearDown]
         public static void Exit()
         {
             if (pubnub != null)
@@ -44,7 +45,7 @@ namespace PubNubMessaging.Tests
             server.Stop();
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void AtUserLevel()
         {
             server.ClearRequests();
@@ -96,10 +97,10 @@ namespace PubNubMessaging.Tests
 
             pubnub.Destroy();
             pubnub = null;
-            Assert.IsTrue(receivedGrantMessage, "GenerateSampleGrant -> AtUserLevel failed.");
+            Assert.That(receivedGrantMessage, "GenerateSampleGrant -> AtUserLevel failed.");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void AtChannelLevel()
         {
             server.ClearRequests();
@@ -143,7 +144,7 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub = null;
 
-            Assert.IsTrue(receivedGrantMessage, "GenerateSampleGrant -> AtChannelLevel failed.");
+            Assert.That(receivedGrantMessage, "GenerateSampleGrant -> AtChannelLevel failed.");
         }
 
         private class GrantResult : PNCallback<PNAccessManagerGrantResult>

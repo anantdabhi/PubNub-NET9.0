@@ -2,7 +2,7 @@
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
-using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System.ComponentModel;
 using System.Threading;
 using System.Collections;
@@ -10,10 +10,11 @@ using PubnubApi;
 using MockServer;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using NUnit.Framework;
 
 namespace PubNubMessaging.Tests
 {
-    [TestFixture]
+    [NUnit.Framework.TestFixture]
     public class WhenPushIsRequested : TestHarness
     {
         private static bool receivedMessage;
@@ -34,7 +35,7 @@ namespace PubNubMessaging.Tests
         private static Server server;
 
 
-        [SetUp]
+        [NUnit.Framework.SetUp]
         public static void Init()
         {
             UnitTestLog unitLog = new Tests.UnitTestLog();
@@ -111,10 +112,10 @@ namespace PubNubMessaging.Tests
             pubnub.PubnubUnitTest = null;
             pubnub = null;
 
-            Assert.IsTrue(receivedGrantMessage, "WhenPushIsRequested Grant access failed.");
+            Assert.That(receivedGrantMessage, "WhenPushIsRequested Grant access failed.");
         }
 
-        [TearDown]
+        [NUnit.Framework.TearDown]
         public static void Exit()
         {
             if (pubnub != null)
@@ -126,7 +127,7 @@ namespace PubNubMessaging.Tests
             server.Stop();
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenPublishMpnsToastShouldReturnSuccess()
         {
             server.ClearRequests();
@@ -187,10 +188,10 @@ namespace PubNubMessaging.Tests
             pubnub.PubnubUnitTest = null;
             pubnub = null;
 
-            Assert.IsTrue(receivedMessage, "Toast Publish Failed");
+            Assert.That(receivedMessage, "Toast Publish Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenPublishMpnsFlipTileShouldReturnSuccess()
         {
             server.ClearRequests();
@@ -256,10 +257,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedMessage, "Flip Tile Publish Failed");
+            Assert.That(receivedMessage, "Flip Tile Publish Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenPublishMpnsCycleTileShouldReturnSuccess()
         {
             server.ClearRequests();
@@ -325,10 +326,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedMessage, "Cycle Tile Publish Failed");
+            Assert.That(receivedMessage, "Cycle Tile Publish Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenPublishMpnsIconicTileShouldReturnSuccess()
         {
             server.ClearRequests();
@@ -395,10 +396,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedMessage, "Iconic Tile Publish Failed");
+            Assert.That(receivedMessage, "Iconic Tile Publish Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenAuditPushChannelProvisionsShouldReturnSuccess()
         {
             server.ClearRequests();
@@ -449,10 +450,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedMessage, "AuditPushChannelProvisions Failed");
+            Assert.That(receivedMessage, "AuditPushChannelProvisions Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
 #if NET40
         public static void ThenWithAsyncAuditPushChannelProvisionsShouldReturnSuccess()
 #else
@@ -508,10 +509,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedMessage, "With Async AuditPushChannelProvisions Failed");
+            Assert.That(receivedMessage, "With Async AuditPushChannelProvisions Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenAPNS2AddDeviceToPushChannelShouldReturnSuccess()
         {
             server.ClearRequests();
@@ -568,10 +569,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedMessage, "ThenAPNS2AddDeviceToPushChannelShouldReturnSuccess Failed");
+            Assert.That(receivedMessage, "ThenAPNS2AddDeviceToPushChannelShouldReturnSuccess Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
 #if NET40
         public static void ThenWithAsyncAPNS2AddDeviceToPushChannelShouldReturnSuccess()
 #else
@@ -638,10 +639,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedMessage, "ThenWithAsyncAPNS2AddDeviceToPushChannelShouldReturnSuccess Failed");
+            Assert.That(receivedMessage, "ThenWithAsyncAPNS2AddDeviceToPushChannelShouldReturnSuccess Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenAPNS2RemovePushChannelFromDeviceShouldReturnSuccess()
         {
             server.ClearRequests();
@@ -698,10 +699,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedMessage, "ThenAPNS2RemovePushChannelFromDeviceShouldReturnSuccess Failed");
+            Assert.That(receivedMessage, "ThenAPNS2RemovePushChannelFromDeviceShouldReturnSuccess Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
 #if NET40
         public static void ThenWithAsyncAPNS2RemovePushChannelFromDeviceShouldReturnSuccess()
 #else
@@ -768,10 +769,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedMessage, "ThenWithAsyncAPNS2RemovePushChannelFromDeviceShouldReturnSuccess Failed");
+            Assert.That(receivedMessage, "ThenWithAsyncAPNS2RemovePushChannelFromDeviceShouldReturnSuccess Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenAPNS2ListPushChannelsFromDeviceShouldReturnSuccess()
         {
             server.ClearRequests();
@@ -827,10 +828,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedMessage, "ThenAPNS2ListPushChannelsFromDeviceShouldReturnSuccess Failed");
+            Assert.That(receivedMessage, "ThenAPNS2ListPushChannelsFromDeviceShouldReturnSuccess Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
 #if NET40
         public static void ThenWithAsyncAPNS2ListPushChannelsFromDeviceShouldReturnSuccess()
 #else
@@ -891,10 +892,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedMessage, "ThenAPNS2ListPushChannelsFromDeviceShouldReturnSuccess Failed");
+            Assert.That(receivedMessage, "ThenAPNS2ListPushChannelsFromDeviceShouldReturnSuccess Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenAPNS2RemoveDeviceFromPushShouldReturnSuccess()
         {
             server.ClearRequests();
@@ -950,10 +951,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedMessage, "ThenAPNS2RemoveDeviceFromPushShouldReturnSuccess Failed");
+            Assert.That(receivedMessage, "ThenAPNS2RemoveDeviceFromPushShouldReturnSuccess Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
 #if NET40
         public static void ThenWithAsyncAPNS2RemoveDeviceFromPushShouldReturnSuccess()
 #else
@@ -1016,7 +1017,7 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedMessage, "ThenWithAsyncAPNS2RemoveDeviceFromPushShouldReturnSuccess Failed");
+            Assert.That(receivedMessage, "ThenWithAsyncAPNS2RemoveDeviceFromPushShouldReturnSuccess Failed");
         }
     }
 }

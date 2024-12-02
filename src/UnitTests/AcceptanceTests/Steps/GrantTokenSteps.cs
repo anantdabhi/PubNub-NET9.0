@@ -4,7 +4,7 @@ using PubnubApi;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System.Net;
 using System.Globalization;
 
@@ -448,7 +448,7 @@ namespace AcceptanceTests.Steps
             }
             else
             {
-                Assert.AreEqual(p0, content.AuthorizedUuid);
+                ClassicAssert.AreEqual(p0, content.AuthorizedUuid);
             }
         }
 
@@ -456,7 +456,7 @@ namespace AcceptanceTests.Steps
         public void ThenTheTokenContainsTheTTL(int p0)
         {
             PNTokenContent content = pn.ParseToken(grantResult.Token);
-            Assert.AreEqual(p0, content.TTL);
+            ClassicAssert.AreEqual(p0, content.TTL);
         }
         
         [Then(@"the token has '(.*)' CHANNEL resource access permissions")]
@@ -466,49 +466,49 @@ namespace AcceptanceTests.Steps
             currentResPermType.ResourceId = p0;
 
             PNTokenContent content = pn.ParseToken(grantResult.Token);
-            Assert.True(content.Resources.Channels.Count > 0 && content.Resources.Channels.ContainsKey(currentResPermType.ResourceId));
+            ClassicAssert.True(content.Resources.Channels.Count > 0 && content.Resources.Channels.ContainsKey(currentResPermType.ResourceId));
         }
 
         [Then(@"token resource permission READ")]
         public void ThenTokenResourcePermissionREAD()
         {
             PNTokenAuthValues perms = ParseTokenAndGetCurrentResourcePermissionsOfTokenByPermType();
-            Assert.IsTrue(perms != null && perms.Read);
+            Assert.That(perms != null && perms.Read);
         }
 
         [Then(@"token resource permission WRITE")]
         public void ThenTokenResourcePermissionWRITE()
         {
             PNTokenAuthValues perms = ParseTokenAndGetCurrentResourcePermissionsOfTokenByPermType();
-            Assert.IsTrue(perms != null && perms.Write);
+            Assert.That(perms != null && perms.Write);
         }
 
         [Then(@"token resource permission GET")]
         public void ThenTokenResourcePermissionGET()
         {
             PNTokenAuthValues perms = ParseTokenAndGetCurrentResourcePermissionsOfTokenByPermType();
-            Assert.IsTrue(perms != null && perms.Get);
+            Assert.That(perms != null && perms.Get);
         }
 
         [Then(@"token resource permission MANAGE")]
         public void ThenTokenResourcePermissionMANAGE()
         {
             PNTokenAuthValues perms = ParseTokenAndGetCurrentResourcePermissionsOfTokenByPermType();
-            Assert.IsTrue(perms != null && perms.Manage);
+            Assert.That(perms != null && perms.Manage);
         }
 
         [Then(@"token resource permission UPDATE")]
         public void ThenTokenResourcePermissionUPDATE()
         {
             PNTokenAuthValues perms = ParseTokenAndGetCurrentResourcePermissionsOfTokenByPermType();
-            Assert.IsTrue(perms != null && perms.Update);
+            Assert.That(perms != null && perms.Update);
         }
 
         [Then(@"token resource permission JOIN")]
         public void ThenTokenResourcePermissionJOIN()
         {
             PNTokenAuthValues perms = ParseTokenAndGetCurrentResourcePermissionsOfTokenByPermType();
-            Assert.IsTrue(perms != null && perms.Join);
+            Assert.That(perms != null && perms.Join);
         }
 
         [Then(@"token resource permission DELETE")]
@@ -518,7 +518,7 @@ namespace AcceptanceTests.Steps
             if (content.Resources.Channels.Count > 0)
             {
                 PNTokenAuthValues perms = content.Resources.Channels.First().Value;
-                Assert.IsTrue(perms.Delete);
+                Assert.That(perms.Delete);
             }
             else
             {
@@ -533,7 +533,7 @@ namespace AcceptanceTests.Steps
             currentResPermType.ResourceId = p0;
 
             PNTokenContent content = pn.ParseToken(grantResult.Token);
-            Assert.True(content.Resources.ChannelGroups.Count > 0 && content.Resources.ChannelGroups.ContainsKey(currentResPermType.ResourceId));
+            ClassicAssert.True(content.Resources.ChannelGroups.Count > 0 && content.Resources.ChannelGroups.ContainsKey(currentResPermType.ResourceId));
         }
 
         [Then(@"the token has '(.*)' UUID resource access permissions")]
@@ -543,7 +543,7 @@ namespace AcceptanceTests.Steps
             currentResPermType.ResourceId = p0;
 
             PNTokenContent content = (grantResult != null) ? pn.ParseToken(grantResult.Token) : tokenContent;
-            Assert.True(content.Resources.Uuids.Count > 0 && content.Resources.Uuids.ContainsKey(currentResPermType.ResourceId));
+            ClassicAssert.True(content.Resources.Uuids.Count > 0 && content.Resources.Uuids.ContainsKey(currentResPermType.ResourceId));
         }
 
         [Then(@"the token has '(.*)' CHANNEL pattern access permissions")]
@@ -553,7 +553,7 @@ namespace AcceptanceTests.Steps
             currentResPermType.ResourceId = p0;
 
             PNTokenContent content = pn.ParseToken(grantResult.Token);
-            Assert.True(content.Patterns.Channels.Count > 0 && content.Patterns.Channels.ContainsKey(currentResPermType.ResourceId));
+            ClassicAssert.True(content.Patterns.Channels.Count > 0 && content.Patterns.Channels.ContainsKey(currentResPermType.ResourceId));
         }
 
         private PNTokenAuthValues ParseTokenAndGetCurrentResourcePermissionsOfTokenByPermType()
@@ -622,49 +622,49 @@ namespace AcceptanceTests.Steps
         public void ThenTokenPatternPermissionREAD()
         {
             PNTokenAuthValues perms = ParseTokenAndGetCurrentPatternPermissionsOfTokenByPermType();
-            Assert.IsTrue(perms != null && perms.Read);
+            Assert.That(perms != null && perms.Read);
         }
 
         [Then(@"token pattern permission WRITE")]
         public void ThenTokenPatternPermissionWRITE()
         {
             PNTokenAuthValues perms = ParseTokenAndGetCurrentPatternPermissionsOfTokenByPermType();
-            Assert.IsTrue(perms != null && perms.Write);
+            Assert.That(perms != null && perms.Write);
         }
 
         [Then(@"token pattern permission GET")]
         public void ThenTokenPatternPermissionGET()
         {
             PNTokenAuthValues perms = ParseTokenAndGetCurrentPatternPermissionsOfTokenByPermType();
-            Assert.IsTrue(perms != null && perms.Get);
+            Assert.That(perms != null && perms.Get);
         }
 
         [Then(@"token pattern permission MANAGE")]
         public void ThenTokenPatternPermissionMANAGE()
         {
             PNTokenAuthValues perms = ParseTokenAndGetCurrentPatternPermissionsOfTokenByPermType();
-            Assert.IsTrue(perms != null && perms.Manage);
+            Assert.That(perms != null && perms.Manage);
         }
 
         [Then(@"token pattern permission UPDATE")]
         public void ThenTokenPatternPermissionUPDATE()
         {
             PNTokenAuthValues perms = ParseTokenAndGetCurrentPatternPermissionsOfTokenByPermType();
-            Assert.IsTrue(perms != null && perms.Update);
+            Assert.That(perms != null && perms.Update);
         }
 
         [Then(@"token pattern permission JOIN")]
         public void ThenTokenPatternPermissionJOIN()
         {
             PNTokenAuthValues perms = ParseTokenAndGetCurrentPatternPermissionsOfTokenByPermType();
-            Assert.IsTrue(perms != null && perms.Join);
+            Assert.That(perms != null && perms.Join);
         }
 
         [Then(@"token pattern permission DELETE")]
         public void ThenTokenPatternPermissionDELETE()
         {
             PNTokenAuthValues perms = ParseTokenAndGetCurrentPatternPermissionsOfTokenByPermType();
-            Assert.IsTrue(perms != null && perms.Delete);
+            Assert.That(perms != null && perms.Delete);
         }
 
         [Then(@"the token has '(.*)' CHANNEL_GROUP pattern access permissions")]
@@ -674,7 +674,7 @@ namespace AcceptanceTests.Steps
             currentResPermType.ResourceId = p0;
 
             PNTokenContent content = pn.ParseToken(grantResult.Token);
-            Assert.True(content.Patterns.ChannelGroups.Count > 0 && content.Patterns.ChannelGroups.ContainsKey(currentResPermType.ResourceId));
+            ClassicAssert.True(content.Patterns.ChannelGroups.Count > 0 && content.Patterns.ChannelGroups.ContainsKey(currentResPermType.ResourceId));
         }
 
         [Then(@"the token has '(.*)' UUID pattern access permissions")]
@@ -684,7 +684,7 @@ namespace AcceptanceTests.Steps
             currentResPermType.ResourceId = p0;
 
             PNTokenContent content = (grantResult != null) ? pn.ParseToken(grantResult.Token) : tokenContent;
-            Assert.True(content.Patterns.Uuids.Count > 0 && content.Patterns.Uuids.ContainsKey(currentResPermType.ResourceId));
+            ClassicAssert.True(content.Patterns.Uuids.Count > 0 && content.Patterns.Uuids.ContainsKey(currentResPermType.ResourceId));
         }
 
         [Then(@"the token does not contain an authorized uuid")]
@@ -692,13 +692,13 @@ namespace AcceptanceTests.Steps
         {
             string token = grantResult.Token;
             PNTokenContent content = pn.ParseToken(token);
-            Assert.True(string.IsNullOrEmpty(content.AuthorizedUuid));
+            ClassicAssert.True(string.IsNullOrEmpty(content.AuthorizedUuid));
         }
 
         [Then(@"an error is returned")]
         public void ThenAnErrorIsReturned()
         {
-            Assert.IsTrue(pnStatus.Error);
+            Assert.That(pnStatus.Error);
         }
         
         [Then(@"the error status code is (.*)")]
@@ -706,7 +706,7 @@ namespace AcceptanceTests.Steps
         {
             if (pnError != null)
             {
-                Assert.AreEqual(p0, pnError.status);
+                ClassicAssert.AreEqual(p0, pnError.status);
             }
             else
             {
@@ -719,7 +719,7 @@ namespace AcceptanceTests.Steps
         {
             if (pnError != null)
             {
-                Assert.AreEqual(p0, pnError.error.message);
+                ClassicAssert.AreEqual(p0, pnError.error.message);
             }
             else
             {
@@ -732,7 +732,7 @@ namespace AcceptanceTests.Steps
         {
             if (pnError != null)
             {
-                Assert.AreEqual(p0, pnError.error.source);
+                ClassicAssert.AreEqual(p0, pnError.error.source);
             }
             else
             {
@@ -745,7 +745,7 @@ namespace AcceptanceTests.Steps
         {
             if (pnError != null && pnError.error.details.Count > 0)
             {
-                Assert.AreEqual(p0, pnError.error.details[0].message);
+                ClassicAssert.AreEqual(p0, pnError.error.details[0].message);
             }
             else
             {
@@ -758,7 +758,7 @@ namespace AcceptanceTests.Steps
         {
             if (pnError != null && pnError.error.details.Count > 0)
             {
-                Assert.AreEqual(p0, pnError.error.details[0].location);
+                ClassicAssert.AreEqual(p0, pnError.error.details[0].location);
             }
             else
             {
@@ -771,7 +771,7 @@ namespace AcceptanceTests.Steps
         {
             if (pnError != null && pnError.error.details.Count > 0)
             {
-                Assert.AreEqual(p0, pnError.error.details[0].locationType);
+                ClassicAssert.AreEqual(p0, pnError.error.details[0].locationType);
             }
             else
             {

@@ -1,5 +1,5 @@
 ﻿using System;
-using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System.Threading;
 using PubnubApi;
 using MockServer;
@@ -7,12 +7,13 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using PubnubApi.Security.Crypto;
 using PubnubApi.Security.Crypto.Cryptors;
+using NUnit.Framework;
 
 // TODO: THIS TESTS ARE DEPENDING ON COMMON VARIABLE THAT MAKES FALSE POSITIVE RESULTS...
 
 namespace PubNubMessaging.Tests
 {
-    [TestFixture]
+    [NUnit.Framework.TestFixture]
     public class WhenAMessageIsSignaled : TestHarness
     {
         private const string messageForUnencryptSignal = "Pubnub Messaging API 1";
@@ -22,7 +23,7 @@ namespace PubNubMessaging.Tests
         private static Server server;
         private static string authKey = "myauth";
 
-        [SetUp]
+        [NUnit.Framework.SetUp]
         public static void Init()
         {
             UnitTestLog unitLog = new Tests.UnitTestLog();
@@ -103,10 +104,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedGrantMessage, "WhenAMessageIsPublished Grant access failed.");
+            Assert.That(receivedGrantMessage, "WhenAMessageIsPublished Grant access failed.");
         }
 
-        [TearDown]
+        [NUnit.Framework.TearDown]
         public static void Exit()
         {
             if (pubnub != null)
@@ -118,7 +119,7 @@ namespace PubNubMessaging.Tests
             server.Stop();
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenUnencryptSignalShouldReturnSuccessCodeAndInfo()
         {
             server.ClearRequests();
@@ -183,7 +184,7 @@ namespace PubNubMessaging.Tests
 
             if (!receivedSignalMessage)
             {
-                Assert.IsTrue(receivedSignalMessage, "Unencrypt Signal Failed");
+                Assert.That(receivedSignalMessage, "Unencrypt Signal Failed");
             }
 
             pubnub.Destroy();
@@ -191,7 +192,7 @@ namespace PubNubMessaging.Tests
             pubnub = null;
         }
 
-        [Test]
+        [NUnit.Framework.Test]
 #if NET40
         public static void ThenWithAsyncUnencryptSignalShouldReturnSuccessCodeAndInfo()
 #else
@@ -256,7 +257,7 @@ namespace PubNubMessaging.Tests
 
             if (!receivedSignalMessage)
             {
-                Assert.IsTrue(receivedSignalMessage, "WithAsync Unencrypt Signal Failed");
+                Assert.That(receivedSignalMessage, "WithAsync Unencrypt Signal Failed");
             }
 
             pubnub.Destroy();
@@ -264,7 +265,7 @@ namespace PubNubMessaging.Tests
             pubnub = null;
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenUnencryptSignalListenerShouldGetMessagae()
         {
             server.ClearRequests();
@@ -367,11 +368,11 @@ namespace PubNubMessaging.Tests
                 {
                     internalReceivedMessage = false;
                 }
-                Assert.IsTrue(internalReceivedMessage, "WhenSubscribedToAChannel --> ThenUnencryptSignalListenerShouldGetMessagae Failed");
+                Assert.That(internalReceivedMessage, "WhenSubscribedToAChannel --> ThenUnencryptSignalListenerShouldGetMessagae Failed");
             }
         }
 
-        [Test]
+        [NUnit.Framework.Test]
 #if NET40
         public static void ThenWithAsyncUnencryptSignalListenerShouldGetMessagae()
 #else
@@ -475,11 +476,11 @@ namespace PubNubMessaging.Tests
                 {
                     internalReceivedMessage = false;
                 }
-                Assert.IsTrue(internalReceivedMessage, "WhenSubscribedToAChannel --> ThenWithAsyncUnencryptSignalListenerShouldGetMessagae Failed");
+                Assert.That(internalReceivedMessage, "WhenSubscribedToAChannel --> ThenWithAsyncUnencryptSignalListenerShouldGetMessagae Failed");
             }
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenIgnoreCipherKeyUnencryptSignalListenerShouldGetMessagae()
         {
             server.ClearRequests();
@@ -582,11 +583,11 @@ namespace PubNubMessaging.Tests
                 {
                     internalReceivedMessage = false;
                 }
-                Assert.IsTrue(internalReceivedMessage, "WhenSubscribedToAChannel --> ThenUnencryptSignalListenerShouldGetMessagae Failed");
+                Assert.That(internalReceivedMessage, "WhenSubscribedToAChannel --> ThenUnencryptSignalListenerShouldGetMessagae Failed");
             }
         }
 
-        [Test]
+        [NUnit.Framework.Test]
 #if NET40
         public static void ThenWithAsyncIgnoreCipherKeyUnencryptSignalListenerShouldGetMessagae()
 #else
@@ -688,7 +689,7 @@ namespace PubNubMessaging.Tests
                 {
                     internalReceivedMessage = false;
                 }
-                Assert.IsTrue(internalReceivedMessage, "WhenSubscribedToAChannel --> ThenWithAsyncIgnoreCipherKeyUnencryptSignalListenerShouldGetMessagae Failed");
+                Assert.That(internalReceivedMessage, "WhenSubscribedToAChannel --> ThenWithAsyncIgnoreCipherKeyUnencryptSignalListenerShouldGetMessagae Failed");
             }
         }
     }

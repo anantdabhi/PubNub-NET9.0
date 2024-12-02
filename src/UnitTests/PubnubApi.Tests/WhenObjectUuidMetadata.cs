@@ -1,14 +1,15 @@
-﻿using NUnit.Framework;
+﻿using NUnit.Framework.Legacy;
 using System.Threading;
 using PubnubApi;
 using System.Collections.Generic;
 using MockServer;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using NUnit.Framework;
 
 namespace PubNubMessaging.Tests
 {
-    [TestFixture]
+    [NUnit.Framework.TestFixture]
     public class WhenObjectUuidMetadata : TestHarness
     {
         private static int manualResetEventWaitTimeout = 310 * 1000;
@@ -16,7 +17,7 @@ namespace PubNubMessaging.Tests
         private static Server server;
         private static string authToken = "myauth";
 
-        [SetUp]
+        [NUnit.Framework.SetUp]
         public static void Init()
         {
             UnitTestLog unitLog = new Tests.UnitTestLog();
@@ -86,10 +87,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedGrantMessage, "WhenObjectUuidMetaId Grant access failed.");
+            Assert.That(receivedGrantMessage, "WhenObjectUuidMetaId Grant access failed.");
         }
 
-        [TearDown]
+        [NUnit.Framework.TearDown]
         public static void Exit()
         {
             if (pubnub != null)
@@ -101,7 +102,7 @@ namespace PubNubMessaging.Tests
             server.Stop();
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenUuidMetadataCRUDShouldReturnSuccessCodeAndInfo()
         {
             server.ClearRequests();
@@ -236,7 +237,7 @@ namespace PubNubMessaging.Tests
 
             if (!receivedMessage)
             {
-                Assert.IsTrue(receivedMessage, "SetUuidMetadata/DeleteUser Failed");
+                Assert.That(receivedMessage, "SetUuidMetadata/DeleteUser Failed");
             }
 
             pubnub.Destroy();
@@ -244,7 +245,7 @@ namespace PubNubMessaging.Tests
             pubnub = null;
         }
 
-        [Test]
+        [NUnit.Framework.Test]
 #if NET40
         public static void ThenWithAsyncUuidMetadataCRUDShouldReturnSuccessCodeAndInfo()
 #else
@@ -380,7 +381,7 @@ namespace PubNubMessaging.Tests
 
             if (!receivedMessage)
             {
-                Assert.IsTrue(receivedMessage, "SetUuidMetadata/UpdateUser/DeleteUser Failed");
+                Assert.That(receivedMessage, "SetUuidMetadata/UpdateUser/DeleteUser Failed");
             }
 
             pubnub.Destroy();
@@ -388,7 +389,7 @@ namespace PubNubMessaging.Tests
             pubnub = null;
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenUuidMetadataSetDeleteShouldReturnEventInfo()
         {
             server.ClearRequests();
@@ -515,7 +516,7 @@ namespace PubNubMessaging.Tests
             pubnub.Unsubscribe<string>().Channels(new string[] { uuidMetadataId }).Execute();
             pubnub.RemoveListener(eventListener);
 
-            Assert.IsTrue(receivedDeleteEvent && receivedUpdateEvent, "User events Failed");
+            Assert.That(receivedDeleteEvent && receivedUpdateEvent, "User events Failed");
 
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
@@ -523,7 +524,7 @@ namespace PubNubMessaging.Tests
 
         }
 
-        [Test]
+        [NUnit.Framework.Test]
 #if NET40
         public static void ThenWithAsyncUuidMetadataUpdateDeleteShouldReturnEventInfo()
 #else
@@ -657,7 +658,7 @@ namespace PubNubMessaging.Tests
             pubnub.Unsubscribe<string>().Channels(new string[] { uuidMetadataId }).Execute();
             pubnub.RemoveListener(eventListener);
 
-            Assert.IsTrue(receivedDeleteEvent && receivedUpdateEvent, "User events Failed");
+            Assert.That(receivedDeleteEvent && receivedUpdateEvent, "User events Failed");
 
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;

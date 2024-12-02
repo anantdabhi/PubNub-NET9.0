@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net60</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <LangVersion>latest</LangVersion>
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>pubnub.snk</AssemblyOriginatorKeyFile>
@@ -16,12 +16,12 @@
     <PackageId>Pubnub</PackageId>
     <PackageVersion>7.0.0.0</PackageVersion>
     <Title>PubNub C# .NET - Web Data Push API</Title>
-    <Authors>Pandu Masabathula</Authors>
+    <Authors>Anant</Authors>
     <Owners>PubNub</Owners>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <PackageIconUrl>http://pubnub.s3.amazonaws.com/2011/powered-by-pubnub/pubnub-icon-600x600.png</PackageIconUrl>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <RepositoryUrl>https://github.com/pubnub/c-sharp/</RepositoryUrl>
+    <RepositoryUrl>https://github.com/anantdabhi/PubNub-NET9.0</RepositoryUrl>
     <PackageReleaseNotes>Added support for `Channel`, `ChannelGroup`, `Subscription` and `SubscriptionSet`, `ChannelMetadata`, `UserMetadata`  entities for Subscribe related operation.
 BREAKING CHANGES: Added new event listeners support.
 BREAKING CHANGES: All apis calls will be made through `HttpClient` by default.
@@ -30,8 +30,9 @@ Removed telemetry manager.</PackageReleaseNotes>
     <PackageTags>Web Data Push Real-time Notifications ESB Message Broadcasting Distributed Computing</PackageTags>
     <!--<Summary>PubNub is a Massively Scalable Web Push Service for Web and Mobile Games.  This is a cloud-based service for broadcasting messages to thousands of web and mobile clients simultaneously</Summary>-->
     <Description>PubNub is a Massively Scalable Web Push Service for Web and Mobile Games.  This is a cloud-based service for broadcasting messages to thousands of web and mobile clients simultaneously</Description>
-    <Copyright>PubNub 2012-2021</Copyright>
+    <Copyright></Copyright>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <PackageProjectUrl>https://github.com/anantdabhi/PubNub-NET9.0</PackageProjectUrl>
   </PropertyGroup>
   
   <PropertyGroup Condition=" '$(TargetFramework)' == 'net40' ">
@@ -67,10 +68,10 @@ Removed telemetry manager.</PackageReleaseNotes>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1">
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3">
       <PrivateAssets>None</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="PeterO.Cbor" Version="4.5.2" />
+    <PackageReference Include="PeterO.Cbor" Version="5.0.0-alpha2" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net35'">

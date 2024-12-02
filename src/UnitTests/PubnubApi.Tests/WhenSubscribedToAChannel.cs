@@ -1,5 +1,5 @@
 ﻿using System;
-using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System.Threading;
 using PubnubApi;
 using System.Collections.Generic;
@@ -7,10 +7,11 @@ using MockServer;
 using System.Diagnostics;
 using PubnubApi.Security.Crypto;
 using PubnubApi.Security.Crypto.Cryptors;
+using NUnit.Framework;
 
 namespace PubNubMessaging.Tests
 {
-    [TestFixture]
+    [NUnit.Framework.TestFixture]
     public class WhenSubscribedToAChannel : TestHarness
     {
         static int manualResetEventWaitTimeout = 310 * 1000;
@@ -28,7 +29,7 @@ namespace PubNubMessaging.Tests
             }
         }
 
-        [SetUp]
+        [NUnit.Framework.SetUp]
         public static void Init()
         {
             UnitTestLog unitLog = new Tests.UnitTestLog();
@@ -130,10 +131,10 @@ namespace PubNubMessaging.Tests
             pubnub.PubnubUnitTest = null;
             pubnub = null;
 
-            Assert.IsTrue(receivedGrantMessage, "WhenSubscribedToAChannel Grant access failed.");
+            Assert.That(receivedGrantMessage, "WhenSubscribedToAChannel Grant access failed.");
         }
 
-        [TearDown]
+        [NUnit.Framework.TearDown]
         public static void Exit()
         {
             if (pubnub != null)
@@ -145,13 +146,13 @@ namespace PubNubMessaging.Tests
             server.Stop();
         }
 
-        [TearDown]
+        [NUnit.Framework.TearDown]
         public void Cleanup()
         {
 
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenMissingSubscribeKeyShouldReturnException()
         {
             server.ClearRequests();
@@ -177,14 +178,14 @@ namespace PubNubMessaging.Tests
             pubnub = null;
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenComplexMessageSubscribeShouldReturnReceivedMessage()
         {
             server.ClearRequests();
             bool receivedMessage = false;
 
             CommonComplexMessageSubscribeShouldReturnReceivedMessageBasedOnParams("", "", false, out receivedMessage);
-            Assert.IsTrue(receivedMessage, "WhenSubscribedToAChannel --> ThenComplexMessageSubscribeShouldReturnReceivedMessage Failed");
+            Assert.That(receivedMessage, "WhenSubscribedToAChannel --> ThenComplexMessageSubscribeShouldReturnReceivedMessage Failed");
         }
 
         private static void CommonComplexMessageSubscribeShouldReturnReceivedMessageBasedOnParams(string secretKey, string cipherKey, bool ssl, out bool receivedMessage)
@@ -348,77 +349,77 @@ namespace PubNubMessaging.Tests
 
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenComplexMessageSSLSubscribeShouldReturnReceivedMessage()
         {
             server.ClearRequests();
             bool receivedMessage = false;
 
             CommonComplexMessageSubscribeShouldReturnReceivedMessageBasedOnParams("", "", true, out receivedMessage);
-            Assert.IsTrue(receivedMessage, "WhenSubscribedToAChannel --> ThenComplexMessageSSLSubscribeShouldReturnReceivedMessage Failed");
+            Assert.That(receivedMessage, "WhenSubscribedToAChannel --> ThenComplexMessageSSLSubscribeShouldReturnReceivedMessage Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenComplexMessageSecretSubscribeShouldReturnReceivedMessage()
         {
             server.ClearRequests();
             bool receivedMessage = false;
 
             CommonComplexMessageSubscribeShouldReturnReceivedMessageBasedOnParams(PubnubCommon.SecretKey, "", false, out receivedMessage);
-            Assert.IsTrue(receivedMessage, "WhenSubscribedToAChannel --> ThenComplexMessageSecretSubscribeShouldReturnReceivedMessage Failed");
+            Assert.That(receivedMessage, "WhenSubscribedToAChannel --> ThenComplexMessageSecretSubscribeShouldReturnReceivedMessage Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenComplexMessageSecretSSLSubscribeShouldReturnReceivedMessage()
         {
             server.ClearRequests();
             bool receivedMessage = false;
 
             CommonComplexMessageSubscribeShouldReturnReceivedMessageBasedOnParams(PubnubCommon.SecretKey, "", true, out receivedMessage);
-            Assert.IsTrue(receivedMessage, "WhenSubscribedToAChannel --> ThenComplexMessageSecretSSLSubscribeShouldReturnReceivedMessage Failed");
+            Assert.That(receivedMessage, "WhenSubscribedToAChannel --> ThenComplexMessageSecretSSLSubscribeShouldReturnReceivedMessage Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenComplexMessageCipherSubscribeShouldReturnReceivedMessage()
         {
             server.ClearRequests();
             bool receivedMessage = false;
 
             CommonComplexMessageSubscribeShouldReturnReceivedMessageBasedOnParams("", "enigma", false, out receivedMessage);
-            Assert.IsTrue(receivedMessage, "WhenSubscribedToAChannel --> ThenComplexMessageCipherSubscribeShouldReturnReceivedMessage Failed");
+            Assert.That(receivedMessage, "WhenSubscribedToAChannel --> ThenComplexMessageCipherSubscribeShouldReturnReceivedMessage Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenComplexMessageCipherSSLSubscribeShouldReturnReceivedMessage()
         {
             server.ClearRequests();
             bool receivedMessage = false;
 
             CommonComplexMessageSubscribeShouldReturnReceivedMessageBasedOnParams("", "enigma", true, out receivedMessage);
-            Assert.IsTrue(receivedMessage, "WhenSubscribedToAChannel --> ThenComplexMessageCipherSSLSubscribeShouldReturnReceivedMessage Failed");
+            Assert.That(receivedMessage, "WhenSubscribedToAChannel --> ThenComplexMessageCipherSSLSubscribeShouldReturnReceivedMessage Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenComplexMessageCipherSecretSubscribeShouldReturnReceivedMessage()
         {
             server.ClearRequests();
             bool receivedMessage = false;
 
             CommonComplexMessageSubscribeShouldReturnReceivedMessageBasedOnParams(PubnubCommon.SecretKey, "enigma", false, out receivedMessage);
-            Assert.IsTrue(receivedMessage, "WhenSubscribedToAChannel --> ThenComplexMessageCipherSecretSubscribeShouldReturnReceivedMessage Failed");
+            Assert.That(receivedMessage, "WhenSubscribedToAChannel --> ThenComplexMessageCipherSecretSubscribeShouldReturnReceivedMessage Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenComplexMessageCipherSecretSSLSubscribeShouldReturnReceivedMessage()
         {
             server.ClearRequests();
             bool receivedMessage = false;
 
             CommonComplexMessageSubscribeShouldReturnReceivedMessageBasedOnParams(PubnubCommon.SecretKey, "enigma", true, out receivedMessage);
-            Assert.IsTrue(receivedMessage, "WhenSubscribedToAChannel --> ThenComplexMessageCipherSecretSSLSubscribeShouldReturnReceivedMessage Failed");
+            Assert.That(receivedMessage, "WhenSubscribedToAChannel --> ThenComplexMessageCipherSecretSSLSubscribeShouldReturnReceivedMessage Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenSubscribeShouldReturnConnectStatus()
         {
             server.ClearRequests();
@@ -499,10 +500,10 @@ namespace PubNubMessaging.Tests
             pubnub.PubnubUnitTest = null;
             pubnub = null;
 
-            Assert.IsTrue(receivedMessage, "WhenSubscribedToAChannel --> ThenSubscribeShouldReturnConnectStatus Failed");
+            Assert.That(receivedMessage, "WhenSubscribedToAChannel --> ThenSubscribeShouldReturnConnectStatus Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenMultiSubscribeShouldReturnConnectStatus()
         {
             server.ClearRequests();
@@ -611,10 +612,10 @@ namespace PubNubMessaging.Tests
             pubnub.PubnubUnitTest = null;
             pubnub = null;
 
-            Assert.IsTrue(receivedMessage, "WhenSubscribedToAChannel --> ThenSubscribeShouldReturnConnectStatus Failed");
+            Assert.That(receivedMessage, "WhenSubscribedToAChannel --> ThenSubscribeShouldReturnConnectStatus Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenMultiSubscribeShouldReturnConnectStatusSSL()
         {
             server.ClearRequests();
@@ -725,10 +726,10 @@ namespace PubNubMessaging.Tests
             pubnub.PubnubUnitTest = null;
             pubnub = null;
 
-            Assert.IsTrue(receivedMessage, "WhenSubscribedToAChannel --> ThenMultiSubscribeShouldReturnConnectStatusSSL Failed");
+            Assert.That(receivedMessage, "WhenSubscribedToAChannel --> ThenMultiSubscribeShouldReturnConnectStatusSSL Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenSubscriberShouldBeAbleToReceiveManyMessages()
         {
             server.ClearRequests();
@@ -851,7 +852,7 @@ namespace PubNubMessaging.Tests
             pubnub.PubnubUnitTest = null;
             pubnub = null;
 
-            Assert.IsTrue(receivedMessage, "WhenSubscribedToAChannel --> ThenSubscriberShouldBeAbleToReceiveManyMessages Failed");
+            Assert.That(receivedMessage, "WhenSubscribedToAChannel --> ThenSubscriberShouldBeAbleToReceiveManyMessages Failed");
         }
 
     }

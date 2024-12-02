@@ -1,13 +1,15 @@
 ﻿using System;
-using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System.Threading;
 using PubnubApi;
 using MockServer;
 using System.Diagnostics;
+using NUnit.Framework.Legacy;
+using NUnit.Framework;
 
 namespace PubNubMessaging.Tests
 {
-    [TestFixture]
+    [NUnit.Framework.TestFixture]
     public class WhenGetRequestServerTimeMultiInstance : TestHarness
     {
         private static long expectedTime = 14725889985315301;
@@ -16,7 +18,7 @@ namespace PubNubMessaging.Tests
 
         private static Server server;
 
-        [SetUp]
+        [NUnit.Framework.SetUp]
         public static void Init()
         {
             UnitTestLog unitLog = new Tests.UnitTestLog();
@@ -29,7 +31,7 @@ namespace PubNubMessaging.Tests
             }
         }
 
-        [TearDown]
+        [NUnit.Framework.TearDown]
         public static void Exit()
         {
             if (pubnub1 != null)
@@ -47,7 +49,7 @@ namespace PubNubMessaging.Tests
             server.Stop();
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenItShouldReturnTimeStamp()
         {
             server.ClearRequests();
@@ -137,10 +139,10 @@ namespace PubNubMessaging.Tests
             pubnub1 = null;
             pubnub2 = null;
 
-            Assert.IsTrue(timeReceived1, "time() Failed");
+            Assert.That(timeReceived1, "time() Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenItShouldReturnTimeStampWithSSL()
         {
             server.ClearRequests();
@@ -188,10 +190,10 @@ namespace PubNubMessaging.Tests
             pubnub1.Destroy();
             pubnub1 = null;
 
-            Assert.IsTrue(timeReceived1, "time() with SSL Failed");
+            Assert.That(timeReceived1, "time() with SSL Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenWithProxyItShouldReturnTimeStamp()
         {
             server.ClearRequests();
@@ -250,7 +252,7 @@ namespace PubNubMessaging.Tests
                 pubnub1.PubnubUnitTest = null;
                 pubnub1 = null;
 
-                Assert.IsTrue(timeReceived1, "time() Failed");
+                Assert.That(timeReceived1, "time() Failed");
             }
             else
             {
@@ -258,7 +260,7 @@ namespace PubNubMessaging.Tests
             }
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenWithProxyItShouldReturnTimeStampWithSSL()
         {
             server.ClearRequests();
@@ -316,7 +318,7 @@ namespace PubNubMessaging.Tests
                 pubnub1.PubnubUnitTest = null;
                 pubnub1 = null;
 
-                Assert.IsTrue(timeReceived1, "time() with SSL through proxy Failed");
+                Assert.That(timeReceived1, "time() with SSL through proxy Failed");
             }
             else
             {
@@ -324,22 +326,22 @@ namespace PubNubMessaging.Tests
             }
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void TranslateDateTimeToUnixTime()
         {
             //Test for 26th June 2012 GMT
             DateTime dt = new DateTime(2012, 6, 26, 0, 0, 0, DateTimeKind.Utc);
             long nanoSecondTime = Pubnub.TranslateDateTimeToPubnubUnixNanoSeconds(dt);
-            Assert.True(13406688000000000 == nanoSecondTime);
+            ClassicAssert.True(13406688000000000 == nanoSecondTime);
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void TranslateUnixTimeToDateTime()
         {
             //Test for 26th June 2012 GMT
             DateTime expectedDate = new DateTime(2012, 6, 26, 0, 0, 0, DateTimeKind.Utc);
             DateTime actualDate = Pubnub.TranslatePubnubUnixNanoSecondsToDateTime(13406688000000000);
-            Assert.True(expectedDate == actualDate);
+            ClassicAssert.True(expectedDate == actualDate);
         }
 
         

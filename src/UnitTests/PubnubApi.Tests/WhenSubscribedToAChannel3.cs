@@ -1,5 +1,5 @@
 ﻿using System;
-using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System.Threading;
 using PubnubApi;
 using System.Collections.Generic;
@@ -7,10 +7,11 @@ using MockServer;
 using System.Diagnostics;
 using PubnubApi.Security.Crypto;
 using PubnubApi.Security.Crypto.Cryptors;
+using NUnit.Framework;
 
 namespace PubNubMessaging.Tests
 {
-    [TestFixture]
+    [NUnit.Framework.TestFixture]
     public class WhenSubscribedToAChannel3 : TestHarness, IDisposable
     {
         private static ManualResetEvent subscribeManualEvent = new ManualResetEvent(false);
@@ -33,7 +34,7 @@ namespace PubNubMessaging.Tests
         private static Server server;
         private static UnitTestLog unitLog;
 
-        [SetUp]
+        [NUnit.Framework.SetUp]
         public static void Init()
         {
             unitLog = new Tests.UnitTestLog();
@@ -91,10 +92,10 @@ namespace PubNubMessaging.Tests
             pubnub.PubnubUnitTest = null;
             pubnub = null;
 
-            Assert.IsTrue(receivedGrantMessage, "WhenSubscribedToAChannel3 Grant access failed.");
+            Assert.That(receivedGrantMessage, "WhenSubscribedToAChannel3 Grant access failed.");
         }
 
-        [TearDown]
+        [NUnit.Framework.TearDown]
         public static void Exit()
         {
             if (pubnub != null)
@@ -106,14 +107,14 @@ namespace PubNubMessaging.Tests
             server.Stop();
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenSubscribeShouldReturnUnicodeMessage()
         {
             server.ClearRequests();
 
             currentTestCase = "ThenSubscribeShouldReturnUnicodeMessage";
             CommonSubscribeShouldReturnUnicodeMessageBasedOnParams("", "", false);
-            Assert.IsTrue(receivedMessage, "WhenSubscribedToAChannel --> ThenSubscribeShouldReturnUnicodeMessage Failed");
+            Assert.That(receivedMessage, "WhenSubscribedToAChannel --> ThenSubscribeShouldReturnUnicodeMessage Failed");
         }
 
         private static void CommonSubscribeShouldReturnUnicodeMessageBasedOnParams(string secretKey, string cipherKey, bool ssl)
@@ -211,24 +212,24 @@ namespace PubNubMessaging.Tests
             pubnub = null;
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenSubscribeShouldReturnUnicodeMessageSSL()
         {
             server.ClearRequests();
 
             currentTestCase = "ThenSubscribeShouldReturnUnicodeMessageSSL";
             CommonSubscribeShouldReturnUnicodeMessageBasedOnParams("", "", true);
-            Assert.IsTrue(receivedMessage, "WhenSubscribedToAChannel --> ThenSubscribeShouldReturnUnicodeMessageSSL Failed");
+            Assert.That(receivedMessage, "WhenSubscribedToAChannel --> ThenSubscribeShouldReturnUnicodeMessageSSL Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenSubscribeShouldReturnForwardSlashMessage()
         {
             server.ClearRequests();
 
             currentTestCase = "ThenSubscribeShouldReturnForwardSlashMessage";
             CommonSubscribeReturnForwardSlashMessageBasedOnParams("", "", false);
-            Assert.IsTrue(receivedMessage, "WhenSubscribedToAChannel --> ThenSubscribeShouldReturnForwardSlashMessage Failed");
+            Assert.That(receivedMessage, "WhenSubscribedToAChannel --> ThenSubscribeShouldReturnForwardSlashMessage Failed");
         }
 
         private static void CommonSubscribeReturnForwardSlashMessageBasedOnParams(string secretKey, string cipherKey, bool ssl)
@@ -340,84 +341,84 @@ namespace PubNubMessaging.Tests
             pubnub = null;
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenSubscribeShouldReturnForwardSlashMessageSSL()
         {
             server.ClearRequests();
 
             currentTestCase = "ThenSubscribeShouldReturnForwardSlashMessageSSL";
             CommonSubscribeReturnForwardSlashMessageBasedOnParams("", "", true);
-            Assert.IsTrue(receivedMessage, "WhenSubscribedToAChannel --> ThenSubscribeShouldReturnForwardSlashMessageSSL Failed");
+            Assert.That(receivedMessage, "WhenSubscribedToAChannel --> ThenSubscribeShouldReturnForwardSlashMessageSSL Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenSubscribeShouldReturnForwardSlashMessageCipher()
         {
             server.ClearRequests();
 
             currentTestCase = "ThenSubscribeShouldReturnForwardSlashMessageCipher";
             CommonSubscribeReturnForwardSlashMessageBasedOnParams("", "enigma", false);
-            Assert.IsTrue(receivedMessage, "WhenSubscribedToAChannel --> ThenSubscribeShouldReturnForwardSlashMessageCipher Failed");
+            Assert.That(receivedMessage, "WhenSubscribedToAChannel --> ThenSubscribeShouldReturnForwardSlashMessageCipher Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenSubscribeShouldReturnForwardSlashMessageCipherSSL()
         {
             server.ClearRequests();
 
             currentTestCase = "ThenSubscribeShouldReturnForwardSlashMessageCipherSSL";
             CommonSubscribeReturnForwardSlashMessageBasedOnParams("", "enigma", true);
-            Assert.IsTrue(receivedMessage, "WhenSubscribedToAChannel --> ThenSubscribeShouldReturnForwardSlashMessageCipherSSL Failed");
+            Assert.That(receivedMessage, "WhenSubscribedToAChannel --> ThenSubscribeShouldReturnForwardSlashMessageCipherSSL Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenSubscribeShouldReturnForwardSlashMessageSecret()
         {
             server.ClearRequests();
 
             currentTestCase = "ThenSubscribeShouldReturnForwardSlashMessageSecret";
             CommonSubscribeReturnForwardSlashMessageBasedOnParams(PubnubCommon.SecretKey, "", false);
-            Assert.IsTrue(receivedMessage, "WhenSubscribedToAChannel --> ThenSubscribeShouldReturnForwardSlashMessageSecret Failed");
+            Assert.That(receivedMessage, "WhenSubscribedToAChannel --> ThenSubscribeShouldReturnForwardSlashMessageSecret Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenSubscribeShouldReturnForwardSlashMessageCipherSecret()
         {
             server.ClearRequests();
 
             currentTestCase = "ThenSubscribeShouldReturnForwardSlashMessageCipherSecret";
             CommonSubscribeReturnForwardSlashMessageBasedOnParams(PubnubCommon.SecretKey, "enigma", false);
-            Assert.IsTrue(receivedMessage, "WhenSubscribedToAChannel --> ThenSubscribeShouldReturnForwardSlashMessageCipherSecret Failed");
+            Assert.That(receivedMessage, "WhenSubscribedToAChannel --> ThenSubscribeShouldReturnForwardSlashMessageCipherSecret Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenSubscribeShouldReturnForwardSlashMessageCipherSecretSSL()
         {
             server.ClearRequests();
 
             currentTestCase = "ThenSubscribeShouldReturnForwardSlashMessageCipherSecretSSL";
             CommonSubscribeReturnForwardSlashMessageBasedOnParams(PubnubCommon.SecretKey, "enigma", true);
-            Assert.IsTrue(receivedMessage, "WhenSubscribedToAChannel --> ThenSubscribeShouldReturnForwardSlashMessageCipherSecretSSL Failed");
+            Assert.That(receivedMessage, "WhenSubscribedToAChannel --> ThenSubscribeShouldReturnForwardSlashMessageCipherSecretSSL Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenSubscribeShouldReturnForwardSlashMessageSecretSSL()
         {
             server.ClearRequests();
 
             currentTestCase = "ThenSubscribeShouldReturnForwardSlashMessageSecretSSL";
             CommonSubscribeReturnForwardSlashMessageBasedOnParams(PubnubCommon.SecretKey, "", true);
-            Assert.IsTrue(receivedMessage, "WhenSubscribedToAChannel --> ThenSubscribeShouldReturnForwardSlashMessageSecretSSL Failed");
+            Assert.That(receivedMessage, "WhenSubscribedToAChannel --> ThenSubscribeShouldReturnForwardSlashMessageSecretSSL Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenSubscribeShouldReturnSpecialCharMessage()
         {
             server.ClearRequests();
 
             currentTestCase = "ThenSubscribeShouldReturnSpecialCharMessage";
             CommonSubscribeShouldReturnSpecialCharMessageBasedOnParams("", "", false);
-            Assert.IsTrue(receivedMessage, "WhenSubscribedToAChannel --> ThenSubscribeShouldReturnSpecialCharMessage Failed");
+            Assert.That(receivedMessage, "WhenSubscribedToAChannel --> ThenSubscribeShouldReturnSpecialCharMessage Failed");
         }
 
         private static void CommonSubscribeShouldReturnSpecialCharMessageBasedOnParams(string secretKey, string cipherKey, bool ssl)
@@ -529,74 +530,74 @@ namespace PubNubMessaging.Tests
             pubnub = null;
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenSubscribeShouldReturnSpecialCharMessageSSL()
         {
             server.ClearRequests();
 
             currentTestCase = "ThenSubscribeShouldReturnSpecialCharMessageSSL";
             CommonSubscribeShouldReturnSpecialCharMessageBasedOnParams("", "", true);
-            Assert.IsTrue(receivedMessage, "WhenSubscribedToAChannel --> ThenSubscribeShouldReturnSpecialCharMessageSSL Failed");
+            Assert.That(receivedMessage, "WhenSubscribedToAChannel --> ThenSubscribeShouldReturnSpecialCharMessageSSL Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenSubscribeShouldReturnSpecialCharMessageCipher()
         {
             server.ClearRequests();
 
             currentTestCase = "ThenSubscribeShouldReturnSpecialCharMessageCipher";
             CommonSubscribeShouldReturnSpecialCharMessageBasedOnParams("", "enigma", false);
-            Assert.IsTrue(receivedMessage, "WhenSubscribedToAChannel --> ThenSubscribeShouldReturnSpecialCharMessageCipher Failed");
+            Assert.That(receivedMessage, "WhenSubscribedToAChannel --> ThenSubscribeShouldReturnSpecialCharMessageCipher Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenSubscribeShouldReturnSpecialCharMessageCipherSSL()
         {
             server.ClearRequests();
 
             currentTestCase = "ThenSubscribeShouldReturnSpecialCharMessageCipherSSL";
             CommonSubscribeShouldReturnSpecialCharMessageBasedOnParams("", "enigma", true);
-            Assert.IsTrue(receivedMessage, "WhenSubscribedToAChannel --> ThenSubscribeShouldReturnSpecialCharMessageCipherSSL Failed");
+            Assert.That(receivedMessage, "WhenSubscribedToAChannel --> ThenSubscribeShouldReturnSpecialCharMessageCipherSSL Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenSubscribeShouldReturnSpecialCharMessageSecret()
         {
             server.ClearRequests();
 
             currentTestCase = "ThenSubscribeShouldReturnSpecialCharMessageSecret";
             CommonSubscribeShouldReturnSpecialCharMessageBasedOnParams(PubnubCommon.SecretKey, "", false);
-            Assert.IsTrue(receivedMessage, "WhenSubscribedToAChannel --> ThenSubscribeShouldReturnSpecialCharMessageSecret Failed");
+            Assert.That(receivedMessage, "WhenSubscribedToAChannel --> ThenSubscribeShouldReturnSpecialCharMessageSecret Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenSubscribeShouldReturnSpecialCharMessageCipherSecret()
         {
             server.ClearRequests();
 
             currentTestCase = "ThenSubscribeShouldReturnSpecialCharMessageCipherSecret";
             CommonSubscribeShouldReturnSpecialCharMessageBasedOnParams(PubnubCommon.SecretKey, "enigma", false);
-            Assert.IsTrue(receivedMessage, "WhenSubscribedToAChannel --> ThenSubscribeShouldReturnSpecialCharMessageCipherSecret Failed");
+            Assert.That(receivedMessage, "WhenSubscribedToAChannel --> ThenSubscribeShouldReturnSpecialCharMessageCipherSecret Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenSubscribeShouldReturnSpecialCharMessageCipherSecretSSL()
         {
             server.ClearRequests();
 
             currentTestCase = "ThenSubscribeShouldReturnSpecialCharMessageCipherSecretSSL";
             CommonSubscribeShouldReturnSpecialCharMessageBasedOnParams(PubnubCommon.SecretKey, "enigma", true);
-            Assert.IsTrue(receivedMessage, "WhenSubscribedToAChannel --> ThenSubscribeShouldReturnSpecialCharMessageCipherSecretSSL Failed");
+            Assert.That(receivedMessage, "WhenSubscribedToAChannel --> ThenSubscribeShouldReturnSpecialCharMessageCipherSecretSSL Failed");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenSubscribeShouldReturnSpecialCharMessageSecretSSL()
         {
             server.ClearRequests();
 
             currentTestCase = "ThenSubscribeShouldReturnSpecialCharMessageSecretSSL";
             CommonSubscribeShouldReturnSpecialCharMessageBasedOnParams(PubnubCommon.SecretKey, "", true);
-            Assert.IsTrue(receivedMessage, "WhenSubscribedToAChannel --> ThenSubscribeShouldReturnSpecialCharMessageSecretSSL Failed");
+            Assert.That(receivedMessage, "WhenSubscribedToAChannel --> ThenSubscribeShouldReturnSpecialCharMessageSecretSSL Failed");
         }
 
         private class UTGrantResult : PNCallback<PNAccessManagerGrantResult>

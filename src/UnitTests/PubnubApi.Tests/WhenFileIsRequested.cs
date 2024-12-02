@@ -1,5 +1,5 @@
 ﻿using System;
-using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System.Threading;
 using PubnubApi;
 using System.Collections.Generic;
@@ -7,10 +7,11 @@ using MockServer;
 using System.Threading.Tasks;
 using PubnubApi.Security.Crypto;
 using PubnubApi.Security.Crypto.Cryptors;
+using NUnit.Framework;
 
 namespace PubNubMessaging.Tests
 {
-    [TestFixture]
+    [NUnit.Framework.TestFixture]
     public class WhenFileIsRequested : TestHarness
     {
         private static string channelName = "hello_my_channel";
@@ -19,7 +20,7 @@ namespace PubNubMessaging.Tests
         private static Pubnub pubnub;
         private static Server server;
 
-        [SetUp]
+        [NUnit.Framework.SetUp]
         public static async Task Init()
         {
             UnitTestLog unitLog = new Tests.UnitTestLog();
@@ -74,11 +75,11 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(grantResult.Status.Error == false && grantResult.Result != null,
+            Assert.That(grantResult.Status.Error == false && grantResult.Result != null,
                 "WhenFileUploadIsRequested Grant access failed.");
         }
 
-        [TearDown]
+        [NUnit.Framework.TearDown]
         public static void Exit()
         {
             if (pubnub != null)
@@ -91,7 +92,7 @@ namespace PubNubMessaging.Tests
             server.Stop();
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenSendAndDeleteFileShouldReturnSuccess()
         {
             server.ClearRequests();
@@ -153,7 +154,7 @@ namespace PubNubMessaging.Tests
                 }));
             var receivedMessage = messageReset.WaitOne(3 * 1000 * 60);
 
-            Assert.IsTrue(receivedMessage, "Send File Failed");
+            Assert.That(receivedMessage, "Send File Failed");
             
             if (receivedMessage)
             {
@@ -172,7 +173,7 @@ namespace PubNubMessaging.Tests
                 receivedMessage = messageReset.WaitOne(2 * 1000 * 60);
             }
             
-            Assert.IsTrue(receivedMessage, "List Files Failed");
+            Assert.That(receivedMessage, "List Files Failed");
 
             if (receivedMessage)
             {
@@ -192,7 +193,7 @@ namespace PubNubMessaging.Tests
                 receivedMessage = messageReset.WaitOne(2 * 1000 * 60);
             }
             
-            Assert.IsTrue(receivedMessage, "Download File Failed");
+            Assert.That(receivedMessage, "Download File Failed");
 
             if (receivedMessage)
             {
@@ -211,7 +212,7 @@ namespace PubNubMessaging.Tests
                 receivedMessage = messageReset.WaitOne(2 * 1000 * 60);
             }
             
-            Assert.IsTrue(receivedMessage, "Delete File Failed");
+            Assert.That(receivedMessage, "Delete File Failed");
 
             var receivedEvent = false;
             if (receivedMessage)
@@ -222,11 +223,11 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedEvent, "Receiving file event failed.");
-            Assert.IsTrue(receivedMessage, "WhenFileIsRequested -> TheSendFileShouldReturnSuccess failed.");
+            Assert.That(receivedEvent, "Receiving file event failed.");
+            Assert.That(receivedMessage, "WhenFileIsRequested -> TheSendFileShouldReturnSuccess failed.");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
 #if NET40
         public static void ThenWithAsyncSendFileShouldReturnSuccess()
 #else
@@ -344,11 +345,11 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedMessage && receivedEvent,
+            Assert.That(receivedMessage && receivedEvent,
                 "WhenFileIsRequested -> ThenWithAsyncSendFileShouldReturnSuccess failed.");
         }
 
-        //[Test]
+        //[NUnit.Framework.Test]
         public static void ThenDownloadFileShouldReturnSuccess()
         {
             server.ClearRequests();
@@ -387,10 +388,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedMessage, "WhenFileIsRequested -> ThenListFilesShouldReturnSuccess failed.");
+            Assert.That(receivedMessage, "WhenFileIsRequested -> ThenListFilesShouldReturnSuccess failed.");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenGetFileUrlShouldReturnSuccess()
         {
             server.ClearRequests();
@@ -427,10 +428,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedMessage, "WhenFileIsRequested -> ThenListFilesShouldReturnSuccess failed.");
+            Assert.That(receivedMessage, "WhenFileIsRequested -> ThenListFilesShouldReturnSuccess failed.");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenListFilesShouldReturnSuccess()
         {
             server.ClearRequests();
@@ -466,10 +467,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedMessage, $"WhenFileIsRequested -> ThenListFilesShouldReturnSuccess failed.");
+            Assert.That(receivedMessage, $"WhenFileIsRequested -> ThenListFilesShouldReturnSuccess failed.");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
 #if NET40
         public static void ThenWithAsyncDeleteFileShouldReturnSuccess()
 #else
@@ -547,7 +548,7 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedMessage, "WhenFileIsRequested -> ThenWithAsyncDeleteFileShouldReturnSuccess failed.");
+            Assert.That(receivedMessage, "WhenFileIsRequested -> ThenWithAsyncDeleteFileShouldReturnSuccess failed.");
         }
     }
 }

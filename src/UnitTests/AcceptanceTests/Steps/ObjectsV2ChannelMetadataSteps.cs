@@ -4,7 +4,7 @@ using PubnubApi;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System.Net;
 using System.Globalization;
 using System.IO;
@@ -64,18 +64,18 @@ namespace AcceptanceTests.Steps
         [Then(@"the channel metadata for '([^']*)' channel")]
         public void ThenTheChannelMetadataForChannel(string personaName)
         {
-            Assert.AreEqual(channelMetadataPersona.name, getChannelMetadataResult.Name);
-            Assert.AreEqual(channelMetadataPersona.id, getChannelMetadataResult.Channel);
-            Assert.AreEqual(channelMetadataPersona.description, getChannelMetadataResult.Description);
-            Assert.AreEqual(channelMetadataPersona.updated, getChannelMetadataResult.Updated);
+            ClassicAssert.AreEqual(channelMetadataPersona.name, getChannelMetadataResult.Name);
+            ClassicAssert.AreEqual(channelMetadataPersona.id, getChannelMetadataResult.Channel);
+            ClassicAssert.AreEqual(channelMetadataPersona.description, getChannelMetadataResult.Description);
+            ClassicAssert.AreEqual(channelMetadataPersona.updated, getChannelMetadataResult.Updated);
             
             if (string.Compare(personaName, "chat", true) == 0)
             {
-                Assert.AreEqual(channelMetadataPersona.custom, getChannelMetadataResult.Custom);
+                ClassicAssert.AreEqual(channelMetadataPersona.custom, getChannelMetadataResult.Custom);
             }
             else if (string.Compare(personaName, "dm", true) == 0)
             {
-                Assert.AreEqual(channelMetadataPersona.custom.Count, getChannelMetadataResult.Custom.Count);
+                ClassicAssert.AreEqual(channelMetadataPersona.custom.Count, getChannelMetadataResult.Custom.Count);
             }
             else
             {
@@ -136,14 +136,14 @@ namespace AcceptanceTests.Steps
         [Then(@"the channel metadata for '([^']*)' channel contains updated")]
         public void ThenTheChannelMetadataForChannelContainsUpdated(string personaName)
         {
-            Assert.AreEqual(channelMetadataPersona.name, setChannelMetadataResult.Name);
-            Assert.AreEqual(channelMetadataPersona.id, setChannelMetadataResult.Channel);
-            Assert.AreEqual(channelMetadataPersona.description, setChannelMetadataResult.Description);
-            Assert.AreEqual(channelMetadataPersona.updated, setChannelMetadataResult.Updated);
+            ClassicAssert.AreEqual(channelMetadataPersona.name, setChannelMetadataResult.Name);
+            ClassicAssert.AreEqual(channelMetadataPersona.id, setChannelMetadataResult.Channel);
+            ClassicAssert.AreEqual(channelMetadataPersona.description, setChannelMetadataResult.Description);
+            ClassicAssert.AreEqual(channelMetadataPersona.updated, setChannelMetadataResult.Updated);
 
             if (string.Compare(personaName, "chat", true) == 0)
             {
-                Assert.AreEqual(channelMetadataPersona.custom, setChannelMetadataResult.Custom);
+                ClassicAssert.AreEqual(channelMetadataPersona.custom, setChannelMetadataResult.Custom);
             }
             else
             {
@@ -214,11 +214,11 @@ namespace AcceptanceTests.Steps
                     && string.Compare(getAllChannelMetadataResult.Channels[1].Channel, personaList[0].id) == 0)
                 )
             {
-                Assert.True(true);
+                ClassicAssert.True(true);
             }
             else
             {
-                if (betaVersion) { Assert.True(true); } else { Assert.Fail(); }
+                if (betaVersion) { ClassicAssert.True(true); } else { Assert.Fail(); }
             }
         }
 

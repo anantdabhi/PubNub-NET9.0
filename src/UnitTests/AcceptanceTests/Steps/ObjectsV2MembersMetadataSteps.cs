@@ -4,7 +4,7 @@ using PubnubApi;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System.Net;
 using System.Globalization;
 using System.IO;
@@ -69,11 +69,11 @@ namespace AcceptanceTests.Steps
                     personaList.Add(channelMemberMetadata);
                 }
             }
-            Assert.AreEqual(personaList[0].uuid.id, getChannelMembersMetadataResult.ChannelMembers[0].UuidMetadata.Uuid);
-            Assert.AreEqual(personaList[1].uuid.id, getChannelMembersMetadataResult.ChannelMembers[1].UuidMetadata.Uuid);
+            ClassicAssert.AreEqual(personaList[0].uuid.id, getChannelMembersMetadataResult.ChannelMembers[0].UuidMetadata.Uuid);
+            ClassicAssert.AreEqual(personaList[1].uuid.id, getChannelMembersMetadataResult.ChannelMembers[1].UuidMetadata.Uuid);
             if (string.Compare(currentContract, "getMembersOfVipChatChannelWithCustomAndUuidWithCustom", true) == 0)
             {
-                Assert.AreEqual(personaList[1].custom.Count, getChannelMembersMetadataResult.ChannelMembers[1].Custom.Count);
+                ClassicAssert.AreEqual(personaList[1].custom.Count, getChannelMembersMetadataResult.ChannelMembers[1].Custom.Count);
             }
         }
 
@@ -150,10 +150,10 @@ namespace AcceptanceTests.Steps
                 }
             }
 
-            Assert.AreEqual(membersList[0].uuid.id, setChannelMembersResult.ChannelMembers[0].UuidMetadata.Uuid);
+            ClassicAssert.AreEqual(membersList[0].uuid.id, setChannelMembersResult.ChannelMembers[0].UuidMetadata.Uuid);
             if (string.Compare(currentContract, "setMembersForChatChannelWithCustomAndUuidWithCustom", true) == 0)
             {
-                Assert.AreEqual(membersList[0].custom.Count, setChannelMembersResult.ChannelMembers[0].Custom.Count);
+                ClassicAssert.AreEqual(membersList[0].custom.Count, setChannelMembersResult.ChannelMembers[0].Custom.Count);
             }
         }
 
@@ -257,7 +257,7 @@ namespace AcceptanceTests.Steps
                 }
             }
 
-            Assert.AreEqual(membersList.Count, setChannelMembersResult.ChannelMembers.Count);
+            ClassicAssert.AreEqual(membersList.Count, setChannelMembersResult.ChannelMembers.Count);
             Assert.AreNotEqual(membersList[0].uuid.id, setChannelMembersResult.ChannelMembers[0].UuidMetadata.Uuid);
 
         }

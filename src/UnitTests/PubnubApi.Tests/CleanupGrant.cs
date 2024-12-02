@@ -1,20 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System.Threading;
 using PubnubApi;
 using MockServer;
 using System.Diagnostics;
+using NUnit.Framework;
 
 namespace PubNubMessaging.Tests
 {
-    [TestFixture]
+    [NUnit.Framework.TestFixture]
     public class CleanupGrant : TestHarness
     {
         private static Pubnub pubnub;
         private static int manualResetEventWaitTimeout = 20 * 1000;
 
-        [TearDown]
+        [NUnit.Framework.TearDown]
         public static void Exit()
         {
             if (pubnub != null)
@@ -25,7 +26,7 @@ namespace PubNubMessaging.Tests
             }
         }
         
-        [Test]
+        [NUnit.Framework.Test]
         public static void AtUserLevel()
         {
             bool receivedAuditMessage = false;
@@ -111,7 +112,7 @@ namespace PubNubMessaging.Tests
                 auditManualEvent.WaitOne(manualResetEventWaitTimeout);
                 pubnub.Destroy();
                 pubnub = null;
-                Assert.IsTrue(receivedAuditMessage, "CleanupGrant -> AtUserLevel failed.");
+                Assert.That(receivedAuditMessage, "CleanupGrant -> AtUserLevel failed.");
             }
             else
             {
@@ -119,7 +120,7 @@ namespace PubNubMessaging.Tests
             }
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void AtChannelLevel()
         {
             bool receivedAuditMessage = false;
@@ -208,7 +209,7 @@ namespace PubNubMessaging.Tests
 
                 pubnub.Destroy();
                 pubnub = null;
-                Assert.IsTrue(receivedAuditMessage, "CleanupGrant -> AtChannelLevel failed.");
+                Assert.That(receivedAuditMessage, "CleanupGrant -> AtChannelLevel failed.");
             }
             else
             {

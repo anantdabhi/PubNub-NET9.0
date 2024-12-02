@@ -1,5 +1,5 @@
 ﻿using System;
-using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System.Threading;
 using PubnubApi;
 using System.Collections.Generic;
@@ -13,10 +13,11 @@ using PubnubApi.Tests;
 #endif
 using PubnubApi.Security.Crypto;
 using PubnubApi.Security.Crypto.Cryptors;
+using NUnit.Framework;
 
 namespace PubNubMessaging.Tests
 {
-    [TestFixture]
+    [NUnit.Framework.TestFixture]
     public class WhenAMessageIsPublished : TestHarness
     {
         private const string messageForUnencryptPublish = "Pubnub Messaging API 1";
@@ -28,7 +29,7 @@ namespace PubNubMessaging.Tests
         private static Server server;
         private static string authKey = "myauth";
 
-        [SetUp]
+        [NUnit.Framework.SetUp]
         public static void Init()
         {
             UnitTestLog unitLog = new Tests.UnitTestLog();
@@ -109,10 +110,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedGrantMessage, "WhenAMessageIsPublished Grant access failed.");
+            Assert.That(receivedGrantMessage, "WhenAMessageIsPublished Grant access failed.");
         }
 
-        [TearDown]
+        [NUnit.Framework.TearDown]
         public static void Exit()
         {
             if (pubnub != null)
@@ -124,7 +125,7 @@ namespace PubNubMessaging.Tests
             server.Stop();
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenNullMessageShouldReturnException()
         {
             server.ClearRequests();
@@ -173,7 +174,7 @@ namespace PubNubMessaging.Tests
             pubnub = null;
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenUnencryptPublishGETShouldReturnSuccessCodeAndInfo()
         {
             server.ClearRequests();
@@ -230,7 +231,7 @@ namespace PubNubMessaging.Tests
 
             if (!receivedPublishMessage)
             {
-                Assert.IsTrue(receivedPublishMessage, "Unencrypt Publish Failed");
+                Assert.That(receivedPublishMessage, "Unencrypt Publish Failed");
             }
             else
             {
@@ -268,14 +269,14 @@ namespace PubNubMessaging.Tests
 
                 historyManualEvent.WaitOne(manualResetEventWaitTimeout);
 
-                Assert.IsTrue(receivedPublishMessage, "Unable to match the successful unencrypt Publish");
+                Assert.That(receivedPublishMessage, "Unable to match the successful unencrypt Publish");
             }
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
         }
 
-        [Test]
+        [NUnit.Framework.Test]
 #if NET40
         public static void ThenWithAsyncUnencryptPublishGETShouldReturnSuccessCodeAndInfo()
 #else
@@ -332,7 +333,7 @@ namespace PubNubMessaging.Tests
 
             if (!receivedPublishMessage)
             {
-                Assert.IsTrue(receivedPublishMessage, "WithAsync Unencrypt Publish Failed");
+                Assert.That(receivedPublishMessage, "WithAsync Unencrypt Publish Failed");
             }
             else
             {
@@ -373,14 +374,14 @@ namespace PubNubMessaging.Tests
                     receivedPublishMessage = true;
                 }
 
-                Assert.IsTrue(receivedPublishMessage, "WithAsync Unable to match the successful unencrypt Publish");
+                Assert.That(receivedPublishMessage, "WithAsync Unable to match the successful unencrypt Publish");
             }
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenUnencryptFireGETShouldReturnSuccessCodeAndInfo()
         {
             server.ClearRequests();
@@ -439,11 +440,11 @@ namespace PubNubMessaging.Tests
             pubnub.PubnubUnitTest = null;
             pubnub = null;
 
-            Assert.IsTrue(receivedPublishMessage, "Unencrypt Fire Failed");
+            Assert.That(receivedPublishMessage, "Unencrypt Fire Failed");
         }
 
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenUnencryptPublishPOSTShouldReturnSuccessCodeAndInfo()
         {
             server.ClearRequests();
@@ -500,7 +501,7 @@ namespace PubNubMessaging.Tests
 
             if (!receivedPublishMessage)
             {
-                Assert.IsTrue(receivedPublishMessage, "Unencrypt Publish Failed");
+                Assert.That(receivedPublishMessage, "Unencrypt Publish Failed");
             }
             else
             {
@@ -538,14 +539,14 @@ namespace PubNubMessaging.Tests
 
                 historyManualEvent.WaitOne(manualResetEventWaitTimeout);
 
-                Assert.IsTrue(receivedPublishMessage, "Unable to match the successful unencrypt Publish");
+                Assert.That(receivedPublishMessage, "Unable to match the successful unencrypt Publish");
             }
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenUnencryptObjectPublishShouldReturnSuccessCodeAndInfo()
         {
             server.ClearRequests();
@@ -601,7 +602,7 @@ namespace PubNubMessaging.Tests
 
             if (!receivedPublishMessage)
             {
-                Assert.IsTrue(receivedPublishMessage, "Unencrypt Publish Failed");
+                Assert.That(receivedPublishMessage, "Unencrypt Publish Failed");
             }
             else
             {
@@ -639,14 +640,14 @@ namespace PubNubMessaging.Tests
 
                 historyManualEvent.WaitOne(manualResetEventWaitTimeout);
 
-                Assert.IsTrue(receivedPublishMessage, "Unable to match the successful unencrypt object Publish");
+                Assert.That(receivedPublishMessage, "Unable to match the successful unencrypt object Publish");
             }
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenEncryptObjectPublishShouldReturnSuccessCodeAndInfo()
         {
             server.ClearRequests();
@@ -704,7 +705,7 @@ namespace PubNubMessaging.Tests
 
             if (!receivedPublishMessage)
             {
-                Assert.IsTrue(receivedPublishMessage, "Encrypt Object Publish Failed");
+                Assert.That(receivedPublishMessage, "Encrypt Object Publish Failed");
             }
             else
             {
@@ -742,14 +743,14 @@ namespace PubNubMessaging.Tests
 
                 historyManualEvent.WaitOne(manualResetEventWaitTimeout);
 
-                Assert.IsTrue(receivedPublishMessage, "Unable to match the successful encrypt object Publish");
+                Assert.That(receivedPublishMessage, "Unable to match the successful encrypt object Publish");
             }
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenEncryptObjectPublishShouldReturnSuccessCodeAndInfoWithSSL()
         {
             server.ClearRequests();
@@ -806,7 +807,7 @@ namespace PubNubMessaging.Tests
 
             if (!receivedPublishMessage)
             {
-                Assert.IsTrue(receivedPublishMessage, "Encrypt Object Publish Failed with SSL");
+                Assert.That(receivedPublishMessage, "Encrypt Object Publish Failed with SSL");
             }
             else
             {
@@ -844,14 +845,14 @@ namespace PubNubMessaging.Tests
 
                 historyManualEvent.WaitOne(manualResetEventWaitTimeout);
 
-                Assert.IsTrue(receivedPublishMessage, "Unable to match the successful encrypt object Publish with SSL");
+                Assert.That(receivedPublishMessage, "Unable to match the successful encrypt object Publish with SSL");
             }
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenEncryptPublishShouldReturnSuccessCodeAndInfo()
         {
             server.ClearRequests();
@@ -912,7 +913,7 @@ namespace PubNubMessaging.Tests
 
             if (!receivedPublishMessage)
             {
-                Assert.IsTrue(receivedPublishMessage, "Encrypt Publish Failed");
+                Assert.That(receivedPublishMessage, "Encrypt Publish Failed");
             }
             else
             {
@@ -950,7 +951,7 @@ namespace PubNubMessaging.Tests
 
                 historyManualEvent.WaitOne(manualResetEventWaitTimeout);
 
-                Assert.IsTrue(receivedPublishMessage, "Unable to decrypt the successful Publish");
+                Assert.That(receivedPublishMessage, "Unable to decrypt the successful Publish");
             }
 
             pubnub.Destroy();
@@ -958,7 +959,7 @@ namespace PubNubMessaging.Tests
             pubnub = null;
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenSecretKeyWithEncryptPublishShouldReturnSuccessCodeAndInfo()
         {
             server.ClearRequests();
@@ -1023,7 +1024,7 @@ namespace PubNubMessaging.Tests
 
             if (!receivedPublishMessage)
             {
-                Assert.IsTrue(receivedPublishMessage, "Secret Encrypt Publish Failed");
+                Assert.That(receivedPublishMessage, "Secret Encrypt Publish Failed");
             }
             else
             {
@@ -1062,7 +1063,7 @@ namespace PubNubMessaging.Tests
 
                 historyManualEvent.WaitOne(manualResetEventWaitTimeout);
 
-                Assert.IsTrue(receivedPublishMessage, "Unable to decrypt the successful Secret key Publish");
+                Assert.That(receivedPublishMessage, "Unable to decrypt the successful Secret key Publish");
             }
 
             pubnub.Destroy();
@@ -1070,7 +1071,7 @@ namespace PubNubMessaging.Tests
             pubnub = null;
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenComplexMessageObjectShouldReturnSuccessCodeAndInfo()
         {
             server.ClearRequests();
@@ -1127,7 +1128,7 @@ namespace PubNubMessaging.Tests
 
             if (!receivedPublishMessage)
             {
-                Assert.IsTrue(receivedPublishMessage, "Complex Object Publish Failed");
+                Assert.That(receivedPublishMessage, "Complex Object Publish Failed");
             }
             else
             {
@@ -1167,14 +1168,14 @@ namespace PubNubMessaging.Tests
 
                 historyManualEvent.WaitOne(manualResetEventWaitTimeout);
 
-                Assert.IsTrue(receivedPublishMessage, "Unable to match the successful unencrypt object Publish");
+                Assert.That(receivedPublishMessage, "Unable to match the successful unencrypt object Publish");
             }
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenPubnubShouldFailOnWithoutSettingUuid()
         {
             Assert.Throws<ArgumentException>(() =>
@@ -1191,7 +1192,7 @@ namespace PubNubMessaging.Tests
             pubnub = null;
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenPublishKeyShouldNotBeEmpty()
         {
             PNConfiguration config = new PNConfiguration(new UserId("mytestuuid"))
@@ -1215,7 +1216,7 @@ namespace PubNubMessaging.Tests
 
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void ThenOptionalSecretKeyShouldBeProvidedInConfig()
         {
             server.ClearRequests();
@@ -1275,10 +1276,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedPublishMessage, "Publish Failed with secret key");
+            Assert.That(receivedPublishMessage, "Publish Failed with secret key");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void IfSSLNotProvidedThenDefaultShouldBeTrue()
         {
             server.ClearRequests();
@@ -1334,75 +1335,75 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedPublishMessage, "Publish Failed with no SSL");
+            Assert.That(receivedPublishMessage, "Publish Failed with no SSL");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void IfSample1SecretKeyWithoutAuthThenGetMessageWithSpecialCharsReturnSuccess()
         {
             string message = " !~`@#$%^&*()+=[]\\{}|;':\",/<>?-_.aA1©®€™₹😜🎉";
             bool receivedPublishMessage = SampleXSecretKeyWithoutAuthThenGetMessageWithSpecialCharsReturnSuccess(message);
-            Assert.IsTrue(receivedPublishMessage, "FAILED - IfSample1SecretKeyWithoutAuthThenGetMessageWithSpecialCharsReturnSuccess");
+            Assert.That(receivedPublishMessage, "FAILED - IfSample1SecretKeyWithoutAuthThenGetMessageWithSpecialCharsReturnSuccess");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void IfSample2SecretKeyWithoutAuthThenGetMessageWithSpecialCharsReturnSuccess()
         {
             string message = " !~";
             bool receivedPublishMessage = SampleXSecretKeyWithoutAuthThenGetMessageWithSpecialCharsReturnSuccess(message);
-            Assert.IsTrue(receivedPublishMessage, "FAILED - IfSample2SecretKeyWithoutAuthThenGetMessageWithSpecialCharsReturnSuccess");
+            Assert.That(receivedPublishMessage, "FAILED - IfSample2SecretKeyWithoutAuthThenGetMessageWithSpecialCharsReturnSuccess");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void IfSample3SecretKeyWithoutAuthThenGetMessageWithSpecialCharsReturnSuccess()
         {
             string message = "{a:\"!\"}";
             bool receivedPublishMessage = SampleXSecretKeyWithoutAuthThenGetMessageWithSpecialCharsReturnSuccess(message);
-            Assert.IsTrue(receivedPublishMessage, "FAILED - IfSample3SecretKeyWithoutAuthThenGetMessageWithSpecialCharsReturnSuccess");
+            Assert.That(receivedPublishMessage, "FAILED - IfSample3SecretKeyWithoutAuthThenGetMessageWithSpecialCharsReturnSuccess");
         }
 
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void IfSample4SecretKeyWithoutAuthThenGetMessageWithSpecialCharsReturnSuccess()
         {
             string message = "{a:6}";
             bool receivedPublishMessage = SampleXSecretKeyWithoutAuthThenGetMessageWithSpecialCharsReturnSuccess(message);
-            Assert.IsTrue(receivedPublishMessage, "FAILED - IfSample4SecretKeyWithoutAuthThenGetMessageWithSpecialCharsReturnSuccess");
+            Assert.That(receivedPublishMessage, "FAILED - IfSample4SecretKeyWithoutAuthThenGetMessageWithSpecialCharsReturnSuccess");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void IfSample5SecretKeyWithoutAuthThenGetMessageWithSpecialCharsReturnSuccess()
         {
             string message = "!";
             bool receivedPublishMessage = SampleXSecretKeyWithoutAuthThenGetMessageWithSpecialCharsReturnSuccess(message);
-            Assert.IsTrue(receivedPublishMessage, "FAILED - IfSample5SecretKeyWithoutAuthThenGetMessageWithSpecialCharsReturnSuccess");
+            Assert.That(receivedPublishMessage, "FAILED - IfSample5SecretKeyWithoutAuthThenGetMessageWithSpecialCharsReturnSuccess");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void IfSample6SecretKeyWithoutAuthThenGetMessageWithSpecialCharsReturnSuccess()
         {
             string message = "~";
             bool receivedPublishMessage = SampleXSecretKeyWithoutAuthThenGetMessageWithSpecialCharsReturnSuccess(message);
-            Assert.IsTrue(receivedPublishMessage, "FAILED - IfSample6SecretKeyWithoutAuthThenGetMessageWithSpecialCharsReturnSuccess");
+            Assert.That(receivedPublishMessage, "FAILED - IfSample6SecretKeyWithoutAuthThenGetMessageWithSpecialCharsReturnSuccess");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void IfSample7SecretKeyWithoutAuthThenGetMessageWithSpecialCharsReturnSuccess()
         {
             string message = "Its me (Pandu)";
             bool receivedPublishMessage = SampleXSecretKeyWithoutAuthThenGetMessageWithSpecialCharsReturnSuccess(message);
-            Assert.IsTrue(receivedPublishMessage, "FAILED - IfSample7SecretKeyWithoutAuthThenGetMessageWithSpecialCharsReturnSuccess");
+            Assert.That(receivedPublishMessage, "FAILED - IfSample7SecretKeyWithoutAuthThenGetMessageWithSpecialCharsReturnSuccess");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void IfSample8SecretKeyWithoutAuthThenGetMessageWithSpecialCharsReturnSuccess()
         {
             string message = "Its me (Pandu) Ok ç!~:)@";
             bool receivedPublishMessage = SampleXSecretKeyWithoutAuthThenGetMessageWithSpecialCharsReturnSuccess(message);
-            Assert.IsTrue(receivedPublishMessage, "FAILED - IfSample8SecretKeyWithoutAuthThenGetMessageWithSpecialCharsReturnSuccess");
+            Assert.That(receivedPublishMessage, "FAILED - IfSample8SecretKeyWithoutAuthThenGetMessageWithSpecialCharsReturnSuccess");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void IfSample9SecretKeyWithoutAuthThenGetMessageWithSpecialCharsReturnSuccess()
         {
             object message = new
@@ -1445,10 +1446,10 @@ namespace PubNubMessaging.Tests
             "
             };
             bool receivedPublishMessage = SampleXSecretKeyWithoutAuthThenGetMessageWithSpecialCharsReturnSuccess(message);
-            Assert.IsTrue(receivedPublishMessage, "FAILED - IfSample9SecretKeyWithoutAuthThenGetMessageWithSpecialCharsReturnSuccess");
+            Assert.That(receivedPublishMessage, "FAILED - IfSample9SecretKeyWithoutAuthThenGetMessageWithSpecialCharsReturnSuccess");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void IfSample10SecretKeyWithoutAuthThenGetMessageWithSpecialCharsReturnSuccess()
         {
             object message = new
@@ -1491,7 +1492,7 @@ namespace PubNubMessaging.Tests
             "
             };
             bool receivedPublishMessage = SampleXSecretKeyWithoutAuthThenGetMessageWithSpecialCharsReturnSuccess(message);
-            Assert.IsTrue(receivedPublishMessage, "FAILED - IfSample10SecretKeyWithoutAuthThenGetMessageWithSpecialCharsReturnSuccess");
+            Assert.That(receivedPublishMessage, "FAILED - IfSample10SecretKeyWithoutAuthThenGetMessageWithSpecialCharsReturnSuccess");
         }
 
 
@@ -1566,7 +1567,7 @@ namespace PubNubMessaging.Tests
             return receivedPublishMessage;
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void IfSecretKeyCipherKeyWithoutAuthThenGetMessageWithSpecialCharsReturnSuccess()
         {
             server.ClearRequests();
@@ -1636,10 +1637,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedPublishMessage, "FAILED - IfSecretKeyWithoutAuthThenGetMessageWithSpecialCharsReturnSuccess");
+            Assert.That(receivedPublishMessage, "FAILED - IfSecretKeyWithoutAuthThenGetMessageWithSpecialCharsReturnSuccess");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void IfSecretKeyWithoutAuthThenPostMessageWithSpecialCharsReturnSuccess()
         {
             server.ClearRequests();
@@ -1715,10 +1716,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedPublishMessage, "FAILED - IfSecretKeyWithoutAuthThenGetMessageWithSpecialCharsReturnSuccess");
+            Assert.That(receivedPublishMessage, "FAILED - IfSecretKeyWithoutAuthThenGetMessageWithSpecialCharsReturnSuccess");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void IfSecretKeyCipherKeyWithoutAuthThenPostMessageWithSpecialCharsReturnSuccess()
         {
             server.ClearRequests();
@@ -1788,10 +1789,10 @@ namespace PubNubMessaging.Tests
             pubnub.Destroy();
             pubnub.PubnubUnitTest = null;
             pubnub = null;
-            Assert.IsTrue(receivedPublishMessage, "FAILED - IfSecretKeyWithoutAuthThenGetMessageWithSpecialCharsReturnSuccess");
+            Assert.That(receivedPublishMessage, "FAILED - IfSecretKeyWithoutAuthThenGetMessageWithSpecialCharsReturnSuccess");
         }
 
-        [Test]
+        [NUnit.Framework.Test]
         public static void IfMobilePayloadThenPublishReturnSuccess()
         {
             Apns2Data apns2Data = new Apns2Data
@@ -1847,7 +1848,7 @@ namespace PubNubMessaging.Tests
             pubnub = new Pubnub(config);
             System.Diagnostics.Debug.WriteLine(pubnub.JsonPluggableLibrary.SerializeToJsonString(payload));
 
-            Assert.IsTrue(payload != null, "FAILED - IfMobilePayloadThenPublishReturnSuccess");
+            Assert.That(payload != null, "FAILED - IfMobilePayloadThenPublishReturnSuccess");
         }
     }
 }
